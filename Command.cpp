@@ -3,6 +3,12 @@
 #include <sstream>
 using namespace std;
 
+void handleCommand(Type type) {
+	if (type == QUIT) {
+		exit(0);
+	}
+}
+
 istream &operator>>(istream &in, Command &c){
 	c.type = BAD_COMMAND;
 	
@@ -24,6 +30,8 @@ istream &operator>>(istream &in, Command &c){
 	}
 	
 	assert(!in.fail() && c.type != BAD_COMMAND);
+
+	handleCommand(c.type);
 	
 	return in;
 }

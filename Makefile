@@ -1,8 +1,8 @@
 CXX = g++
 CXXFLAGS = -Wall -MMD
-OBJECTS = Card.o Command.o
+OBJECTS = Card.o Command.o TestHarness.o
 DEPENDS = ${OBJECTS:.o=.d}
-EXEC = Passwords
+EXEC = straights
 
 ${EXEC} : ${OBJECTS}
 	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
