@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <cstdlib>
 #include "Command.h"
 
 using namespace std;
@@ -12,11 +13,10 @@ using namespace std;
 // Test Harness for Card // Command ADTs
 //******************************************************************
 
-int main() {
-    while (!cin.eof()) {
-        cout << "Enter command: ";
-        Command cmd = Command();
-        cin >> cmd;
+int main(int argc, char* argv[]) {
+    int randomSeed;
+    if (argc > 1) {
+        randomSeed = atoi(argv[1]);
     }
     
     return 0;
