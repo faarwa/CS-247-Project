@@ -1,13 +1,22 @@
 #include "Deck.h"
 
 Deck::Deck() {
-	string ranks[] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
-	string suits[] = {"C", "S", "D", "H"};
 
-	for (int i = 0; i < ranks.length(); i++) {
-		for (int j = 0; j < suits.length(); j++) {
-			string card = ranks[i].append(" ".append(suits[j]));
+	for (int i = CLUB; i != SUIT_COUNT; i++) {
+		for (int j = ACE; j != RANK_COUNT; j++) {
+			Card card = Card(static_cast<Suit>(i), static_cast<Rank>(j));
 			_cards.push_back(card);
+		}
+	}
+}
+
+void Deck::print() const {
+	for (int i = 0; i < _cards.size(); i++) {
+		cout << _cards.at(i);
+		if ((i+1)%13 == 0) {
+			cout << endl;
+		} else {
+			cout << " ";
 		}
 	}
 }

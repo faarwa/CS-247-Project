@@ -1,4 +1,5 @@
 #include "Command.h"
+#include "Deck.h"
 #include <cassert>
 #include <sstream>
 using namespace std;
@@ -6,6 +7,9 @@ using namespace std;
 void handleCommand(Type type) {
 	if (type == QUIT) {
 		exit(0);
+	} else if (type == DECK) {
+		Deck deck = Deck();
+		deck.print();
 	}
 }
 

@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -Wall -MMD
-OBJECTS = Card.o Command.o TestHarness.o
+OBJECTS = Card.o Command.o Deck.o Game.o Player.o HumanPlayer.o ComputerPlayer.o TestHarness.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = straights
 

@@ -1,5 +1,9 @@
+#ifndef DECK_H
+#define DECK_H
+
 #include <iostream>
 #include <vector>
+#include "Card.h"
 
 using namespace std;
 
@@ -8,5 +12,7 @@ public:
 	Deck();
 	void print() const;
 private:
-	vector<string> _cards;
+	vector<Card> _cards;
 };
+
+#endif
