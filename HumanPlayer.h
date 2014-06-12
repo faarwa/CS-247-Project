@@ -4,14 +4,10 @@
 #include <iostream>
 #include "Player.h"
 
-class HumanPlayer : Player {
+class HumanPlayer : public Player {
 public:
-	HumanPlayer();
+	HumanPlayer() : Player() {}
 private:
-	vector<Card> _suits;
-	vector<Card> _clubs;
-	vector<Card> _hearts;
-	vector<Card> _spades;
 };
 
 #endif

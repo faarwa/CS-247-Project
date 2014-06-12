@@ -1,5 +1,5 @@
 #include "HumanPlayer.h"
 
-HumanPlayer::HumanPlayer(){
+void Player::print() const {
 
 }

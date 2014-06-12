@@ -5,15 +5,16 @@
 #include <vector>
 
 #include "Card.h"
+#include "CardHand.h"
 
 using namespace std;
 
 class Player {
 public:
 	Player();
-	vector<Card> cards() const { return _cards; }
+	void addCardToHand(const Card card) const;
+	virtual void print() const;
 private:
-	vector<Card> _cards;
 };
 
 #endif

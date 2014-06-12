@@ -4,9 +4,9 @@
 #include <iostream>
 #include "Player.h"
 
-class ComputerPlayer : Player {
+class ComputerPlayer : public Player {
 public:
-	ComputerPlayer();
+	ComputerPlayer() : Player() {}
 };
 
 #endif

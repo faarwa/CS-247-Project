@@ -9,11 +9,11 @@ Game::Game() {
 		cin >> playerType;
 
 		if (playerType == "h") {
-			//HumanPlayer player = HumanPlayer();
-			//_players.push_back(player);
+			Player player = HumanPlayer();
+			_players.push_back(player);
 		} else if (playerType == "c") {
-			// ComputerPlayer player = ComputerPlayer();
-			// _players.push_back(player);
+			Player player = ComputerPlayer();
+			_players.push_back(player);
 		}
 	}
 }
