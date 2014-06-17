@@ -14,7 +14,7 @@ public:
 	Deck deck;
 
 private:
-	vector<Player> _players;
+	vector<Player*> _players;
 	int _currentPlayer;
 };
 

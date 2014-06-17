@@ -17,14 +17,14 @@ Game::Game() {
 			for (int j = cardIndex; j < cardIndex+13; j++){
 				cards.push_back(deck.cards().at(j));
 			}
-			Player player = HumanPlayer(cards);
+			Player *player = new HumanPlayer(cards);
 			_players.push_back(player);
 		} else if (playerType == "c") {
 			vector<Card*> cards;
 			for (int j = cardIndex; j < cardIndex+13; j++){
 				cards.push_back(deck.cards().at(j));
 			}
-			Player player = ComputerPlayer(cards);
+			Player *player = new ComputerPlayer(cards);
 			_players.push_back(player);
 		}
 
@@ -34,11 +34,12 @@ Game::Game() {
 
 void Game::start() {
 	for (int i = 0; i < _players.size(); i++) {
-		if (_players.at(i).cards().has7S()) {
+		if (_players.at(i)->cards().has7S()) {
 			_currentPlayer = i+1;
 			break;
 		}
 	}
 
 	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
+	_players.at(_currentPlayer-1)->print();
 }
