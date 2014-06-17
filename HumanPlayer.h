@@ -11,7 +11,6 @@ public:
 	void play(Card* card);
 	void print() const;
 	void discard(Card *card) const;
-	vector<Card*> getLegalPlays() const;
 private:
 };
 

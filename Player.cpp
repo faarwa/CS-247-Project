@@ -4,6 +4,11 @@ map<Suit, vector<Card*> > Player::cardsPlayed;
 
 Player::Player(vector<Card*> cards) {
 	_cards = CardHand(cards);
+	vector<Card*> suitCards;
+	cardsPlayed[SPADE] = suitCards;
+	cardsPlayed[CLUB] = suitCards;
+	cardsPlayed[HEART] = suitCards;
+	cardsPlayed[DIAMOND] = suitCards;
 }
 
 Player::~Player() {
@@ -13,4 +18,29 @@ Player::~Player() {
 			delete (*it2);
 		}
 	}
+}
+
+vector<Card*> Player::getLegalPlays() const {
+	vector<Card*> legalPlays;
+
+	if (cardsPlayed.at(SPADE).empty()) {
+		legalPlays.push_back(new Card(SPADE, SEVEN));
+		return legalPlays;
+	}
+
+	for (vector<Card*>::iterator it = _cards.hand().begin(); it != _cards.hand().end(); it++) {
+		Card *card = (*it);
+		vector<Card*> suitCards = cardsPlayed.at(card->getSuit());
+		if (card->getRank()+1 == suitCards.at(0)->getRank() || card->getRank() == suitCards.at(suitCards.size()-1)->getRank()+1) {
+			legalPlays.push_back(card);
+			continue;
+		}
+
+		if (card->getRank() == SEVEN) {
+			legalPlays.push_back(card);
+			continue;
+		}
+	}
+
+	return legalPlays;
 }

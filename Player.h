@@ -21,6 +21,7 @@ public:
 	CardHand cards() const { return _cards; }
 protected:
 	CardHand _cards;
+	vector<Card*> getLegalPlays() const;
 	static map<Suit, vector<Card*> > cardsPlayed;
 };
 
