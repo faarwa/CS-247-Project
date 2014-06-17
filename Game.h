@@ -12,6 +12,7 @@ public:
 	Game();
 	void start();
 	Deck deck;
+	void finishGame();
 
 private:
 	vector<Player*> _players;

@@ -43,3 +43,7 @@ void Game::start() {
 	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
 	_players.at(_currentPlayer-1)->print();
 }
+
+void Game::finishGame(){
+	
+}
