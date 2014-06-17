@@ -14,7 +14,7 @@ void printCards(vector<Card*> list) {
 		if (it != list.begin()) {
 			cout << " ";
 		}
-		cout << (*it)->getRank() << (*it)->getSuit();
+		cout << *(*it);
 	}
 }
 
@@ -39,10 +39,41 @@ void HumanPlayer::print() const {
 	cout << endl;
 
 	cout << "Your hand: ";
-	printCardsRank(_cards.hand());
+	printCards(_cards.hand());
+	cout << endl;
+
+	cout << "Legal plays: ";
+	printCards(getLegalPlays());
 	cout << endl;
 }
 
 void HumanPlayer::discard(Card *card) const {
 
+}
+
+vector<Card*> HumanPlayer::getLegalPlays() const {
+	vector<Card*> legalPlays;
+	if (!_topCard) {
+		legalPlays.push_back(new Card(SPADE, SEVEN));
+		return legalPlays;
+	}
+
+	cout << *_topCard << endl;
+
+	for (vector<Card*>::iterator it = _cards.hand().begin(); it != _cards.hand().end(); it++) {
+		if (_topCard->getRank() == (*it)->getRank()) {
+			legalPlays.push_back(*it);
+			continue;
+		} 
+
+		if (_topCard->getSuit() == (*it)->getSuit() && _topCard->getRank()+1 == (*it)->getRank()) {
+			legalPlays.push_back(*it);
+		}
+
+		if (_topCard->getSuit() == (*it)->getSuit() && _topCard->getRank()-1 == (*it)->getRank()) {
+			legalPlays.push_back(*it);
+		}
+	}
+
+	return legalPlays;
 }
