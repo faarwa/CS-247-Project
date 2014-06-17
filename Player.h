@@ -12,7 +12,7 @@ using namespace std;
 
 class Player {
 public:
-	Player(vector<Card*> cards);
+	Player(vector<Card*> cards, int playerNumber);
 	~Player();
 	void addCardToHand(const Card card) const;
 	virtual void print() const {};
@@ -20,8 +20,10 @@ public:
 	void discard(Card *card);
 	CardHand cards() const { return _cards; }
 	vector<Card*> discardedCards() { return _discardedCards; }
+	int playerNumber() { return _playerNumber; }
 protected:
 	CardHand _cards;
+	int _playerNumber;
 	vector<Card*> _discardedCards;
 	vector<Card*> getLegalPlays() const;
 	static map<Suit, vector<Card*> > cardsPlayed;

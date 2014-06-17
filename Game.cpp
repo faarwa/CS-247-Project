@@ -17,14 +17,14 @@ Game::Game() {
 			for (int j = cardIndex; j < cardIndex+13; j++){
 				cards.push_back(deck.cards().at(j));
 			}
-			Player *player = new HumanPlayer(cards);
+			Player *player = new HumanPlayer(cards, i+1);
 			_players.push_back(player);
 		} else if (playerType == "c") {
 			vector<Card*> cards;
 			for (int j = cardIndex; j < cardIndex+13; j++){
 				cards.push_back(deck.cards().at(j));
 			}
-			Player *player = new ComputerPlayer(cards);
+			Player *player = new ComputerPlayer(cards, i+1);
 			_players.push_back(player);
 		}
 

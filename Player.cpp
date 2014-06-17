@@ -2,13 +2,14 @@
 
 map<Suit, vector<Card*> > Player::cardsPlayed;
 
-Player::Player(vector<Card*> cards) {
+Player::Player(vector<Card*> cards, int playerNumber) {
 	_cards = CardHand(cards);
 	vector<Card*> suitCards;
 	cardsPlayed[SPADE] = suitCards;
 	cardsPlayed[CLUB] = suitCards;
 	cardsPlayed[HEART] = suitCards;
 	cardsPlayed[DIAMOND] = suitCards;
+	_playerNumber = playerNumber;
 }
 
 Player::~Player() {

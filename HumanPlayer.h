@@ -7,10 +7,9 @@
 
 class HumanPlayer : public Player {
 public:
-	HumanPlayer(vector<Card*> cards) : Player(cards) {}
+	HumanPlayer(vector<Card*> cards, int playerNumber) : Player(cards, playerNumber) {}
 	void play(Card *card);
 	void print() const;
-	void discard(Card *card) const;
 private:
 };
 
