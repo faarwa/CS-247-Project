@@ -16,7 +16,7 @@ public:
 	~Player();
 	void addCardToHand(const Card card) const;
 	virtual void print() const {};
-	virtual void play(Card *card) {};
+	virtual Card* play(Card *card) { return card; };
 	virtual void discard(Card *card) const {};
 	CardHand cards() const { return _cards; }
 	vector<Card*> discardedCards() { return _discardedCards; }

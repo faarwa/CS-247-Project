@@ -1,6 +1,6 @@
 #include "HumanPlayer.h"
 
-bool isLegalPlay(Card *card);
+Card* _cardPlayed;
 
 void printCardsRank(vector<Card*> list) {
 	for (vector<Card*>::iterator it = list.begin(); it != list.end(); it++) {
@@ -20,10 +20,24 @@ void printCards(vector<Card*> list) {
 	}
 }
 
-void HumanPlayer::play(Card *card) {
+bool cardIsEqual(Card *card) {
+	if (card->getSuit() == _cardPlayed->getSuit() && card->getRank() == _cardPlayed->getRank()) {
+		return true;
+	}
 
-	// vector<Card*> *cards = &HumanPlayer::cardsPlayed.at(card->getSuit());
-	// _cards.hand().erase(remove_if(_cards.hand().begin(), _cards.hand().end(), HumanPlayer::isCardTopCard), _cards.hand().end());
+	return false;
+}
+
+Card* HumanPlayer::play(Card *card) {
+	vector<Card*> legalPlays = getLegalPlays();
+	_cardPlayed = card;
+	if (find_if(legalPlays.begin(), legalPlays.end(), cardIsEqual) == legalPlays.end()) {
+		return NULL;
+	}
+
+	_cards.hand().erase(remove_if(_cards.hand().begin(), _cards.hand().end(), cardIsEqual), _cards.hand().end());
+
+	return card;
 }
 
 void HumanPlayer::print() const {
