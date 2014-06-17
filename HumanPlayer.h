@@ -11,11 +11,8 @@ public:
 	void play(Card* card) const;
 	void print() const;
 	void discard(Card *card) const;
+	vector<Card*> getLegalPlays() const;
 private:
-	vector<Card*> _hearts;
-	vector<Card*> _spades;
-	vector<Card*> _diamonds;
-	vector<Card*> _clubs;
 };
 
 #endif
