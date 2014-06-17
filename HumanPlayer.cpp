@@ -29,13 +29,22 @@ bool cardIsEqual(Card *card) {
 }
 
 void HumanPlayer::play(Card *card) {
+
+
+
+	if (!card) {
+		return;
+	}
+
 	vector<Card*> legalPlays = getLegalPlays();
 	_cardPlayed = card;
 	if (find_if(legalPlays.begin(), legalPlays.end(), cardIsEqual) == legalPlays.end()) {
 		throw Player::IllegalPlayException();
 	}
 
-	_cards.hand().erase(remove_if(_cards.hand().begin(), _cards.hand().end(), cardIsEqual), _cards.hand().end());
+	cardsPlayed.at(card->getSuit()).push_back(card);
+
+	// _cards.hand().erase(remove_if(_cards.hand().begin(), _cards.hand().end(), cardIsEqual), _cards.hand().end());
 }
 
 void HumanPlayer::print() const {
@@ -61,3 +70,9 @@ void HumanPlayer::print() const {
 	printCards(getLegalPlays());
 	cout << endl;
 }
+
+// void HumanPlayer::doTurn() {
+// 	while (!cin.eof()) {
+		
+// 	}
+// }

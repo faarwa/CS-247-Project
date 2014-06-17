@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
+#include <typeinfo>
 
 Game::Game() {
 	deck.shuffle();
@@ -42,22 +43,38 @@ void Game::start() {
 
 	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
 	_players.at(_currentPlayer-1)->print();
+	play(NULL);
 }
 
 void Game::play(Card *card) {
 	bool isLegalPlay = true;
 
-	do {
-		try {
-			_players.at(_currentPlayer-1)->play(card);
-		} catch (Player::IllegalPlayException &e) {
-			isLegalPlay = false;
-			cout << "This is not a legal play." << endl;
-			cin >> *card;
+	if (card) {
+		do {
+			try {
+				_players.at(_currentPlayer-1)->play(card);
+			} catch (Player::IllegalPlayException &e) {
+				isLegalPlay = false;
+				cout << "This is not a legal play." << endl;
+				cin >> *card;	
+			}
+		} while (!isLegalPlay);
+	} else {
+		_players.at(_currentPlayer-1)->play(NULL);
+	}
+
+	if (isLegalPlay) {
+
+		cout << "Player " << _currentPlayer << + " plays " << *card << "." << endl;
+		if (_currentPlayer == 4) {
+			_currentPlayer = 1;
+		} else {
+			_currentPlayer++;
+			// _players.at(_currentPlayer-1)->print();
 		}
-	} while (!isLegalPlay);
+	}
 }
 
 void Game::finishGame() {
-	
+
 }

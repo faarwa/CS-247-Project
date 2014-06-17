@@ -14,6 +14,7 @@ public:
 	void play(Card *card);
 	Deck deck;
 	void finishGame();
+	void turn();
 
 private:
 	vector<Player*> _players;

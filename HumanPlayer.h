@@ -10,6 +10,7 @@ public:
 	HumanPlayer(vector<Card*> cards, int playerNumber) : Player(cards, playerNumber) {}
 	void play(Card *card);
 	void print() const;
+	// void doTurn();
 private:
 };
 

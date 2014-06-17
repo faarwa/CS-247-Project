@@ -60,46 +60,8 @@ void Player::discard(Card *card){
 int Player::playerScore(){
 	int score = 0;
 	for(int i=0;i<_discardedCards.size();i++){
-		if(_discardedCards.at(i)->getRank()==ACE){
-			score+=1;
-		}
-		else if(_discardedCards.at(i)->getRank() == TWO){
-			score+=2;
-		}
-		else if(_discardedCards.at(i)->getRank() == THREE){
-			score+=3;
-		}
-		else if(_discardedCards.at(i)->getRank() == FOUR){
-			score+=4;
-		}
-		else if(_discardedCards.at(i)->getRank() == FIVE){
-			score+=5;
-		}
-		else if(_discardedCards.at(i)->getRank() == SIX){
-			score+=6;
-		}
-		else if(_discardedCards.at(i)->getRank() == SEVEN){
-			score+=7;
-		}
-		else if(_discardedCards.at(i)->getRank() == EIGHT){
-			score+=8;
-		}
-		else if(_discardedCards.at(i)->getRank() == NINE){
-			score+=9;
-		}
-		else if(_discardedCards.at(i)->getRank() == TEN){
-			score+=10;
-		}
-		else if(_discardedCards.at(i)->getRank() == JACK){
-			score+=11;
-		}
-		else if(_discardedCards.at(i)->getRank() == QUEEN){
-			score+=12;
-		}
-		else {
-			score+=13;
-		}
-
+		score += _discardedCards.at(i)->getRank()+1;
 	}
+	
 	return score;
 }
