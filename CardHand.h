@@ -13,13 +13,13 @@ public:
 	CardHand(vector<Card*> cards);
 	void addCard(const Card card);
 	bool has7S() const;
-	vector<Card> suits() const { return _suits; }
+	vector<Card> diamonds() const { return _diamonds; }
 	vector<Card> clubs() const { return _clubs; }
 	vector<Card> hearts() const { return _hearts; }
 	vector<Card> spades() const { return _spades; }
 private:
 	vector<Card*> _cards;
-	vector<Card> _suits;
+	vector<Card> _diamonds;
 	vector<Card> _clubs;
 	vector<Card> _hearts;
 	vector<Card> _spades;
