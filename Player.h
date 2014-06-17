@@ -13,9 +13,9 @@ class Player {
 public:
 	Player(vector<Card*> cards);
 	void addCardToHand(const Card card) const;
-	virtual void print() const;
-	virtual void play() const;
-	virtual void discard() const;
+	virtual void print() const {};
+	virtual void play() const {};
+	virtual void discard() const {};
 	CardHand cards() const { return _cards; }
 private:
 	CardHand _cards;

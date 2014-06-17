@@ -1,5 +1,13 @@
 #include "HumanPlayer.h"
 
-void Player::print() const {
-	cout << "Cards on the table:" << endl;
+void HumanPlayer::play() const {
+
+}
+
+void HumanPlayer::print() const {
+
+}
+
+void HumanPlayer::discard() const {
+
 }
