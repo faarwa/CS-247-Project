@@ -19,8 +19,10 @@ public:
 	virtual void play(Card *card) {};
 	virtual void discard(Card *card) const {};
 	CardHand cards() const { return _cards; }
+	vector<Card*> discardedCards() { return _discardedCards; }
 protected:
 	CardHand _cards;
+	vector<Card*> _discardedCards;
 	vector<Card*> getLegalPlays() const;
 	static map<Suit, vector<Card*> > cardsPlayed;
 };
