@@ -1,4 +1,5 @@
 #include "HumanPlayer.h"
+#include "Command.h"
 
 Card* _cardPlayed;
 
@@ -47,6 +48,23 @@ void HumanPlayer::play(Card *card) {
 	// _cards.hand().erase(remove_if(_cards.hand().begin(), _cards.hand().end(), cardIsEqual), _cards.hand().end());
 }
 
+void HumanPlayer::doTurn() {
+	while (!cin.eof()) {
+		Command cmd = Command();
+		cout << "Enter command:";
+		cin >> cmd;
+
+		if (cmd.type == DECK) {
+			// game->deck.print();
+		} else if (cmd.type == QUIT) {
+			exit(0);
+		} else if (cmd.type == PLAY) {
+			print();
+			play(&cmd.card);
+		}
+	}
+}
+
 void HumanPlayer::print() const {
 	cout << "Cards on the table:" << endl;
 	cout << "Clubs: ";
@@ -71,8 +89,3 @@ void HumanPlayer::print() const {
 	cout << endl;
 }
 
-// void HumanPlayer::doTurn() {
-// 	while (!cin.eof()) {
-		
-// 	}
-// }
