@@ -10,7 +10,7 @@ using namespace std;
 class CardHand {
 public:
 	CardHand();
-	CardHand(vector<Card> cards);
+	CardHand(vector<Card*> cards);
 	void addCard(const Card card);
 	bool has7S() const;
 	vector<Card> suits() const { return _suits; }

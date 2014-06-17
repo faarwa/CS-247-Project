@@ -3,23 +3,29 @@
 #include "ComputerPlayer.h"
 
 Game::Game() {
+	deck.shuffle();
+
 	for (int i = 1; i <= 4; i++) {
 		string playerType;
 		cout << "Is player " << i << " a human(h) or a computer(c)?" << endl;
 		cin >> playerType;
 
 		if (playerType == "h") {
-			vector<Card> cards;
+			vector<Card*> cards;
+			for(int j=i;j<i+13;j++){
+				cards.push_back(deck.cards().at(j));
+			}
 			Player player = HumanPlayer(cards);
 			_players.push_back(player);
 		} else if (playerType == "c") {
-			vector<Card> cards;
+			vector<Card*> cards;
+			for(int j=i;j<i+13;j++){
+				cards.push_back(deck.cards().at(j));
+			}
 			Player player = ComputerPlayer(cards);
 			_players.push_back(player);
 		}
 	}
-
-	deck.shuffle();
 }
 
 void Game::start() const {

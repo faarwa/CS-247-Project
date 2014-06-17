@@ -3,7 +3,7 @@
 CardHand::CardHand() {
 }
 
-CardHand::CardHand(const vector<Card> cards) {
+CardHand::CardHand(const vector<Card*> cards) {
 
 }
 

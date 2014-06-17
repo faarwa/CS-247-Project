@@ -6,7 +6,7 @@
 
 class ComputerPlayer : public Player {
 public:
-	ComputerPlayer(vector<Card> cards) : Player(cards) {}
+	ComputerPlayer(vector<Card*> cards) : Player(cards) {}
 };
 
 #endif

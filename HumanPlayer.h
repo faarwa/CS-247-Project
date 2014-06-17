@@ -7,7 +7,7 @@
 
 class HumanPlayer : public Player {
 public:
-	HumanPlayer(vector<Card> cards) : Player(cards) {}
+	HumanPlayer(vector<Card*> cards) : Player(cards) {}
 private:
 };
 
