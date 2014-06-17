@@ -1,7 +1,6 @@
 #include "ComputerPlayer.h"
 
-Card* ComputerPlayer::play(Card *card) {
-	return card;
+void ComputerPlayer::play(Card *card) {
 }
 
 void ComputerPlayer::print() const {

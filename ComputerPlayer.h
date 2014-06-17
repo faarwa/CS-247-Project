@@ -7,7 +7,7 @@
 class ComputerPlayer : public Player {
 public:
 	ComputerPlayer(vector<Card*> cards) : Player(cards) {}
-	Card* play(Card *card);
+	void play(Card *card);
 	void print() const;
 	void discard(Card *card) const;
 };
