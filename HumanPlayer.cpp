@@ -61,7 +61,3 @@ void HumanPlayer::print() const {
 	printCards(getLegalPlays());
 	cout << endl;
 }
-
-void HumanPlayer::discard(Card *card) const {
-
-}

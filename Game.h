@@ -13,6 +13,7 @@ public:
 	void start();
 	void play(Card *card);
 	Deck deck;
+	void finishGame();
 
 private:
 	vector<Player*> _players;
