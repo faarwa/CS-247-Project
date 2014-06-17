@@ -44,3 +44,14 @@ vector<Card*> Player::getLegalPlays() const {
 
 	return legalPlays;
 }
+
+void Player::discard(Card *card){
+	vector<Card*> playerHand = cards().hand();
+	for(int i=0;i<playerHand.size();i++){
+		if(playerHand.at(i) == card){
+			_discardedCards.push_back(card);
+			_cards.removeCard(_cards.hand().begin()+i);
+			break;
+		}
+	}
+}

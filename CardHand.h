@@ -14,6 +14,7 @@ public:
 	void addCard(const Card card);
 	bool has7S() const;
 	vector<Card*> hand() const { return _cards; }
+	void removeCard(vector<Card*>::iterator i) { _cards.erase(i); }
 private:
 	vector<Card*> _cards;
 };
