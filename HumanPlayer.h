@@ -8,7 +8,7 @@
 class HumanPlayer : public Player {
 public:
 	HumanPlayer(vector<Card*> cards) : Player(cards) {}
-	void play(Card* card) const;
+	void play(Card* card);
 	void print() const;
 	void discard(Card *card) const;
 	vector<Card*> getLegalPlays() const;

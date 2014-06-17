@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <map>
 
 #include "Card.h"
 #include "CardHand.h"
@@ -15,16 +16,12 @@ public:
 	~Player();
 	void addCardToHand(const Card card) const;
 	virtual void print() const {};
-	virtual void play(Card *card) const {};
+	virtual void play(Card *card) {};
 	virtual void discard(Card *card) const {};
 	CardHand cards() const { return _cards; }
 protected:
 	CardHand _cards;
-	vector<Card*> _hearts;
-	vector<Card*> _spades;
-	vector<Card*> _diamonds;
-	vector<Card*> _clubs;
-	Card *_topCard;
+	static map<Suit, vector<Card*> > cardsPlayed;
 };
 
 void printCardList(vector<Card> list);
