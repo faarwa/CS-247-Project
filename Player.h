@@ -11,10 +11,11 @@ using namespace std;
 
 class Player {
 public:
-	Player();
+	Player(vector<Card> cards);
 	void addCardToHand(const Card card) const;
 	virtual void print() const;
 private:
+	CardHand _cards;
 };
 
 #endif

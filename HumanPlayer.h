@@ -2,11 +2,12 @@
 #define HUMAN_H
 
 #include <iostream>
+#include <vector>
 #include "Player.h"
 
 class HumanPlayer : public Player {
 public:
-	HumanPlayer() : Player() {}
+	HumanPlayer(vector<Card> cards) : Player(cards) {}
 private:
 };
 

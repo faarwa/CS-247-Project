@@ -1,4 +1,5 @@
 #include "Player.h"
 
-Player::Player() {
+Player::Player(vector<Card> cards) {
+	_cards = CardHand(cards);
 }

@@ -9,10 +9,12 @@ Game::Game() {
 		cin >> playerType;
 
 		if (playerType == "h") {
-			Player player = HumanPlayer();
+			vector<Card> cards;
+			Player player = HumanPlayer(cards);
 			_players.push_back(player);
 		} else if (playerType == "c") {
-			Player player = ComputerPlayer();
+			vector<Card> cards;
+			Player player = ComputerPlayer(cards);
 			_players.push_back(player);
 		}
 	}
