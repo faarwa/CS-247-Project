@@ -17,7 +17,7 @@ public:
 	virtual void play() const {};
 	virtual void discard() const {};
 	CardHand cards() const { return _cards; }
-private:
+protected:
 	CardHand _cards;
 };
 
