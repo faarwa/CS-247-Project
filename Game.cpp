@@ -44,7 +44,6 @@ void Game::start() {
 	_players.at(_currentPlayer-1)->print();
 }
 
-<<<<<<< HEAD
 void Game::play(Card *card) {
 	bool isLegalPlay = true;
 
@@ -57,8 +56,8 @@ void Game::play(Card *card) {
 			cin >> *card;
 		}
 	} while (!isLegalPlay);
-=======
-void Game::finishGame(){
+}
+
+void Game::finishGame() {
 	
->>>>>>> FETCH_HEAD
 }
