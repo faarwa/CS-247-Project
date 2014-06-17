@@ -11,6 +11,7 @@ class Game {
 public:
 	Game();
 	void start();
+	void play(Card *card);
 	Deck deck;
 
 private:

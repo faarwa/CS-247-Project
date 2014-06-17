@@ -27,7 +27,7 @@ int main(int argc, const char* argv[]) {
 		} else if (cmd.type == QUIT) {
 			exit(0);
 		} else if (cmd.type == PLAY) {
-			// game->play(cmd.card);
+			game->play(&cmd.card);
 		}
 	}
 

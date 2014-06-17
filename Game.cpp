@@ -43,3 +43,17 @@ void Game::start() {
 	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
 	_players.at(_currentPlayer-1)->print();
 }
+
+void Game::play(Card *card) {
+	bool isLegalPlay = true;
+
+	do {
+		try {
+			_players.at(_currentPlayer-1)->play(card);
+		} catch (Player::IllegalPlayException &e) {
+			isLegalPlay = false;
+			cout << "This is not a legal play." << endl;
+			cin >> *card;
+		}
+	} while (!isLegalPlay);
+}

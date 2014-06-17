@@ -20,6 +20,10 @@ public:
 	void discard(Card *card);
 	CardHand cards() const { return _cards; }
 	vector<Card*> discardedCards() { return _discardedCards; }
+	class IllegalPlayException {
+	public:
+		IllegalPlayException() {}
+	};
 protected:
 	CardHand _cards;
 	vector<Card*> _discardedCards;

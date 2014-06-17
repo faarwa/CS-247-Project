@@ -32,7 +32,7 @@ void HumanPlayer::play(Card *card) {
 	vector<Card*> legalPlays = getLegalPlays();
 	_cardPlayed = card;
 	if (find_if(legalPlays.begin(), legalPlays.end(), cardIsEqual) == legalPlays.end()) {
-		// throw IllegalPlayException();
+		throw Player::IllegalPlayException();
 	}
 
 	_cards.hand().erase(remove_if(_cards.hand().begin(), _cards.hand().end(), cardIsEqual), _cards.hand().end());
