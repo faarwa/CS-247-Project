@@ -32,14 +32,13 @@ Game::Game() {
 	}
 }
 
-void Game::start() const {
-	cout << "A new round begins. It's player ";
+void Game::start() {
 	for (int i = 0; i < _players.size(); i++) {
 		if (_players.at(i).cards().has7S()) {
-			cout << i+1;
+			_currentPlayer = i+1;
 			break;
 		}
 	}
 
-	cout << "'s turn to play." << endl;
+	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
 }

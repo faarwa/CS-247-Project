@@ -10,11 +10,12 @@ using namespace std;
 class Game {
 public:
 	Game();
-	void start() const;
+	void start();
 	Deck deck;
 
 private:
 	vector<Player> _players;
+	int _currentPlayer;
 };
 
 #endif
