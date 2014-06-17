@@ -9,7 +9,8 @@ using namespace std;
 
 class CardHand {
 public:
-	CardHand(const vector<Card> cards);
+	CardHand();
+	CardHand(vector<Card> cards);
 	void addCard(const Card card);
 private:
 	vector<Card> _suits;

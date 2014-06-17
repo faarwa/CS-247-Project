@@ -1,5 +1,8 @@
 #include "CardHand.h"
 
-CardHand::CardHand(const vector<Card> &cards) {
+CardHand::CardHand() {
+}
+
+CardHand::CardHand(const vector<Card> cards) {
 
 }
