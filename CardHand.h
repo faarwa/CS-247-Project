@@ -18,6 +18,7 @@ public:
 	vector<Card> hearts() const { return _hearts; }
 	vector<Card> spades() const { return _spades; }
 private:
+	vector<Card*> _cards;
 	vector<Card> _suits;
 	vector<Card> _clubs;
 	vector<Card> _hearts;

@@ -15,6 +15,7 @@ int main(int argc, const char* argv[]) {
 	}
 
 	game = new Game();
+	game->start();
 
 	while (!cin.eof()) {
 		Command cmd = Command();
