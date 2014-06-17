@@ -21,6 +21,7 @@ public:
 	CardHand cards() const { return _cards; }
 	vector<Card*> discardedCards() { return _discardedCards; }
 	int playerNumber() { return _playerNumber; }
+	int playerScore();
 protected:
 	CardHand _cards;
 	int _playerNumber;
