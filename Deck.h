@@ -11,8 +11,10 @@ class Deck {
 public:
 	Deck();
 	void print() const;
+	void shuffle();
+	vector<Card*> cards() const { return _cards; }
 private:
-	vector<Card> _cards;
+	vector<Card*> _cards;
 };
 
 #endif

@@ -18,4 +18,18 @@ Game::Game() {
 			_players.push_back(player);
 		}
 	}
+
+	deck.shuffle();
+}
+
+void Game::start() const {
+	cout << "A new round begins. It's player ";
+	for (int i = 0; i < _players.size(); i++) {
+		if (_players.at(i).cards().has7S()) {
+			cout << i << endl;
+			break;
+		}
+	}
+
+	cout << "'s turn to play." << endl;
 }
