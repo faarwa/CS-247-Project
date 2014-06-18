@@ -3,12 +3,13 @@
 
 Card* _cardPlayed;
 
-void printCardsRank(vector<Card*> list) {
-	for (vector<Card*>::iterator it = list.begin(); it != list.end(); it++) {
-		if (it != list.begin()) {
+void printCardsRank(vector<Card*> *list) {
+
+	for (vector<Card*>::iterator it = list->begin(); it != list->end(); it++) {
+		if (it != list->begin()) {
 			cout << " ";
 		}
-		cout << (*it)->getRank();
+		cout << (*it)->getRank()+1;
 	}
 }
 
@@ -31,25 +32,26 @@ bool cardIsEqual(Card *card) {
 
 void HumanPlayer::play(Card *card) {
 
-
-
 	if (!card) {
 		return;
 	}
 
 	vector<Card*> legalPlays = getLegalPlays();
 	_cardPlayed = card;
+
 	if (find_if(legalPlays.begin(), legalPlays.end(), cardIsEqual) == legalPlays.end()) {
 		throw Player::IllegalPlayException();
 	}
 
+	vector<Card*>::iterator deleteIt = find_if(_cards.hand().begin(), _cards.hand().end(), cardIsEqual);
+
 	cardsPlayed.at(card->getSuit()).push_back(card);
 
-	// _cards.hand().erase(remove_if(_cards.hand().begin(), _cards.hand().end(), cardIsEqual), _cards.hand().end());
+	_cards.hand().erase(deleteIt);
 }
 
 void HumanPlayer::doTurn() {
-	while (!cin.eof()) {
+	// while (!cin.eof()) {
 		Command cmd = Command();
 		cout << "Enter command:";
 		cin >> cmd;
@@ -59,25 +61,25 @@ void HumanPlayer::doTurn() {
 		} else if (cmd.type == QUIT) {
 			exit(0);
 		} else if (cmd.type == PLAY) {
-			print();
 			play(&cmd.card);
 		}
-	}
+	// }
 }
 
 void HumanPlayer::print() const {
+
 	cout << "Cards on the table:" << endl;
 	cout << "Clubs: ";
-	printCardsRank(cardsPlayed.at(CLUB));
+	printCardsRank(&cardsPlayed.at(CLUB));
 	cout << endl;
 	cout << "Diamonds: ";
-	printCardsRank(cardsPlayed.at(DIAMOND));
+	printCardsRank(&cardsPlayed.at(DIAMOND));
 	cout << endl;
 	cout << "Hearts: ";
-	printCardsRank(cardsPlayed.at(HEART));
+	printCardsRank(&cardsPlayed.at(HEART));
 	cout << endl;
-	cout << "Spades: ";
-	printCardsRank(cardsPlayed.at(SPADE));
+	cout << "Spades: " << cardsPlayed.at(SPADE).size() << " ";
+	printCardsRank(&cardsPlayed.at(SPADE));
 	cout << endl;
 
 	cout << "Your hand: ";

@@ -42,37 +42,40 @@ void Game::start() {
 	}
 
 	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
-	_players.at(_currentPlayer-1)->print();
-	play(NULL);
+	play();
 }
 
-void Game::play(Card *card) {
-	bool isLegalPlay = true;
+void Game::play() {
+	while(true){
+		int sumCards = 0;
 
-	if (card) {
-		do {
-			try {
-				_players.at(_currentPlayer-1)->play(card);
-			} catch (Player::IllegalPlayException &e) {
-				isLegalPlay = false;
-				cout << "This is not a legal play." << endl;
-				cin >> *card;	
+		map<Suit, vector<Card*> > cards = Player::playedCards();
+
+		for (map<Suit, vector<Card*> >::iterator it = cards.begin(); it != cards.end(); it++) {
+			// cout << "SUIT " << (*it).first << endl;
+			sumCards += (*it).second.size();
+		}
+
+		for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
+			// cout << "PLAYER " << (*it)->playerNumber() << endl;
+			sumCards += (*it)->discardedCards().size();
+		}
+
+		// cout << "SUM " << sumCards << endl;
+
+		if (sumCards < 52) {
+			_players.at(_currentPlayer-1)->print();
+			_players.at(_currentPlayer-1)->doTurn();
+			if (_currentPlayer == 4) {
+				_currentPlayer = 1;
+			} else {
+				_currentPlayer++;
 			}
-		} while (!isLegalPlay);
-	} else {
-		_players.at(_currentPlayer-1)->play(NULL);
-	}
-
-	if (isLegalPlay) {
-
-		cout << "Player " << _currentPlayer << + " plays " << *card << "." << endl;
-		if (_currentPlayer == 4) {
-			_currentPlayer = 1;
 		} else {
-			_currentPlayer++;
-			// _players.at(_currentPlayer-1)->print();
+			break;
 		}
 	}
+	finishGame();
 }
 
 void Game::finishGame() {

@@ -17,19 +17,5 @@ int main(int argc, const char* argv[]) {
 	game = new Game();
 	game->start();
 
-	while (!cin.eof()) {
-		Command cmd = Command();
-		cout << "Enter command:";
-		cin >> cmd;
-
-		if (cmd.type == DECK) {
-			game->deck.print();
-		} else if (cmd.type == QUIT) {
-			exit(0);
-		} else if (cmd.type == PLAY) {
-			game->play(&cmd.card);
-		}
-	}
-
 	return 0;
 }

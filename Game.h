@@ -10,8 +10,8 @@ using namespace std;
 class Game {
 public:
 	Game();
+	void play();
 	void start();
-	void play(Card *card);
 	Deck deck;
 	void finishGame();
 	void turn();

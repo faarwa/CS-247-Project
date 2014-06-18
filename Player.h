@@ -23,6 +23,7 @@ public:
 	vector<Card*> discardedCards() { return _discardedCards; }
 	int playerNumber() { return _playerNumber; }
 	int playerScore();
+	static map<Suit, vector<Card*> > playedCards() { return Player::cardsPlayed; }
 	class IllegalPlayException {
 	public:
 		IllegalPlayException() {}

@@ -3,21 +3,28 @@
 void ComputerPlayer::play(Card* card) {
 	vector<Card*> validCardsToPlay = getLegalPlays();
 
-	vector<Card*>::iterator deleteCard;
+	Card *deleteCard = NULL;
 
 	for (vector<Card*>::iterator it = _cards.hand().begin(); it != _cards.hand().end(); it++) {
 		for (vector<Card*>::iterator it2 = validCardsToPlay.begin(); it2 != validCardsToPlay.end(); it2++) {
-			if ((*it)->getSuit() == (*it2)->getSuit() && (*it)->getRank() == (*it2)->getRank()) {
+			if (**it == **it2) {
 				cout << "Player " << playerNumber() << " plays " << **it << endl;
-				return;
-			}
+				deleteCard = *it;
+				break;
+			} 
 		}
 	}
 
-	// _cards.hand().erase(deleteCard);
+	cout << "end?" << endl;
 
-	//if we get here, there was no valid play, so discard first card in hand
-	// discard(_cards.hand().at(0));
+	if (!deleteCard) {
+		cout << "discarding" << endl;
+		discard(_cards.hand().at(0));
+	} else {
+		cout << "pushing" <<endl;
+		Player::cardsPlayed.at(deleteCard->getSuit()).push_back(deleteCard);
+		cout << "pushed" << endl;
+	}
 }
 
 void ComputerPlayer::print() const {

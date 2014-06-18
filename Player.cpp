@@ -29,13 +29,18 @@ vector<Card*> Player::getLegalPlays() const {
 		return legalPlays;
 	}
 
+	cout << "HAND " << _cards.hand().size() << endl;
+
 	for (vector<Card*>::iterator it = _cards.hand().begin(); it != _cards.hand().end(); it++) {
 		Card *card = (*it);
 		vector<Card*> suitCards = cardsPlayed.at(card->getSuit());
-		if (card->getRank()+1 == suitCards.at(0)->getRank() || card->getRank() == suitCards.at(suitCards.size()-1)->getRank()+1) {
-			legalPlays.push_back(card);
-			continue;
-		}
+		cout << *card << endl;
+		// if (card->getRank()+1 == suitCards.at(0)->getRank() || card->getRank() == suitCards.at(suitCards.size()-1)->getRank()+1) {
+		// 	legalPlays.push_back(card);
+		// 	continue;
+		// }
+
+		cout << "hjkghjyfjgfjy" << endl;
 
 		if (card->getRank() == SEVEN) {
 			legalPlays.push_back(card);
@@ -51,7 +56,7 @@ void Player::discard(Card *card){
 	for(int i=0;i<playerHand.size();i++){
 		if(playerHand.at(i) == card){
 			_discardedCards.push_back(card);
-			_cards.removeCard(_cards.hand().begin()+i);
+			// _cards.removeCard(_cards.hand().begin());
 			break;
 		}
 	}
@@ -62,6 +67,6 @@ int Player::playerScore(){
 	for(int i=0;i<_discardedCards.size();i++){
 		score += _discardedCards.at(i)->getRank()+1;
 	}
-	
+
 	return score;
 }
