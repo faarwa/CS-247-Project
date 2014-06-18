@@ -18,7 +18,7 @@ public:
 	void addCardToHand(const Card card) const;
 	virtual void print() const {}
 	virtual void play(Card *card) {}
-	virtual Command doTurn() {}
+	virtual Command doTurn() { return Command(); }
 	void discard(Card *card);
 	CardHand cards() const { return _cards; }
 	vector<Card*> discardedCards() { return _discardedCards; }
