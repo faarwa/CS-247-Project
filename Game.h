@@ -15,7 +15,7 @@ public:
 	Deck deck;
 	void finishGame();
 	void turn();
-
+	void ragequit();
 private:
 	vector<Player*> _players;
 	int _currentPlayer;

@@ -31,6 +31,9 @@ void ComputerPlayer::print() const {
 
 }
 
-void ComputerPlayer::doTurn() {
+Command ComputerPlayer::doTurn() {
 	play(NULL);
+	Command c = Command();
+	c.type = PLAY;
+	return c;
 }

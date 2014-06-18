@@ -7,6 +7,7 @@
 
 #include "Card.h"
 #include "CardHand.h"
+#include "Command.h"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ public:
 	void addCardToHand(const Card card) const;
 	virtual void print() const {}
 	virtual void play(Card *card) {}
-	virtual void doTurn() {}
+	virtual Command doTurn() {}
 	void discard(Card *card);
 	CardHand cards() const { return _cards; }
 	vector<Card*> discardedCards() { return _discardedCards; }

@@ -1,5 +1,4 @@
 #include "HumanPlayer.h"
-#include "Command.h"
 
 Card* _cardPlayed;
 
@@ -50,7 +49,7 @@ void HumanPlayer::play(Card *card) {
 	_cards.hand().erase(deleteIt);
 }
 
-void HumanPlayer::doTurn() {
+Command HumanPlayer::doTurn() {
 	// while (!cin.eof()) {
 		Command cmd = Command();
 		cout << "Enter command:";
@@ -63,6 +62,8 @@ void HumanPlayer::doTurn() {
 		} else if (cmd.type == PLAY) {
 			play(&cmd.card);
 		}
+
+		return cmd;
 	// }
 }
 

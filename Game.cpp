@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
+#include "Command.h"
 #include <typeinfo>
 
 Game::Game() {
@@ -65,7 +66,10 @@ void Game::play() {
 
 		if (sumCards < 52) {
 			_players.at(_currentPlayer-1)->print();
-			_players.at(_currentPlayer-1)->doTurn();
+			Command command = _players.at(_currentPlayer-1)->doTurn();
+			if(command.type == RAGEQUIT){
+				ragequit();
+			}
 			if (_currentPlayer == 4) {
 				_currentPlayer = 1;
 			} else {
@@ -76,6 +80,12 @@ void Game::play() {
 		}
 	}
 	finishGame();
+}
+
+void Game::ragequit(){
+	cout << "Player " << _currentPlayer << " ragequits.  A computer will now take over.";
+	Player *newPlayer = new ComputerPlayer(_players.at(_currentPlayer-1)->cards().hand(), _currentPlayer);
+	_players.at(_currentPlayer-1) = newPlayer;
 }
 
 void Game::finishGame() {
