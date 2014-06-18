@@ -10,6 +10,7 @@ Player::Player(vector<Card*> cards, int playerNumber) {
 	cardsPlayed[HEART] = suitCards;
 	cardsPlayed[DIAMOND] = suitCards;
 	_playerNumber = playerNumber;
+	_score = 0;
 }
 
 Player::~Player() {
@@ -53,13 +54,13 @@ void Player::discard(Card *card){
 	for(int i=0;i<playerHand.size();i++){
 		if(playerHand.at(i) == card){
 			_discardedCards.push_back(card);
-			// _cards.removeCard(_cards.hand().begin());
+			_cards.removeCard(card);
 			break;
 		}
 	}
 }
 
-int Player::playerScore(){
+int Player::gameScore(){
 	int score = 0;
 	for(int i=0;i<_discardedCards.size();i++){
 		score += _discardedCards.at(i)->getRank()+1;

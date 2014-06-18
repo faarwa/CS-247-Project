@@ -23,7 +23,9 @@ public:
 	CardHand cards() const { return _cards; }
 	vector<Card*> discardedCards() { return _discardedCards; }
 	int playerNumber() { return _playerNumber; }
-	int playerScore();
+	int gameScore();
+	int score() { return _score; }
+	void incrementScore(int score) { _score += score; }
 	void printDiscards();
 	static map<Suit, vector<Card*> > playedCards() { return Player::cardsPlayed; }
 	class IllegalPlayException {
@@ -36,6 +38,7 @@ protected:
 	vector<Card*> _discardedCards;
 	vector<Card*> getLegalPlays() const;
 	static map<Suit, vector<Card*> > cardsPlayed;
+	int _score;
 };
 
 void printCardList(vector<Card> list);

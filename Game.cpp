@@ -90,8 +90,11 @@ void Game::ragequit(){
 
 void Game::finishGame() {
 	cout << endl;
+	bool gameOver = false;
+	int lowestScorePlayer = 1;
+	int lowestScore = _players.at(0)->score()+_players.at(0)->gameScore();
 	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
-		cout << "Player " << (*it)->playerNumber() << " discards ";
+		cout << "Player " << (*it)->playerNumber() << "'s discards: ";
 		vector<Card*> discards = (*it)->discardedCards();
 		for (vector<Card*>::iterator it = discards.begin(); it != discards.end(); it++) {
 			if (it != discards.begin()) {
@@ -100,7 +103,25 @@ void Game::finishGame() {
 			cout << *(*it);
 		}
 		cout << endl;
-		cout << "Player " << (*it)->playerNumber() << "'s score: " << (*it)->playerScore() << endl;
-		cout <<endl;
+		cout << "Player " << (*it)->playerNumber() << "'s score: ";
+		cout << (*it)->score() << " + " << (*it)->gameScore() << " = ";
+		(*it)->incrementScore((*it)->gameScore());
+		cout << (*it)->score() << endl;
+		cout << endl;
+
+		if ((*it)->score() >= 80) {
+			gameOver = true;
+		}
+
+		if ((*it)->score() < lowestScore) {
+			lowestScorePlayer = (*it)->playerNumber();
+			lowestScore = (*it)->score();
+		}
+	}
+
+	if (!gameOver) {
+		// start
+	} else {
+		cout << "Player " << lowestScorePlayer << " wins!" << endl;
 	}
 }

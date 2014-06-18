@@ -20,7 +20,7 @@ void ComputerPlayer::play(Card card) {
 	if (!deleteCard) {
 		cout << endl << "Player " << playerNumber() << " discards " << *_cards.hand().at(0) << endl;
 		discard(_cards.hand().at(0));
-		_cards.removeCard(_cards.hand().at(0));
+		// _cards.removeCard(_cards.hand().at(0));
 	}
 }
 
