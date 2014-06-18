@@ -89,5 +89,18 @@ void Game::ragequit(){
 }
 
 void Game::finishGame() {
-
+	cout << endl;
+	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
+		cout << "Player " << (*it)->playerNumber() << " discards ";
+		vector<Card*> discards = (*it)->discardedCards();
+		for (vector<Card*>::iterator it = discards.begin(); it != discards.end(); it++) {
+			if (it != discards.begin()) {
+				cout << " ";
+			}
+			cout << *(*it);
+		}
+		cout << endl;
+		cout << "Player " << (*it)->playerNumber() << "'s score: " << (*it)->playerScore() << endl;
+		cout <<endl;
+	}
 }

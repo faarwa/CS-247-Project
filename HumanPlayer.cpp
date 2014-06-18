@@ -1,11 +1,11 @@
 #include "HumanPlayer.h"
 
-Card* _cardPlayed;
+Card *_playedCard;
 
-void printCardsRank(vector<Card*> *list) {
+void printCardsRank(vector<Card*> list) {
 
-	for (vector<Card*>::iterator it = list->begin(); it != list->end(); it++) {
-		if (it != list->begin()) {
+	for (vector<Card*>::iterator it = list.begin(); it != list.end(); it++) {
+		if (it != list.begin()) {
 			cout << " ";
 		}
 		cout << (*it)->getRank()+1;
@@ -21,66 +21,70 @@ void printCards(vector<Card*> list) {
 	}
 }
 
-bool cardIsEqual(Card *card) {
-	if (card->getSuit() == _cardPlayed->getSuit() && card->getRank() == _cardPlayed->getRank()) {
+bool equalCards(Card *card) {
+	if (card->getSuit() == _playedCard->getSuit() && card->getRank() == _playedCard->getRank()) {
 		return true;
 	}
 
 	return false;
 }
 
-void HumanPlayer::play(Card *card) {
-
+void HumanPlayer::play(Card c) {
+	Card *card = new Card(c.getSuit(), c.getRank());
 	if (!card) {
 		return;
 	}
 
 	vector<Card*> legalPlays = getLegalPlays();
-	_cardPlayed = card;
+	_playedCard = card;
 
-	if (find_if(legalPlays.begin(), legalPlays.end(), cardIsEqual) == legalPlays.end()) {
+	if (find_if(legalPlays.begin(), legalPlays.end(), equalCards) == legalPlays.end()) {
 		throw Player::IllegalPlayException();
 	}
 
-	vector<Card*>::iterator deleteIt = find_if(_cards.hand().begin(), _cards.hand().end(), cardIsEqual);
+	if (!cardsPlayed.at(card->getSuit()).empty() && cardsPlayed.at(card->getSuit()).at(0)->getRank() > card->getRank()) {
+		cout << "before" << endl;
+		cardsPlayed.at(card->getSuit()).insert(cardsPlayed.at(card->getSuit()).begin(), card);
+		cout << "inserted" << endl;
+	} else {
+		cout << "after" << endl;
+		cardsPlayed.at(card->getSuit()).push_back(card);
+		cout << "inserted" << endl;
+	}
 
-	cardsPlayed.at(card->getSuit()).push_back(card);
-
-	_cards.hand().erase(deleteIt);
+	_cards.removeCard(card);
 }
 
 Command HumanPlayer::doTurn() {
-	// while (!cin.eof()) {
-		Command cmd = Command();
-		cout << "Enter command:";
-		cin >> cmd;
+	Command cmd = Command();
+	cout << "Enter command:";
+	cin >> cmd;
 
-		if (cmd.type == DECK) {
-			// game->deck.print();
-		} else if (cmd.type == QUIT) {
-			exit(0);
-		} else if (cmd.type == PLAY) {
-			play(&cmd.card);
-		}
+	if (cmd.type == DECK) {
+		// game->deck.print();
+	} else if (cmd.type == QUIT) {
+		exit(0);
+	} else if (cmd.type == PLAY) {
+		play(cmd.card);
+	}
 
-		return cmd;
-	// }
+	return cmd;
 }
 
 void HumanPlayer::print() const {
 
-	cout << "Cards on the table:" << endl;
+	cout << endl << "Cards on the table:" << endl;
 	cout << "Clubs: ";
-	printCardsRank(&cardsPlayed.at(CLUB));
+	printCards(cardsPlayed.at(CLUB));
 	cout << endl;
 	cout << "Diamonds: ";
-	printCardsRank(&cardsPlayed.at(DIAMOND));
+	printCards(cardsPlayed.at(DIAMOND));
 	cout << endl;
 	cout << "Hearts: ";
-	printCardsRank(&cardsPlayed.at(HEART));
+	printCards(cardsPlayed.at(HEART));
 	cout << endl;
-	cout << "Spades: " << cardsPlayed.at(SPADE).size() << " ";
-	printCardsRank(&cardsPlayed.at(SPADE));
+	cout << "Spades: ";
+	printCards(cardsPlayed.at(SPADE));
 	cout << endl;
 
 	cout << "Your hand: ";

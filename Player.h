@@ -17,13 +17,14 @@ public:
 	~Player();
 	void addCardToHand(const Card card) const;
 	virtual void print() const {}
-	virtual void play(Card *card) {}
+	virtual void play(Card card) {}
 	virtual Command doTurn() { return Command(); }
 	void discard(Card *card);
 	CardHand cards() const { return _cards; }
 	vector<Card*> discardedCards() { return _discardedCards; }
 	int playerNumber() { return _playerNumber; }
 	int playerScore();
+	void printDiscards();
 	static map<Suit, vector<Card*> > playedCards() { return Player::cardsPlayed; }
 	class IllegalPlayException {
 	public:

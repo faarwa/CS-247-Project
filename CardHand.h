@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "Card.h"
+#include <map>
 
 using namespace std;
 
@@ -14,7 +15,8 @@ public:
 	void addCard(const Card card);
 	bool has7S() const;
 	vector<Card*> hand() const { return _cards; }
-	void removeCard(vector<Card*>::iterator i) { _cards.erase(i); }
+	void removeCard(Card *card);
+	vector<Card*> legalPlays(map<Suit, vector<Card*> >) const;
 private:
 	vector<Card*> _cards;
 };
