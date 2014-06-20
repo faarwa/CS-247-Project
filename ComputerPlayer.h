@@ -6,9 +6,10 @@
 
 class ComputerPlayer : public Player {
 public:
-	ComputerPlayer(vector<Card*> cards, int playerNumber) : Player(cards, playerNumber) {}
+	ComputerPlayer(int playerNumber) : Player(playerNumber) {}
 	void play(Card card);
 	void print() const;
+	void discard(Card card);
 	Command doTurn();
 };
 

@@ -12,6 +12,7 @@ public:
 	Game();
 	void play();
 	void start();
+	void shuffleAndDeal();
 	Deck deck;
 	void finishGame();
 	void turn();

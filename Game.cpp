@@ -5,36 +5,38 @@
 #include <typeinfo>
 
 Game::Game() {
-	deck.shuffle();
-
-	int cardIndex = 0;
-
 	for (int i = 0; i < 4; i++) {
 		string playerType;
 		cout << "Is player " << i+1 << " a human(h) or a computer(c)?" << endl;
 		cin >> playerType;
 
 		if (playerType == "h") {
-			vector<Card*> cards;
-			for (int j = cardIndex; j < cardIndex+13; j++){
-				cards.push_back(deck.cards().at(j));
-			}
-			Player *player = new HumanPlayer(cards, i+1);
+			Player *player = new HumanPlayer(i+1);
 			_players.push_back(player);
 		} else if (playerType == "c") {
-			vector<Card*> cards;
-			for (int j = cardIndex; j < cardIndex+13; j++){
-				cards.push_back(deck.cards().at(j));
-			}
-			Player *player = new ComputerPlayer(cards, i+1);
+			Player *player = new ComputerPlayer(i+1);
 			_players.push_back(player);
 		}
+	}
+}
 
+void Game::shuffleAndDeal() {
+	deck.shuffle();
+	int cardIndex = 0;
+	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
+		(*it)->newHand();
+		vector<Card*> cards;
+		for (int j = cardIndex; j < cardIndex+13; j++) {
+			cards.push_back(deck.cards().at(j));
+		}
+		(*it)->setCards(cards);
 		cardIndex += 13;
 	}
 }
 
 void Game::start() {
+	shuffleAndDeal();
+
 	for (int i = 0; i < _players.size(); i++) {
 		if (_players.at(i)->cards().has7S()) {
 			_currentPlayer = i+1;
@@ -84,7 +86,8 @@ void Game::play() {
 
 void Game::ragequit(){
 	cout << "Player " << _currentPlayer << " ragequits.  A computer will now take over.";
-	Player *newPlayer = new ComputerPlayer(_players.at(_currentPlayer-1)->cards().hand(), _currentPlayer);
+	Player *newPlayer = new ComputerPlayer(_currentPlayer);
+	newPlayer->setCards(_players.at(_currentPlayer-1)->cards().hand());
 	_players.at(_currentPlayer-1) = newPlayer;
 }
 
@@ -120,7 +123,7 @@ void Game::finishGame() {
 	}
 
 	if (!gameOver) {
-		// start
+		// start();
 	} else {
 		cout << "Player " << lowestScorePlayer << " wins!" << endl;
 	}

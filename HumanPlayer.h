@@ -7,10 +7,19 @@
 
 class HumanPlayer : public Player {
 public:
-	HumanPlayer(vector<Card*> cards, int playerNumber) : Player(cards, playerNumber) {}
+	HumanPlayer(int playerNumber) : Player(playerNumber) {}
 	void play(Card c);
 	void print() const;
+	void discard(Card c);
 	Command doTurn();
+	class IllegalPlayException {
+	public:
+		IllegalPlayException() {}
+	};
+	class IllegalDiscardException {
+	public:
+		IllegalDiscardException() {}
+	};
 private:
 };
 

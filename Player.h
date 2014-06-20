@@ -13,13 +13,15 @@ using namespace std;
 
 class Player {
 public:
-	Player(vector<Card*> cards, int playerNumber);
+	Player(int playerNumber);
 	~Player();
+	void setCards(vector<Card*> cards) { _cards = CardHand(cards); }
 	void addCardToHand(const Card card) const;
+	void newHand();
 	virtual void print() const {}
 	virtual void play(Card card) {}
 	virtual Command doTurn() { return Command(); }
-	void discard(Card *card);
+	virtual void discard(Card card) {};
 	CardHand cards() const { return _cards; }
 	vector<Card*> discardedCards() { return _discardedCards; }
 	int playerNumber() { return _playerNumber; }
@@ -28,10 +30,6 @@ public:
 	void incrementScore(int score) { _score += score; }
 	void printDiscards();
 	static map<Suit, vector<Card*> > playedCards() { return Player::cardsPlayed; }
-	class IllegalPlayException {
-	public:
-		IllegalPlayException() {}
-	};
 protected:
 	CardHand _cards;
 	int _playerNumber;

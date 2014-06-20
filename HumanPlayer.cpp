@@ -39,18 +39,16 @@ void HumanPlayer::play(Card c) {
 	_playedCard = card;
 
 	if (find_if(legalPlays.begin(), legalPlays.end(), equalCards) == legalPlays.end()) {
-		throw Player::IllegalPlayException();
+		throw IllegalPlayException();
 	}
 
 	if (!cardsPlayed.at(card->getSuit()).empty() && cardsPlayed.at(card->getSuit()).at(0)->getRank() > card->getRank()) {
-		cout << "before" << endl;
 		cardsPlayed.at(card->getSuit()).insert(cardsPlayed.at(card->getSuit()).begin(), card);
-		cout << "inserted" << endl;
 	} else {
-		cout << "after" << endl;
 		cardsPlayed.at(card->getSuit()).push_back(card);
-		cout << "inserted" << endl;
 	}
+
+	cout << "Player " << playerNumber() << " plays " << c << "." << endl;
 
 	_cards.removeCard(card);
 }
@@ -60,15 +58,43 @@ Command HumanPlayer::doTurn() {
 	cout << "Enter command:";
 	cin >> cmd;
 
-	if (cmd.type == DECK) {
-		// game->deck.print();
-	} else if (cmd.type == QUIT) {
-		exit(0);
-	} else if (cmd.type == PLAY) {
-		play(cmd.card);
-	}
+	bool isLegal = false;
+
+	do {
+		if (cmd.type == QUIT) {
+			exit(0);
+		} else if (cmd.type == PLAY) {
+			try {
+				play(cmd.card);
+				isLegal = true;
+			} catch (HumanPlayer::IllegalPlayException &e) {
+				isLegal = false;
+				cout << "This is not a legal play." << endl;
+				cin >> cmd;
+			}
+		} else if (cmd.type == DISCARD) {
+			try {
+				discard(cmd.card);
+				isLegal = true;
+			} catch (HumanPlayer::IllegalDiscardException &e) {
+				isLegal = false;
+				cout << "You have a legal play. You may not discard." << endl;
+				cin >> cmd;
+			}
+		}
+	} while (!isLegal);
 
 	return cmd;
+}
+
+void HumanPlayer::discard(Card c) {
+	Card *card = new Card(c.getSuit(), c.getRank());
+	if (getLegalPlays().size() != 0) {
+		throw HumanPlayer::IllegalDiscardException();
+	}
+
+	_discardedCards.push_back(card);
+	_cards.removeCard(card);
 }
 
 void HumanPlayer::print() const {

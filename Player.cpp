@@ -2,8 +2,7 @@
 
 map<Suit, vector<Card*> > Player::cardsPlayed;
 
-Player::Player(vector<Card*> cards, int playerNumber) {
-	_cards = CardHand(cards);
+Player::Player(int playerNumber) {
 	vector<Card*> suitCards;
 	cardsPlayed[SPADE] = suitCards;
 	cardsPlayed[CLUB] = suitCards;
@@ -22,47 +21,20 @@ Player::~Player() {
 	}
 }
 
+void Player::newHand() {
+	_discardedCards.clear();
+	_cards.hand().clear();
+}
+
 vector<Card*> Player::getLegalPlays() const {
 	vector<Card*> legalPlays;
 
 	return _cards.legalPlays(cardsPlayed);
-
-	// if (cardsPlayed.at(SPADE).empty()) {
-	// 	legalPlays.push_back(new Card(SPADE, SEVEN));
-	// 	return legalPlays;
-	// }
-
-	// for (vector<Card*>::iterator it = _cards.hand().begin(); it != _cards.hand().end(); it++) {
-	// 	Card *card = (*it);
-	// 	vector<Card*> suitCards = cardsPlayed.at(card->getSuit());
-	// 	if (!suitCards.empty() && (card->getRank()+1 == suitCards.at(0)->getRank() || card->getRank() == suitCards.at(suitCards.size()-1)->getRank()+1)) {
-	// 		legalPlays.push_back(card);
-	// 		continue;
-	// 	}
-
-	// 	if (card->getRank() == SEVEN) {
-	// 		legalPlays.push_back(card);
-	// 		continue;
-	// 	}
-	// }
-
-	// return legalPlays;
-}
-
-void Player::discard(Card *card){
-	vector<Card*> playerHand = cards().hand();
-	for(int i=0;i<playerHand.size();i++){
-		if(playerHand.at(i) == card){
-			_discardedCards.push_back(card);
-			_cards.removeCard(card);
-			break;
-		}
-	}
 }
 
 int Player::gameScore(){
 	int score = 0;
-	for(int i=0;i<_discardedCards.size();i++){
+	for (int i = 0; i < _discardedCards.size(); i++) {
 		score += _discardedCards.at(i)->getRank()+1;
 	}
 
