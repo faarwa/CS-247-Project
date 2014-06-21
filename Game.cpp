@@ -123,7 +123,7 @@ void Game::finishGame() {
 	}
 
 	if (!gameOver) {
-		// start();
+		start();
 	} else {
 		cout << "Player " << lowestScorePlayer << " wins!" << endl;
 	}
