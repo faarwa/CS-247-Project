@@ -14,6 +14,8 @@ int main(int argc, const char* argv[]) {
 		randomSeed = atoi(argv[1]);
 	}
 
+	srand48(randomSeed);
+
 	game = new Game();
 	game->start();
 
