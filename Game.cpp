@@ -69,7 +69,7 @@ void Game::play() {
 		if (sumCards < 52) {
 			_players.at(_currentPlayer-1)->print();
 			Command command = _players.at(_currentPlayer-1)->doTurn();
-			if(command.type == RAGEQUIT){
+			if (command.type == RAGEQUIT) {
 				ragequit();
 			}
 			if (_currentPlayer == 4) {
@@ -89,6 +89,7 @@ void Game::ragequit(){
 	Player *newPlayer = new ComputerPlayer(_currentPlayer);
 	newPlayer->setCards(_players.at(_currentPlayer-1)->cards().hand());
 	_players.at(_currentPlayer-1) = newPlayer;
+	newPlayer->doTurn();
 }
 
 void Game::finishGame() {

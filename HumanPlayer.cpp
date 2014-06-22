@@ -81,6 +81,8 @@ Command HumanPlayer::doTurn() {
 				cout << "You have a legal play. You may not discard." << endl;
 				cin >> cmd;
 			}
+		} else {
+			isLegal = true;
 		}
 	} while (!isLegal);
 
