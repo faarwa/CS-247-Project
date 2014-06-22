@@ -2,13 +2,7 @@
 
 Card *_cardPlayed;
 
-CardHand::CardHand() {
-}
-
-CardHand::CardHand(const vector<Card*> cards) {
-	_cards = cards;
-}
-
+// Helper method - checks whether a card is the 7 of spades
 bool isCard7S(Card *c) {
 	if (c->getSuit() == SPADE && c->getRank() == SEVEN) {
 		return true;
@@ -17,8 +11,14 @@ bool isCard7S(Card *c) {
 	return false;
 }
 
-bool CardHand::has7S() const {
+// Constructs the card hand with a vector of Cards
+CardHand::CardHand(const vector<Card*> cards) {
+	_cards = cards;
+}
 
+// member function - returns whether the hand has the 7 of spades
+bool CardHand::has7S() const {
+	// search the vector using an iterator
 	if (find_if(_cards.begin(), _cards.end(), isCard7S) == _cards.end()) {
 		return false;
 	}
@@ -26,6 +26,7 @@ bool CardHand::has7S() const {
 	return true;
 }
 
+// Unary predicate for find iterator ; checks whether two pointers to Cards are equal
 bool cardIsEqual(Card *card) {
 	if (card->getSuit() == _cardPlayed->getSuit() && card->getRank() == _cardPlayed->getRank()) {
 		return true;
@@ -34,15 +35,19 @@ bool cardIsEqual(Card *card) {
 	return false;
 }
 
+// member function - searches hand for a card to remove and deletes it from the vector
 void CardHand::removeCard (Card *card) {
 	_cardPlayed = card;
 	vector<Card*>::iterator deleteIt = find_if(_cards.begin(), _cards.end(), cardIsEqual);
 	_cards.erase(deleteIt);
 }
 
+// member function - returns vector of legal plays that the hand has based on what's played
 vector<Card*> CardHand::legalPlays(map<Suit, vector<Card*> > cardsPlayed) const {
 	vector<Card*> legalPlays;
 
+	// If there are no spades on the board, the first player must play a 7S (this is for the first player)
+	// That's the only legal play so return immediately
 	if (cardsPlayed.at(SPADE).empty()) {
 		legalPlays.push_back(new Card(SPADE, SEVEN));
 		return legalPlays;
@@ -50,6 +55,8 @@ vector<Card*> CardHand::legalPlays(map<Suit, vector<Card*> > cardsPlayed) const 
 
 	vector<Card*> cards = _cards;
 
+	// Iterate through the card hand:
+	// If the rank of a card in the hand is one less or greater than that played for the same suit, it's a legal play
 	for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++) {
 		Card *card = (*it);
 		vector<Card*> suitCards = cardsPlayed.at(card->getSuit());
@@ -58,6 +65,7 @@ vector<Card*> CardHand::legalPlays(map<Suit, vector<Card*> > cardsPlayed) const 
 			continue;
 		}
 
+		// Sevens are always legal plays since they must be played first for a suit
 		if (card->getRank() == SEVEN) {
 			legalPlays.push_back(card);
 			continue;

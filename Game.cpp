@@ -55,16 +55,12 @@ void Game::play() {
 		map<Suit, vector<Card*> > cards = Player::playedCards();
 
 		for (map<Suit, vector<Card*> >::iterator it = cards.begin(); it != cards.end(); it++) {
-			// cout << "SUIT " << (*it).first << endl;
 			sumCards += (*it).second.size();
 		}
 
 		for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
-			// cout << "PLAYER " << (*it)->playerNumber() << endl;
 			sumCards += (*it)->discardedCards().size();
 		}
-
-		// cout << "SUM " << sumCards << endl;
 
 		if (sumCards < 52) {
 			_players.at(_currentPlayer-1)->print();
@@ -90,8 +86,6 @@ void Game::play() {
 void Game::ragequit(){
 	cout << "Player " << _currentPlayer << " ragequits.  A computer will now take over.";
 	Player *newPlayer = new ComputerPlayer(*_players.at(_currentPlayer-1));
-	// newPlayer->setCards(_players.at(_currentPlayer-1)->cards().hand());
-	// cout << ComputerPlayer::playedCards().at(SPADE).size() << endl;
 	_players.at(_currentPlayer-1) = newPlayer;
 	newPlayer->doTurn();
 }
