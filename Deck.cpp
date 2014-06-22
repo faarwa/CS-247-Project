@@ -21,10 +21,8 @@ void Deck::print() const {
 	}
 }
 
-void Deck::shuffle(int randomSeed){
+void Deck::shuffle(){
 	int n = _cards.size();
-
-	srand48(randomSeed);
 
 	while ( n > 1 ) {
 		int k = (int) (lrand48() % n);

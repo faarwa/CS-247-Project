@@ -11,7 +11,7 @@ class Deck {
 public:
 	Deck();
 	void print() const;
-	void shuffle(int randomSeed);
+	void shuffle();
 	vector<Card*> cards() const { return _cards; }
 private:
 	vector<Card*> _cards;

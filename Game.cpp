@@ -4,8 +4,7 @@
 #include "Command.h"
 #include <typeinfo>
 
-Game::Game(int randomSeed) {
-	_randomSeed = randomSeed;
+Game::Game() {
 	for (int i = 0; i < 4; i++) {
 		string playerType;
 		cout << "Is player " << i+1 << " a human(h) or a computer(c)?" << endl;
@@ -22,7 +21,7 @@ Game::Game(int randomSeed) {
 }
 
 void Game::shuffleAndDeal() {
-	deck.shuffle(_randomSeed);
+	deck.shuffle();
 	int cardIndex = 0;
 	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
 		(*it)->newHand();

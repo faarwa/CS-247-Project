@@ -11,11 +11,12 @@ Game *game;
 int main(int argc, const char* argv[]) {
 	int randomSeed = 0;
 	if (argc > 1) {
-		cout << "AFJLSK" << endl;
 		randomSeed = atoi(argv[1]);
 	}
 
-	game = new Game(randomSeed);
+	srand48(randomSeed);
+
+	game = new Game();
 	game->start();
 
 	return 0;

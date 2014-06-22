@@ -9,7 +9,7 @@ using namespace std;
 
 class Game {
 public:
-	Game(int randomSeed);
+	Game();
 	void play();
 	void start();
 	void shuffleAndDeal();
@@ -20,7 +20,6 @@ public:
 private:
 	vector<Player*> _players;
 	int _currentPlayer;
-	int _randomSeed;
 };
 
 #endif
