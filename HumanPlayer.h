@@ -5,18 +5,20 @@
 #include <vector>
 #include "Player.h"
 
+//Subclass of Player
 class HumanPlayer : public Player {
 public:
-	HumanPlayer(int playerNumber) : Player(playerNumber) {}
-	void play(Card c);
-	void print() const;
-	void discard(Card c);
-	Command doTurn();
-	class IllegalPlayException {
+	HumanPlayer(int playerNumber) : Player(playerNumber) {} //Constructor that constructs a human player with a player number
+	void play(Card c); 										// Overridden method for play
+	void print() const; 									// Overridden method to print lines
+	void discard(Card c); 									// Overridden method to discard a card
+	Command doTurn(); 										// Ovverridden method for a player to do a turn
+
+	class IllegalPlayException {							// Exception class to handle human player making illegal plays
 	public:
 		IllegalPlayException() {}
 	};
-	class IllegalDiscardException {
+	class IllegalDiscardException {							//Exception class to handle human player making illegal discards
 	public:
 		IllegalDiscardException() {}
 	};

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// Game class with basic functionality for running the same (controller)
+// Game class with basic functionality for running the game (controller)
 class Game {
 public:
 	Game();								// default constructor
