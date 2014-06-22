@@ -72,6 +72,9 @@ void Game::play() {
 			if (command.type == RAGEQUIT) {
 				ragequit();
 			}
+			else if(command.type == DECK){
+				deck.print();
+			}
 			if (_currentPlayer == 4) {
 				_currentPlayer = 1;
 			} else {
