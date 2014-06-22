@@ -24,7 +24,15 @@ void ComputerPlayer::play(Card card) {
 			if (**it == **it2) {
 				deleteCard = *it;
 				cout << endl << "Player " << playerNumber() << " plays " << **it << endl;
-				cardsPlayed.at(deleteCard->getSuit()).push_back(deleteCard);
+
+				//inserts the played card into the proper spot for the static map used to keep track of all the cards played
+				if (!cardsPlayed.at(deleteCard->getSuit()).empty() && cardsPlayed.at(deleteCard->getSuit()).at(0)->getRank() > deleteCard->getRank()) {
+					//puts the played card in the front of the vector if it is less than the current lowest card played of that suit
+					cardsPlayed.at(deleteCard->getSuit()).insert(cardsPlayed.at(deleteCard->getSuit()).begin(), deleteCard);
+				} else {
+					//otherwise, puts the played card at the back of the vector
+					cardsPlayed.at(deleteCard->getSuit()).push_back(deleteCard);
+				}
 				_cards.removeCard(deleteCard);
 
 				return;
