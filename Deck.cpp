@@ -1,4 +1,5 @@
 #include "Deck.h"
+#include <cstdlib>
 
 // Default constructor
 Deck::Deck() {

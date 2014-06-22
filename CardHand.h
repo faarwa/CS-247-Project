@@ -2,6 +2,7 @@
 #define CARDHAND_H
 
 #include <iostream>
+#include <algorithm>
 #include <vector>
 #include "Card.h"
 #include <map>
