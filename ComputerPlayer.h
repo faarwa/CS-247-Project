@@ -7,6 +7,7 @@
 class ComputerPlayer : public Player {
 public:
 	ComputerPlayer(int playerNumber) : Player(playerNumber) {}
+	ComputerPlayer(Player &player) : Player(player) {}
 	void play(Card card);
 	void print() const;
 	void discard(Card card);

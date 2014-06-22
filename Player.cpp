@@ -12,6 +12,13 @@ Player::Player(int playerNumber) {
 	_score = 0;
 }
 
+Player::Player(Player &player) {
+	_playerNumber = player.playerNumber();
+	_cards = player.cards();
+	_discardedCards = player.discardedCards();
+	_score = player.score();
+}
+
 Player::~Player() {
 	for (map<Suit, vector<Card*> >::iterator it = cardsPlayed.begin(); it != cardsPlayed.end(); it++) {
 		vector<Card*> suitCards = (*it).second;

@@ -14,6 +14,7 @@ using namespace std;
 class Player {
 public:
 	Player(int playerNumber);
+	Player(Player &player);
 	~Player();
 	void setCards(vector<Card*> cards) { _cards = CardHand(cards); }
 	void addCardToHand(const Card card) const;

@@ -21,7 +21,7 @@ Game::Game() {
 }
 
 void Game::shuffleAndDeal() {
-	deck.shuffle();
+	deck.shuffle();	
 	int cardIndex = 0;
 	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
 		(*it)->newHand();
@@ -86,8 +86,9 @@ void Game::play() {
 
 void Game::ragequit(){
 	cout << "Player " << _currentPlayer << " ragequits.  A computer will now take over.";
-	Player *newPlayer = new ComputerPlayer(_currentPlayer);
-	newPlayer->setCards(_players.at(_currentPlayer-1)->cards().hand());
+	Player *newPlayer = new ComputerPlayer(*_players.at(_currentPlayer-1));
+	// newPlayer->setCards(_players.at(_currentPlayer-1)->cards().hand());
+	// cout << ComputerPlayer::playedCards().at(SPADE).size() << endl;
 	_players.at(_currentPlayer-1) = newPlayer;
 	newPlayer->doTurn();
 }

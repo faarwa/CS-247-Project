@@ -1,8 +1,8 @@
-#include "ComputerPlayer.h"
+	#include "ComputerPlayer.h"
 
 void ComputerPlayer::play(Card card) {
 	vector<Card*> validCardsToPlay = getLegalPlays();
-
+	
 	Card *deleteCard = NULL;
 
 	for (vector<Card*>::iterator it = _cards.hand().begin(); it != _cards.hand().end(); it++) {
