@@ -10,6 +10,7 @@ Game::Game() {
 	for (int i = 0; i < 4; i++) {
 		string playerType;
 		cout << "Is player " << i+1 << " a human(h) or a computer(c)?" << endl;
+		cout << ">";
 		cin >> playerType;
 
 		if (playerType == "h") {

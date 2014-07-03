@@ -69,7 +69,7 @@ void HumanPlayer::play(Card c) {
 Command HumanPlayer::doTurn() {
 	//take in a command from the human player
 	Command cmd = Command();
-	cout << "Enter command:";
+	cout << ">";
 	cin >> cmd;
 
 	bool isLegal = false;
@@ -86,6 +86,7 @@ Command HumanPlayer::doTurn() {
 				//handles the player playing a card that is not a legal play
 				isLegal = false;
 				cout << "This is not a legal play." << endl;
+				cout << ">";
 				cin >> cmd;
 			}
 		} else if (cmd.type == DISCARD) { //handle discard command
@@ -97,6 +98,7 @@ Command HumanPlayer::doTurn() {
 				//handles the player trying to discard when they have a legal play
 				isLegal = false;
 				cout << "You have a legal play. You may not discard." << endl;
+				cout<< ">";
 				cin >> cmd;
 			}
 		} else {
