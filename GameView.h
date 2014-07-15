@@ -15,29 +15,30 @@
 
 #include <gtkmm.h>
 #include "observer.h"
+#include "Game.h"
 
-class Controller;
-class Model;
+class GameViewController;
+class Game;
 
 
 class GameView : public Gtk::Window, public Observer {
 public:
-    GameView( Controller*, Model* );
+    GameView( GameViewController*, Game* );
 	virtual ~GameView();
 	virtual void update();	// Observer Pattern: concrete update() method
 
 private:
 	// Observer Pattern: to access Model accessors without having to downcast subject
-	Model *model_;
+	Game *model_;
 	
 	// Strategy Pattern member (plus signal handlers)
-	Controller *controller_;
+	GameViewController *controller_;
 
 	// Member widgets:
 	Gtk::HBox panels;      // Main window divided into two horizontal panels
 	Gtk::VBox butBox;      // Vertical boxes for stacking buttons vertically
-	Gtk::Button next_button;
-	Gtk::Button reset_button;
+	Gtk::Button start_button;
+	Gtk::Button end_button;
 	Gtk::Image card;
 
 	// Signal handlers:

@@ -4,6 +4,8 @@
 
 #include "Command.h"
 #include "Game.h"
+#include "GameViewController.h"
+#include "GameView.h"
 
 using namespace std;
 
@@ -21,7 +23,10 @@ int main(int argc, char* argv[]) {
 	srand48(randomSeed);
 
 	game = new Game();
-	Gtk::Main::run( window );
+	GameViewController controller (game);
+	GameView view(&controller, game);
+
+	Gtk::Main::run( view );
 	game->start();
 
 	return 0;

@@ -8,7 +8,7 @@
 using namespace std;
 
 // Game class with basic functionality for running the game (controller)
-class Game {
+class Game : public Subject {
 public:
 	Game();								// default constructor
 	void start();						// start the game
