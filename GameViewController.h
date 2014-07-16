@@ -10,8 +10,8 @@
  */
 
 
-#ifndef MVC_CONTROLLER_H
-#define MVC_CONTROLLER_H
+#ifndef GAME_CONTROLLER_H
+#define GAME_CONTROLLER_H
 
 
 #include <gtkmm.h>

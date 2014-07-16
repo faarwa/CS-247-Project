@@ -16,6 +16,7 @@
 #include <gtkmm.h>
 #include "observer.h"
 #include "Game.h"
+#include "DeckGUI.h"
 
 class GameViewController;
 class Game;
@@ -34,12 +35,27 @@ private:
 	// Strategy Pattern member (plus signal handlers)
 	GameViewController *controller_;
 
+	DeckGUI deck;
+
 	// Member widgets:
-	Gtk::HBox panels;      // Main window divided into two horizontal panels
-	Gtk::VBox butBox;      // Vertical boxes for stacking buttons vertically
+	Gtk::HBox menu;
+	Gtk::Frame menuFrame;
+	Gtk::Frame cardsPlayedFrame;
+	Gtk::Frame handFrame;
+	Gtk::VBox playing_space;
+	Gtk::HBox players_controls;
+	Gtk::HBox player_hand;
+	Gtk::HBox hpanels;      // Main window divided into two horizontal panels
+	Gtk::VBox vpanels;      // Vertical boxes for stacking buttons vertically
 	Gtk::Button start_button;
 	Gtk::Button end_button;
+	Gtk::Entry seed;
 	Gtk::Image card;
+
+	Gtk::HBox spades;
+	Gtk::HBox hearts;
+	Gtk::HBox clubs;
+	Gtk::HBox diamonds;
 
 	// Signal handlers:
 	void nextButtonClicked();
