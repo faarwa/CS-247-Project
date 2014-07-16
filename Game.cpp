@@ -6,17 +6,15 @@
 
 // default constructor
 Game::Game() {
-	// Prompt user for input on whether the players are humans or computers and construct players based on input
-	for (int i = 0; i < 4; i++) {
-		string playerType;
-		cout << "Is player " << i+1 << " a human(h) or a computer(c)?" << endl;
-		cout << ">";
-		cin >> playerType;
+}
 
-		if (playerType == "h") {
+void Game::setPlayers(vector<string> playerTypes){
+	for(int i=0;i<4;i++){
+		if(playerTypes.at(i) =="h"){
 			Player *player = new HumanPlayer(i+1);
 			_players.push_back(player);
-		} else if (playerType == "c") {
+		}
+		else{
 			Player *player = new ComputerPlayer(i+1);
 			_players.push_back(player);
 		}

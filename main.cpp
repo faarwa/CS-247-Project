@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "GameViewController.h"
 #include "GameView.h"
+#include "GameDialogBox.h"
 
 using namespace std;
 
@@ -13,7 +14,6 @@ Game *game;
 
 int main(int argc, char* argv[]) {
 	Gtk::Main   kit( argc, argv );          
-	Gtk::Window window;
 
 	int randomSeed = 0;
 	if (argc > 1) {

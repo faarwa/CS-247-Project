@@ -15,9 +15,17 @@
 #include "GameViewController.h"
 #include "Game.h"
 #include "subject.h"
+#include "GameDialogBox.h"
 #include <iostream>
+#include <string>
 
- // Glib::RefPtr<Gdk::Pixbuf> null();
+using namespace std;
+
+std::string convertInt(int num){
+	std::stringstream ss;
+	ss << num;
+	return ss.str();
+}
 
 // Creates buttons with labels. Sets vpanels elements to have the same size, 
 // with 10 pixels between widgets
@@ -103,6 +111,14 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 
 
 	// // Sets some properties of the window.
+	vector<string> playerTypes;
+	for(int i=0;i<4;i++){
+		GameDialogBox dialog( *this, "Is player " + convertInt(i+1) + " a human or a computer?" );
+		playerTypes.push_back(dialog.getInput());
+	}
+	m->setPlayers(playerTypes);
+
+	// Sets some properties of the window.
     set_title( "Straights" );
 	// // set_border_width( 300 );
 

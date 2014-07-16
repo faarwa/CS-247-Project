@@ -11,6 +11,7 @@ using namespace std;
 class Game : public Subject {
 public:
 	Game();								// default constructor
+	void setPlayers(vector<string> playerTypes);
 	void start();						// start the game
 	void play();						// plays the game
 	void shuffleAndDeal();				// shuffle the deck and deal the cards to the player
