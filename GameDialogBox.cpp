@@ -7,6 +7,8 @@ GameDialogBox::GameDialogBox( Gtk::Window & parentWindow, string title) : Dialog
 	messages.push_back( "Human" );
 	messages.push_back( "Computer" );
 	
+	set_border_width( 150 );
+	
 	Gtk::VBox* contentArea = this->get_vbox();
 	
 	for ( int i = 0; i < messages.size(); i++ ) {
