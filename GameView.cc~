@@ -36,7 +36,7 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 		GameDialogBox dialog( *this, "Is player " + convertInt(i+1) + " a human or a computer?" );
 		playerTypes.push_back(dialog.getInput());
 	}
-	m->setPlayers(playerTypes);
+	m->setPlayerTypes(playerTypes);
 
 	// Sets some properties of the window.
     set_title( "Straights" );
