@@ -8,11 +8,12 @@
 #include "Card.h"
 #include "CardHand.h"
 #include "Command.h"
+#include "subject.h"
 
 using namespace std;
 
 // Player class
-class Player {
+class Player: public Subject {
 public:
 	Player(int playerNumber); 														// constructs a player with a number													
 	Player(Player &player);															// copy constructor that constructs a player with another player
@@ -31,6 +32,7 @@ public:
 	int score() { return _score; } 													// accessor for the player's current score
 	void incrementScore(int score) { _score += score; } 							// mutator for the player's score, updates it with a new score
 	void printDiscards(); 															// method to print a list of discarded cards
+	int discards() { return _discards; }											// accessor for num discards for the round
 	static map<Suit, vector<Card*> > playedCards() { return Player::cardsPlayed; }  // accessor for the static map of all cards played in the game
 protected:
 	CardHand _cards;																// protected data member - the hand of the player
@@ -39,6 +41,7 @@ protected:
 	vector<Card*> getLegalPlays() const;											// protected method to get list of legal plays based on the static map of all cards played and the player's hand
 	static map<Suit, vector<Card*> > cardsPlayed;									// protected static map of all cards played in the game
 	int _score;																		// protected data member - current score of the player
+	int _discards;																	// protected data member - number of discards for the round
 };
 
 void printCardList(vector<Card> list);												// non-member function - prints cards given a list of cards

@@ -18,7 +18,9 @@ public:
 	void finishGame();					// finish the game and calculate scores
 	void turn();						// change the player's turn
 	void ragequit();					// if a player ragequits
-	vector<Card*> getHand();
+	vector<Card*> getHand();										// if a player ragequits
+	vector<Player*> players() { return _players; }			// accessor - returns vector of players
+
 private:
 	Deck _deck;							// private data member - deck for the game
 	vector<Player*> _players;			// vector of all the players (abstract, can be human or computer)

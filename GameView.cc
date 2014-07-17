@@ -33,7 +33,14 @@ std::string convertInt(int num){
 GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), vpanels(true,10), card(deck.null()),
 	cardsPlayedFrame("Cards on the table"), handFrame("Your hand") {
 
+
 	set_default_size(1000,700);
+
+	vector<Player*> players = model_->players();
+	for (int i = 0; i < 4; i++) {
+		playerInfoFrames.push_back(new PlayerInfoView(controller_, players.at(i)));
+	}
+
 	set_resizable(false);
 
 	set_size_request(1000,700);
@@ -62,11 +69,11 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	players_controls.set_homogeneous(true);
 	vpanels.add(players_controls);
 
-	for (int i = 1; i <= 4; i++) {
+	for (int i = 0; i < 4; i++) {
 		ostringstream s1;
-		s1 << "Player " << i << endl;
-		Gtk::Frame *temp = new Gtk::Frame(s1.str());
-		players_controls.add(*temp);
+		s1 << "Player " << i+1 << endl;
+		playerInfoFrames.at(i)->set_label(s1.str());
+		players_controls.add(*playerInfoFrames.at(i));
 	}
 
 	player_hand.set_homogeneous(true);
@@ -163,3 +170,7 @@ void GameView::startButtonClicked() {
 void GameView::endButtonClicked() {
   controller_->endButtonClicked();
 } 
+
+void GameView::rageButtonClicked() {
+
+}

@@ -6,17 +6,18 @@
 
 // default constructor
 Game::Game() {
+	for (int i = 1; i <= 4; i++) {
+		_players.push_back(new Player(i));
+	}
 }
 
 void Game::setPlayers(vector<string> playerTypes){
 	for(int i=0;i<4;i++){
 		if(playerTypes.at(i) =="h"){
-			Player *player = new HumanPlayer(i+1);
-			_players.push_back(player);
+			_players.at(i) = new HumanPlayer(i+1);
 		}
 		else{
-			Player *player = new ComputerPlayer(i+1);
-			_players.push_back(player);
+			_players.at(i) = new ComputerPlayer(i+1);
 		}
 	}
 }
