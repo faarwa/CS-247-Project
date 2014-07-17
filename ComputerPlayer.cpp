@@ -60,4 +60,7 @@ void ComputerPlayer::discard(Card c) {
 			break;
 		}
 	}
+	_score += c.getRank()+1;
+	_discards++;
+	Player::discard(c);
 }

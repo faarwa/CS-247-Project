@@ -22,8 +22,8 @@ void CardButton::setCardButton(Card *card){
 		image = new Gtk::Image(deck_.null());
 	}
 	else{
-		//image = new Gtk::Image(deck_.image(card->getRank(), card->getSuit()));
-		image = new Gtk::Image(deck_.image(TWO, SPADE));
+		image = new Gtk::Image(deck_.image(card->getRank(), card->getSuit()));
+		//image = new Gtk::Image(deck_.image(TWO, SPADE));
 	}
 
 	this->set_image(*image);

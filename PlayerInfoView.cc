@@ -45,4 +45,5 @@ void PlayerInfoView::update() {
 
 	points.set_label(s1.str());
 	discards.set_label(s2.str());
+	rage.set_sensitive(model_->canRage());
 }

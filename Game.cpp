@@ -141,7 +141,7 @@ void Game::finishGame() {
 		cout << (*it)->score() << " + " << (*it)->gameScore() << " = ";
 
 		// Increment the score for the player
-		(*it)->incrementScore((*it)->gameScore());
+		// (*it)->incrementScore((*it)->gameScore());
 		cout << (*it)->score() << endl;
 		cout << endl;
 

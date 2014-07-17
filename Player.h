@@ -24,13 +24,13 @@ public:
 	virtual void print() const {} 													// method to be overidden to print lines for human player
 	virtual void play(Card card) {} 												// method to be overidden for a player to play
 	virtual Command doTurn() { return Command(); } 									// method to be overriden for a player to do their turn
-	virtual void discard(Card card) {};												// method to be overidden for a player to discard a card
+	virtual void discard(Card card);												// method to be overidden for a player to discard a card
 	CardHand cards() const { return _cards; } 										// accessor for the player's hand
 	vector<Card*> discardedCards() { return _discardedCards; } 						// accessor for they player's discarded cards
 	int playerNumber() { return _playerNumber; } 									// accessor for the player's number
 	int gameScore(); 																// method that calculates the player's score based on discarded cards
 	int score() { return _score; } 													// accessor for the player's current score
-	void incrementScore(int score) { _score += score; } 							// mutator for the player's score, updates it with a new score
+	// void incrementScore(int score) { _score += score; } 							// mutator for the player's score, updates it with a new score
 	void printDiscards(); 															// method to print a list of discarded cards
 	int discards() { return _discards; }											// accessor for num discards for the round
 	static map<Suit, vector<Card*> > playedCards() { return Player::cardsPlayed; }  // accessor for the static map of all cards played in the game

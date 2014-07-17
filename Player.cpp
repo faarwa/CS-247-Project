@@ -12,6 +12,11 @@ Player::Player(int playerNumber) {
 	cardsPlayed[DIAMOND] = suitCards;
 	_playerNumber = playerNumber;
 	_score = 0;
+	_discards = 0;
+}
+
+void Player::discard(Card card) {
+	notify();
 }
 
 // member function - copy constructor that constructs a new player, given a player
@@ -20,6 +25,7 @@ Player::Player(Player &player) {
 	_cards = player.cards();
 	_discardedCards = player.discardedCards();
 	_score = player.score();
+	_discards = player.discards();
 }
 
 // member function - destructor
