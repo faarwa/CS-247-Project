@@ -130,13 +130,7 @@ GameView::~GameView() {}
 
 
 void GameView::update() {
-  // Suits suit = model_->suit();
-  // Faces face = model_->face();
-  // if ( suit == NOSUIT ) 
-  //   card.set( deck.null() );
-  // else
-  //   card.set( deck.image(face, suit) );
-
+  cout << "updating yo!!!" << endl;
 }
 
 // Glib::RefPtr<Gdk::Pixbuf> null() {
@@ -144,7 +138,7 @@ void GameView::update() {
 // } // DeckGUI::getNullCardImage
 
 void GameView::startButtonClicked() {
-	// // Sets players
+	// Sets players
 	vector<string> playerTypes;
 	for(int i=0;i<4;i++){
 		GameDialogBox dialog( *this, "Is player " + convertInt(i+1) + " a human or a computer?" );

@@ -55,6 +55,8 @@ void Game::start() {
 // play method that handles everything during game play
 void Game::play() {
 
+	//should UPDATE GameView on every turn
+
 	// Continue looping until loop is broken when the game is finished
 	while(true){
 		int sumCards = 0;
@@ -73,11 +75,14 @@ void Game::play() {
 
 		// If all the cards haven't been played, then the round isn't over
 		if (sumCards < 52) {
+			notify(); // View needs to update here with current player information
+			
 			// print information for current player
 			_players.at(_currentPlayer-1)->print();
 
 			// Execute players turn and get back any commands that have been entered
 			Command command = _players.at(_currentPlayer-1)->doTurn();
+
 
 			// execute command accordingly
 			if (command.type == RAGEQUIT) {
@@ -88,8 +93,10 @@ void Game::play() {
 			}
 			// Iterate player to next turn
 			else if (_currentPlayer == 4) {
+				notify(); // View needs to update here after player has done turn
 				_currentPlayer = 1; 
 			} else {
+				notify(); // View needs to update here after player has done turn
 				_currentPlayer++;
 			}
 		} else {
