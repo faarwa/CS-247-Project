@@ -16,6 +16,7 @@
 #include "Game.h"
 #include "subject.h"
 #include "GameDialogBox.h"
+#include "CardButton.h"
 #include <iostream>
 #include <string>
 
@@ -32,10 +33,10 @@ std::string convertInt(int num){
 GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), vpanels(true,10), card(deck.null()),
 	cardsPlayedFrame("Cards on the table"), handFrame("Your hand") {
 
-	set_default_size(500,500);
+	set_default_size(1000,700);
 	set_resizable(false);
 
-	set_size_request(700,800);
+	set_size_request(1000,700);
 
 	add(vpanels);
 
@@ -72,10 +73,11 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	player_hand.set_spacing(10);
 	vpanels.add(handFrame);
 	handFrame.add(player_hand);
-	player_hand.add(card);
-	card.set(deck.null());
-	Gtk::Image *card2 = new Gtk::Image(deck.image(TWO, SPADE));
-	player_hand.add(*card2);
+	for(int i=0; i < 13; i++){
+		CardButton *cardbutton = new CardButton(NULL, deck);
+		cards_.push_back(cardbutton);
+		player_hand.add(*cardbutton);
+	}
 
 	spades.set_homogeneous(true);
 	spades.set_spacing(10);
@@ -130,7 +132,16 @@ GameView::~GameView() {}
 
 
 void GameView::update() {
-  cout << "updating yo!!!" << endl;
+  //update players hand
+	vector<Card*> newhand = model_->getHand();
+	for(int i=0; i < 13; i++){
+		if(i < newhand.size()){
+			cards_.at(i)->updateFace(newhand.at(i));
+		}
+		else{
+			cards_.at(i)->updateFace(NULL);
+		}
+	}
 }
 
 // Glib::RefPtr<Gdk::Pixbuf> null() {

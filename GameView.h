@@ -17,6 +17,7 @@
 #include "observer.h"
 #include "Game.h"
 #include "DeckGUI.h"
+#include "CardButton.h"
 
 class GameViewController;
 class Game;
@@ -44,7 +45,7 @@ private:
 	Gtk::Frame handFrame;
 	Gtk::VBox playing_space;
 	Gtk::HBox players_controls;
-	Gtk::HBox player_hand;
+	Gtk::HButtonBox player_hand;
 	Gtk::HBox hpanels;      // Main window divided into two horizontal panels
 	Gtk::VBox vpanels;      // Vertical boxes for stacking buttons vertically
 	Gtk::Button start_button;
@@ -61,6 +62,7 @@ private:
 	void startButtonClicked();
 	void endButtonClicked();
 
+	vector<CardButton*> cards_;
 }; // View
 
 #endif

@@ -54,11 +54,12 @@ void Game::start() {
 
 // play method that handles everything during game play
 void Game::play() {
-
+	notify();
+	
 	//should UPDATE GameView on every turn
 
 	// Continue looping until loop is broken when the game is finished
-	while(true){
+	/*while(true){
 		int sumCards = 0;
 
 		map<Suit, vector<Card*> > cards = Player::playedCards();
@@ -81,7 +82,7 @@ void Game::play() {
 			_players.at(_currentPlayer-1)->print();
 
 			// Execute players turn and get back any commands that have been entered
-			Command command = _players.at(_currentPlayer-1)->doTurn();
+			//Command command = _players.at(_currentPlayer-1)->doTurn();
 
 
 			// execute command accordingly
@@ -92,7 +93,7 @@ void Game::play() {
 				_deck.print();
 			}
 			// Iterate player to next turn
-			else if (_currentPlayer == 4) {
+			if (_currentPlayer == 4) {
 				notify(); // View needs to update here after player has done turn
 				_currentPlayer = 1; 
 			} else {
@@ -104,7 +105,7 @@ void Game::play() {
 		}
 	}
 	// If the loop is broken it means all the cards have been played so finish the game
-	finishGame();
+	finishGame(); */
 }
 
 // rage quit method for human players
@@ -161,4 +162,8 @@ void Game::finishGame() {
 	} else {
 		cout << "Player " << lowestScorePlayer << " wins!" << endl;
 	}
+}
+
+vector<Card*> Game::getHand(){
+	return _players.at(_currentPlayer-1)->cards().hand();
 }
