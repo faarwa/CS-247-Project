@@ -6,6 +6,9 @@
 
 // default constructor
 Game::Game() {
+	for (int i = 1; i <= 4; i++) {
+		_players.push_back(new Player(i));
+	}
 }
 
 void Game::setPlayers(vector<string> playerTypes){

@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -g -Wall -MMD `pkg-config gtkmm-2.4 --cflags`
 LDFLAGS = `pkg-config gtkmm-2.4 --libs`
-OBJECTS = Card.o Command.o Deck.o Game.o Player.o HumanPlayer.o ComputerPlayer.o CardHand.o GameView.o GameViewController.o subject.o main.o DeckGUI.o GameDialogBox.o
+OBJECTS = Card.o Command.o Deck.o Game.o Player.o HumanPlayer.o ComputerPlayer.o CardHand.o GameView.o PlayerInfoView.o GameViewController.o subject.o main.o DeckGUI.o GameDialogBox.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = straights
 

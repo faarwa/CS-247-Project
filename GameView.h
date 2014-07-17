@@ -15,12 +15,13 @@
 
 #include <gtkmm.h>
 #include "observer.h"
-#include "Game.h"
 #include "DeckGUI.h"
+#include <vector>
+#include "PlayerInfoView.h"
 
 class GameViewController;
 class Game;
-
+class Player;
 
 class GameView : public Gtk::Window, public Observer {
 public:
@@ -57,9 +58,12 @@ private:
 	Gtk::HBox clubs;
 	Gtk::HBox diamonds;
 
+	vector <PlayerInfoView*> playerInfoFrames;
+
 	// Signal handlers:
 	void startButtonClicked();
 	void endButtonClicked();
+	void rageButtonClicked();
 
 }; // View
 
