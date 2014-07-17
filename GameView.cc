@@ -109,22 +109,13 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 		diamonds.add(*card);
 	}
 
-
-	// // Sets some properties of the window.
-	vector<string> playerTypes;
-	for(int i=0;i<4;i++){
-		GameDialogBox dialog( *this, "Is player " + convertInt(i+1) + " a human or a computer?" );
-		playerTypes.push_back(dialog.getInput());
-	}
-	m->setPlayers(playerTypes);
-
 	// Sets some properties of the window.
     set_title( "Straights" );
 	// // set_border_width( 300 );
 
 	// Associate button "clicked" events with local onButtonClicked() method defined below.
-	start_button.signal_clicked().connect( sigc::mem_fun( *this, &GameView::nextButtonClicked ) );
-	end_button.signal_clicked().connect( sigc::mem_fun( *this, &GameView::resetButtonClicked ) );
+	start_button.signal_clicked().connect( sigc::mem_fun( *this, &GameView::startButtonClicked ) );
+	end_button.signal_clicked().connect( sigc::mem_fun( *this, &GameView::endButtonClicked ) );
 	
 	
 	// The final step is to display the buttons (they display themselves)
@@ -152,10 +143,18 @@ void GameView::update() {
 // 	return Gdk::Pixbuf::create_from_file( "img/back_1.png" );
 // } // DeckGUI::getNullCardImage
 
-void GameView::nextButtonClicked() {
-  controller_->nextButtonClicked();
-} // View::nextButtonClicked
+void GameView::startButtonClicked() {
+	// // Sets players
+	vector<string> playerTypes;
+	for(int i=0;i<4;i++){
+		GameDialogBox dialog( *this, "Is player " + convertInt(i+1) + " a human or a computer?" );
+		playerTypes.push_back(dialog.getInput());
+	}
+	model_->setPlayers(playerTypes);
 
-void GameView::resetButtonClicked() {
-  controller_->resetButtonClicked();
-} // View::resetButtonClicked
+  	controller_->startButtonClicked();
+} 
+
+void GameView::endButtonClicked() {
+  controller_->endButtonClicked();
+} 

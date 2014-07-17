@@ -12,14 +12,16 @@
 
 #include "GameViewController.h"
 
-GameViewController::GameViewController(Game *g) : _game(g) {}
+GameViewController::GameViewController(Game *g) : _game(g) {
+	_game = g;
+}
 
 
-void GameViewController::nextButtonClicked() {
-     // model_->nextCard();
+void GameViewController::startButtonClicked() {
+     _game -> start();
 } 
 
 
-void GameViewController::resetButtonClicked() {
+void GameViewController::endButtonClicked() {
      // model_->resetCards();
 } 

@@ -58,8 +58,8 @@ private:
 	Gtk::HBox diamonds;
 
 	// Signal handlers:
-	void nextButtonClicked();
-	void resetButtonClicked();
+	void startButtonClicked();
+	void endButtonClicked();
 
 }; // View
 

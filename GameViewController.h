@@ -22,8 +22,8 @@
 class GameViewController {
 public:
    GameViewController( Game* );
-   void nextButtonClicked();
-   void resetButtonClicked();
+   void startButtonClicked();
+   void endButtonClicked();
 private:
    Game *_game;
 }; // Controller

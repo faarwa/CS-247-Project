@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
 	GameView view(&controller, game);
 
 	Gtk::Main::run( view );
-	game->start();
+	//game->start();
 
 	return 0;
 }
