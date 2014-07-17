@@ -170,7 +170,12 @@ vector<Card*> Game::getHand(){
 }
 
 void Game::playOrDiscard(Card *card){
-	//check if valid
-	//check if play or discard
-	cout << "hi" <<endl;
+	if(_players.at(_currentPlayer-1)->canPlay(card)){
+		_players.at(_currentPlayer-1)->play(*card);
+		notify();
+	}
+	else{
+		//_players.at(_currentPlayer-1)->discard(card);
+		cout << "discard" << endl;
+	}
 }

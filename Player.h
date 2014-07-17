@@ -35,6 +35,7 @@ public:
 	int discards() { return _discards; }											// accessor for num discards for the round
 	static map<Suit, vector<Card*> > playedCards() { return Player::cardsPlayed; }  // accessor for the static map of all cards played in the game
 	bool canRage() { return _canRage; }												// accessor for canRage boolean
+	virtual bool canPlay(Card *card){ return true; }
 protected:
 	bool _canRage;																	// protected data member - indicates whether player can ragequit (is comp or human)
 	CardHand _cards;																// protected data member - the hand of the player

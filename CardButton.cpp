@@ -19,7 +19,7 @@ void CardButton::updateFace(Card *card){
 void CardButton::setCardButton(Card *card){
 	Gtk::Image *image;
 	if(card == NULL){
-		image = new Gtk::Image(deck_.null());
+		image = new Gtk::Image(Gdk::Pixbuf::create_from_file("img/nothing.png"));
 	}
 	else{
 		image = new Gtk::Image(deck_.image(card->getRank(), card->getSuit()));
@@ -32,5 +32,3 @@ void CardButton::setCardButton(Card *card){
 Card* CardButton::getCard(){
 	return card_;
 }
-
-

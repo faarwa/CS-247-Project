@@ -40,14 +40,8 @@ void HumanPlayer::play(Card c) {
 		return;
 	}
 
-	vector<Card*> legalPlays = getLegalPlays();
 	_playedCard = card;
 
-	//checks if the card that the human player attempted to play is a legal play
-	if (find_if(legalPlays.begin(), legalPlays.end(), equalCards) == legalPlays.end()) {
-		//throws an exception if it is not a legal play
-		throw IllegalPlayException();
-	}
 
 	//inserts the played card into the proper spot for the static map used to keep track of all the cards played
 	if (!cardsPlayed.at(card->getSuit()).empty() && cardsPlayed.at(card->getSuit()).at(0)->getRank() > card->getRank()) {
@@ -58,7 +52,7 @@ void HumanPlayer::play(Card c) {
 		cardsPlayed.at(card->getSuit()).push_back(card);
 	}
 
-	cout << "Player " << playerNumber() << " plays " << c << "." << endl;
+	//cout << "Player " << playerNumber() << " plays " << c << "." << endl;
 
 	//removes the played card from the players hand
 	_cards.removeCard(card);
@@ -151,5 +145,20 @@ void HumanPlayer::print() const {
 	cout << "Legal plays: ";
 	printCards(getLegalPlays());
 	cout << endl;
+}
+
+bool HumanPlayer::canPlay(Card *card){
+	cout << *card << endl;
+	vector<Card*> legalPlays = getLegalPlays();
+	for(int i=0;i<legalPlays.size();i++) {
+		cout << *(legalPlays.at(i)) << endl;	
+	}
+	
+	for(int i = 0; i < legalPlays.size() ; i++) {
+		if(card->getSuit() == legalPlays.at(i)->getSuit() && card->getRank() == legalPlays.at(i)->getRank()){
+			return true;
+		}	
+	}
+	return false;
 }
 
