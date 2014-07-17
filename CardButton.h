@@ -15,6 +15,7 @@ public:
 	virtual ~CardButton();
 	void updateFace(Card *card);
 	void setCardButton(Card *card);
+	Card* getCard();
 	
 private:
 	DeckGUI deck_;

@@ -65,6 +65,7 @@ private:
 	void startButtonClicked();
 	void endButtonClicked();
 	void rageButtonClicked();
+	void cardClicked(int i);
 
 	vector<CardButton*> cards_;
 }; // View

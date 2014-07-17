@@ -125,6 +125,9 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	// Associate button "clicked" events with local onButtonClicked() method defined below.
 	start_button.signal_clicked().connect( sigc::mem_fun( *this, &GameView::startButtonClicked ) );
 	end_button.signal_clicked().connect( sigc::mem_fun( *this, &GameView::endButtonClicked ) );
+	for(int i=0; i < 13 ; i++){
+		cards_.at(i)->signal_clicked().connect(sigc::bind( sigc::mem_fun(*this, &GameView::cardClicked), i) );
+	}
 	
 	
 	// The final step is to display the buttons (they display themselves)
@@ -166,6 +169,11 @@ void GameView::startButtonClicked() {
 
   	controller_->startButtonClicked();
 } 
+
+void GameView::cardClicked(int i) {
+	Card *card = cards_.at(i)->getCard();
+	controller_->cardClicked(card);
+}
 
 void GameView::endButtonClicked() {
   controller_->endButtonClicked();

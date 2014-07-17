@@ -26,8 +26,11 @@ void CardButton::setCardButton(Card *card){
 		image = new Gtk::Image(deck_.image(TWO, SPADE));
 	}
 
-	std::cout << "HI" << std::endl;
 	this->set_image(*image);
+}
+
+Card* CardButton::getCard(){
+	return card_;
 }
 
 

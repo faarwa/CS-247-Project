@@ -168,3 +168,9 @@ void Game::finishGame() {
 vector<Card*> Game::getHand(){
 	return _players.at(_currentPlayer-1)->cards().hand();
 }
+
+void Game::playOrDiscard(Card *card){
+	//check if valid
+	//check if play or discard
+	cout << "hi" <<endl;
+}

@@ -25,3 +25,7 @@ void GameViewController::startButtonClicked() {
 void GameViewController::endButtonClicked() {
      // model_->resetCards();
 } 
+
+void GameViewController::cardClicked(Card *card){
+	_game -> playOrDiscard(card);
+}
