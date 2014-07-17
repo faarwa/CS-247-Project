@@ -11,8 +11,11 @@
 
 
 #include <set>
+#include <iostream>
 #include "subject.h"
 #include "observer.h"
+
+using namespace std;
 
 void Subject::subscribe (Observer *newView) {
     observers_.insert(newView);
@@ -26,6 +29,7 @@ void Subject::unsubscribe (Observer *formerView) {
 
 void Subject::notify() {
   Observers::iterator i;
-  for (i = observers_.begin(); i != observers_.end(); ++i)
-    (*i)->update();
+  for (i = observers_.begin(); i != observers_.end(); ++i) {
+  	(*i)->update();
+  }
 }

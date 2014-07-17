@@ -21,9 +21,10 @@ class GameView;
 
 class PlayerInfoView : public Gtk::Frame, public Observer {
 public:
-    PlayerInfoView( GameViewController*, Player* );
+    PlayerInfoView( GameViewController*);
 	virtual ~PlayerInfoView();
 	virtual void update();	// Observer Pattern: concrete update() method
+	void setPlayer(Player *player);
 private:
 	// Observer Pattern: to access Model accessors without having to downcast subject
 	Player *model_;

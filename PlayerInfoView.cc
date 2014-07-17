@@ -11,7 +11,7 @@ using namespace std;
 
 // Creates buttons with labels. Sets vpanels elements to have the same size, 
 // with 10 pixels between widgets
-PlayerInfoView::PlayerInfoView(GameViewController *c, Player *p) : model_(p), controller_(c), vpanel(true,10), rage("Rage"),
+PlayerInfoView::PlayerInfoView(GameViewController *c) : controller_(c), vpanel(true,10), rage("Rage"),
 	points("0 points") , discards("0 discards") {
 
 	rage.set_sensitive(false);
@@ -28,11 +28,16 @@ PlayerInfoView::PlayerInfoView(GameViewController *c, Player *p) : model_(p), co
 	show_all();
 
 	// Register view as observer of model
-	model_->subscribe(this);
 
 } // View::View
 
 PlayerInfoView::~PlayerInfoView() {}
+
+void PlayerInfoView::setPlayer(Player *player) {
+	model_ = player;
+	player->subscribe(this);
+	update();
+}
 
 
 void PlayerInfoView::update() {

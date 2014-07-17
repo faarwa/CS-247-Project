@@ -17,6 +17,8 @@
 #include "subject.h"
 #include "GameDialogBox.h"
 #include "CardButton.h"
+#include "ComputerPlayer.h"
+#include "HumanPlayer.h"
 #include <iostream>
 #include <string>
 
@@ -36,9 +38,8 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 
 	set_default_size(1000,700);
 
-	vector<Player*> players = model_->players();
 	for (int i = 0; i < 4; i++) {
-		playerInfoFrames.push_back(new PlayerInfoView(controller_, players.at(i)));
+		playerInfoFrames.push_back(new PlayerInfoView(controller_));
 	}
 
 	set_resizable(false);
@@ -144,11 +145,11 @@ GameView::~GameView() {}
 void GameView::update() {
   //update players hand
 	vector<Card*> newhand = model_->getHand();
-	for(int i=0; i < 13; i++){
-		if(i < newhand.size()){
+	for (int i = 0; i < 13; i++){
+		if (i < newhand.size()){
 			cards_.at(i)->updateFace(newhand.at(i));
 		}
-		else{
+		else {
 			cards_.at(i)->updateFace(NULL);
 		}
 	}
@@ -160,12 +161,32 @@ void GameView::update() {
 
 void GameView::startButtonClicked() {
 	// Sets players
-	vector<string> playerTypes;
-	for(int i=0;i<4;i++){
+	// vector<string> playerTypes;
+	vector<Player*> players;
+	for (int i = 0; i < 4; i++) {
 		GameDialogBox dialog( *this, "Is player " + convertInt(i+1) + " a human or a computer?" );
-		playerTypes.push_back(dialog.getInput());
+		// playerTypes.push_back(dialog.getInput());
+		if (dialog.getInput() == "h") {
+			players.push_back(new HumanPlayer(i+1));
+		}	
+		else {
+			players.push_back(new ComputerPlayer(i+1));
+		}
+		playerInfoFrames.at(i)->setPlayer(players.at(i));
 	}
-	model_->setPlayers(playerTypes);
+	// model_->setPlayers(playerTypes);
+
+	// for (int i = 0; i < 4; i++) {
+	// 	if (playerTypes.at(i) == "h") {
+	// 		players.push_back(new HumanPlayer(i+1));
+	// 	}	
+	// 	else {
+	// 		players.push_back(new ComputerPlayer(i+1));
+	// 	}
+	// 	playerInfoFrames.at(i)->setPlayer(players.at(i));
+	// }
+
+	model_->setPlayers(players);
 
   	controller_->startButtonClicked();
 } 
