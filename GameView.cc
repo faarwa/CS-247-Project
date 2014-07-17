@@ -155,10 +155,6 @@ void GameView::update() {
 	}
 }
 
-// Glib::RefPtr<Gdk::Pixbuf> null() {
-// 	return Gdk::Pixbuf::create_from_file( "img/back_1.png" );
-// } // DeckGUI::getNullCardImage
-
 void GameView::startButtonClicked() {
 	// Sets players
 	// vector<string> playerTypes;
@@ -174,17 +170,6 @@ void GameView::startButtonClicked() {
 		}
 		playerInfoFrames.at(i)->setPlayer(players.at(i));
 	}
-	// model_->setPlayers(playerTypes);
-
-	// for (int i = 0; i < 4; i++) {
-	// 	if (playerTypes.at(i) == "h") {
-	// 		players.push_back(new HumanPlayer(i+1));
-	// 	}	
-	// 	else {
-	// 		players.push_back(new ComputerPlayer(i+1));
-	// 	}
-	// 	playerInfoFrames.at(i)->setPlayer(players.at(i));
-	// }
 
 	model_->setPlayers(players);
 
