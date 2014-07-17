@@ -14,6 +14,7 @@ using namespace std;
 PlayerInfoView::PlayerInfoView(GameViewController *c, Player *p) : model_(p), controller_(c), vpanel(true,10), rage("Rage"),
 	points("0 points") , discards("0 discards") {
 
+	rage.set_sensitive(false);
 	vpanel.add(rage);
 	vpanel.add(points);
 	vpanel.add(discards);

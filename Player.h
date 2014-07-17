@@ -34,7 +34,9 @@ public:
 	void printDiscards(); 															// method to print a list of discarded cards
 	int discards() { return _discards; }											// accessor for num discards for the round
 	static map<Suit, vector<Card*> > playedCards() { return Player::cardsPlayed; }  // accessor for the static map of all cards played in the game
+	bool canRage() { return _canRage; }												// accessor for canRage boolean
 protected:
+	bool _canRage;																	// protected data member - indicates whether player can ragequit (is comp or human)
 	CardHand _cards;																// protected data member - the hand of the player
 	int _playerNumber;																// protected data member - the player's number (1-4)
 	vector<Card*> _discardedCards;													// protected data member - a vector of cards that the player has discarded

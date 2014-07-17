@@ -7,7 +7,7 @@
 // Subclass of Player
 class ComputerPlayer : public Player {
 public:
-	ComputerPlayer(int playerNumber) : Player(playerNumber) {}	// Constructor that constructs a computer player with a player number
+	ComputerPlayer(int playerNumber) : Player(playerNumber) { _canRage = true; }	// Constructor that constructs a computer player with a player number
 	ComputerPlayer(Player &player) : Player(player) {}			// Copy constructor that constructs a player with another player
 	void play(Card card);										// Overridden method for play
 	void print() const {}										// Overridden method to print lines (empty for computer)
