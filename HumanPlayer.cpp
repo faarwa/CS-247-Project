@@ -122,6 +122,9 @@ void HumanPlayer::discard(Card c) {
 	_discardedCards.push_back(card);
 	//removes the card from the player's hand
 	_cards.removeCard(card);
+	_discards++;
+	_score += c.getRank()+1;
+	Player::discard(c);
 }
 
 //member function - prints all of the game and card information required for the beginning of a human player's turn
