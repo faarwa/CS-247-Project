@@ -1,6 +1,8 @@
 
 *.d
-
+*.h~
+*.cpp~
+*.cc~
 *.o
 
 straights
