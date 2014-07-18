@@ -157,10 +157,14 @@ GameView::~GameView() {}
 
 
 void GameView::update() {
+	cout << "this should get called sometime yo" << endl;
+	playerInfoFrames.at(model_->currentPlayer()-1)->setPlayer(model_->getCurrentPlayer());
+	cout << "but does it yo" << endl;
 	//update players hand
 	vector<Card*> newhand = model_->getHand();
-
-	for (int i = 0; i < 13; i++){
+	cout << "gonna update yo" << endl;
+	for (int i = 0; i < 13; i++) {
+		cout << "updating yo" << endl;
 		if (i < newhand.size()){
 			cards_.at(i)->updateFace(newhand.at(i));
 		}
@@ -184,36 +188,43 @@ void GameView::update() {
 	for(int i=0 ; i < cards.at(SPADE).size() ; i++){
 		cardsPlayed_.at(SPADE).at(i)->updateFace(cards.at(SPADE).at(i));
 	}
-
 }
 
 void GameView::startButtonClicked() {
 	// Sets players
-	// vector<string> playerTypes;
 	vector<Player*> players;
 	for (int i = 0; i < 4; i++) {
 		GameDialogBox dialog( *this, "Is player " + convertInt(i+1) + " a human or a computer?" );
-		// playerTypes.push_back(dialog.getInput());
 		if (dialog.getInput() == "h") {
 			players.push_back(new HumanPlayer(i+1));
 		}	
 		else {
 			players.push_back(new ComputerPlayer(i+1));
 		}
-		playerInfoFrames.at(i)->setPlayer(players.at(i));
 	}
 
 	model_->setPlayers(players);
 	start_button.set_sensitive(false);
 	end_button.set_sensitive(true);
+	cout << "fuck you" << endl;
   	controller_->startButtonClicked();
+  	cout << "fiojsdkfbnm" << endl;
+  	for (int i = 0; i < 4; i++) {
+  		playerInfoFrames.at(i)->setPlayer(players.at(i));
+  	}
 } 
 
 void GameView::cardClicked(int i) {
 	Card *card = cards_.at(i)->getCard();
-	controller_->cardClicked(card);
+	try {
+		controller_->cardClicked(card);
+	} catch (HumanPlayer::IllegalDiscardException &e) {
+		cout << "an exception yo" << endl;
+	}
 }
 
 void GameView::endButtonClicked() {
+	start_button.set_sensitive(true);
   	controller_->endButtonClicked();
+  	end_button.set_sensitive(false);
 } 

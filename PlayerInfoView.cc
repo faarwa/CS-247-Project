@@ -40,20 +40,25 @@ void PlayerInfoView::setPlayer(Player *player) {
 
 
 void PlayerInfoView::update() {
-	int pointsNum = _player->score();
-	int discardsNum = _player->discards();
-	ostringstream s1;
-	s1 << pointsNum << " points" << endl;
-	ostringstream s2;
-	s2 << discardsNum << " discards" << endl;
+	cout << "sup" << endl;
+	
+	if (_player != NULL) {
+		int pointsNum = _player->score();
+		int discardsNum = _player->discards();
+		ostringstream s1;
+		s1 << pointsNum << " points" << endl;
+		ostringstream s2;
+		s2 << discardsNum << " discards" << endl;
 
-	points.set_label(s1.str());
-	discards.set_label(s2.str());
-	// if (model_->currentPlayer() == _player) {
-	// 	cout << "yo" << endl;
-	// 	rage.set_sensitive(_player->canRage());
-	// }
-	rage.set_sensitive(true);
+		points.set_label(s1.str());
+		discards.set_label(s2.str());
+	}
+
+	if (model_->getCurrentPlayer() == _player && _player->canRage()) {
+		rage.set_sensitive(true);
+	} else {
+		rage.set_sensitive(false);
+	}
 }
 
 void PlayerInfoView::rageButtonClicked() {

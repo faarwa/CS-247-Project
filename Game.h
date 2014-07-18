@@ -23,7 +23,7 @@ public:
 	void playOrDiscard(Card *card);
 	Player* getCurrentPlayer();
 	int currentPlayer() { return _currentPlayer; }
-
+	void resetCards();
 private:
 	Deck _deck;							// private data member - deck for the game
 	vector<Player*> _players;			// vector of all the players (abstract, can be human or computer)

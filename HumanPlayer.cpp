@@ -118,6 +118,7 @@ void HumanPlayer::discard(Card c) {
 	_cards.removeCard(card);
 	_discards++;
 	_score += c.getRank()+1;
+	cout << "did it discard yo" << endl;
 	Player::discard(c);
 }
 

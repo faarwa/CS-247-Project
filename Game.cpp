@@ -108,11 +108,16 @@ void Game::ragequit(){
 	// Construct a new computer player using the copy constructor with the human player's info and execute turn 
 	Player *newPlayer = new ComputerPlayer(*_players.at(_currentPlayer-1));
 	_players.at(_currentPlayer-1) = newPlayer;
-	newPlayer->doTurn();
+	try {
+		playOrDiscard(new Card(SPADE, TWO));
+	} catch (HumanPlayer::IllegalDiscardException &e) {
+		cout << "this exception shouldnt happen yo" << endl;
+	}
 }
 
 // finish game by calculating score and starting a new round if no one has 80 points
 void Game::finishGame() {
+	cout << "FINISH" << endl;
 	cout << endl;
 	bool gameOver = false;
 	int lowestScorePlayer = 1; // keep track of who has the lowest score (winner)
@@ -122,13 +127,6 @@ void Game::finishGame() {
 	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
 		cout << "Player " << (*it)->playerNumber() << "'s discards: ";
 		vector<Card*> discards = (*it)->discardedCards();
-		for (vector<Card*>::iterator it = discards.begin(); it != discards.end(); it++) {
-			if (it != discards.begin()) {
-				cout << " ";
-			}
-			cout << *(*it);
-		}
-		cout << endl;
 		// Calculate score and output it
 		cout << "Player " << (*it)->playerNumber() << "'s score: ";
 		cout << (*it)->score() << " + " << (*it)->gameScore() << " = ";
@@ -148,6 +146,8 @@ void Game::finishGame() {
 			lowestScorePlayer = (*it)->playerNumber();
 			lowestScore = (*it)->score();
 		}
+
+		(*it)->setDiscards(0);
 	}
 
 	// if the game isnt over yet, start a new round, otherwise output the winner and finish
@@ -167,13 +167,66 @@ void Game::playOrDiscard(Card *card){
 		_players.at(_currentPlayer-1)->play(*card);
 		notify();
 	}
-	else{
-		//_players.at(_currentPlayer-1)->discard(card);
+	else {
+		cout << "gonna discard yo" << endl;
+		_players.at(_currentPlayer-1)->discard(*card);
+		cout << "discarded" << endl;
+		notify();
 	}
+
 	if (_currentPlayer == 4) {
 		_currentPlayer = 1;
 	} else {
 		_currentPlayer++;
+	}
+
+	notify();
+
+	int sumCards = 0;
+	bool roundOver = false;
+
+	map<Suit, vector<Card*> > cards = Player::playedCards();
+
+	// Get the number of cards that have been played and add to sum
+	for (map<Suit, vector<Card*> >::iterator it = cards.begin(); it != cards.end(); it++) {
+		sumCards += (*it).second.size();
+	}
+
+	// Get the number of cards that have been discarded and add to sum
+	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
+		sumCards += (*it)->discardedCards().size();
+	}
+
+	if (sumCards >= 52) {
+		roundOver = true;
+	}
+
+	while (!_players.at(_currentPlayer-1)->canRage() && !roundOver) {
+		notify();
+		_players.at(_currentPlayer-1)->play(*card);
+		if (_currentPlayer == 4) {
+			_currentPlayer = 1;
+		} else {
+			_currentPlayer++;
+		}
+		notify();
+		sumCards++;
+		if (sumCards >= 52) {
+			roundOver;
+		}
+	}
+
+	notify();
+
+	if (roundOver) {
+		finishGame();
+		notify();
+	}
+}
+
+void Game::resetCards() {
+	for (map<Suit, vector<Card*> >::iterator it = Player::playedCards().begin(); it != Player::playedCards().end(); it++) {
+		(*it).second.clear();
 	}
 	notify();
 }

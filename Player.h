@@ -33,6 +33,7 @@ public:
 	// void incrementScore(int score) { _score += score; } 							// mutator for the player's score, updates it with a new score
 	void printDiscards(); 															// method to print a list of discarded cards
 	int discards() { return _discards; }											// accessor for num discards for the round
+	void setDiscards(int discards) {_discards = discards; }
 	static map<Suit, vector<Card*> > playedCards() { return Player::cardsPlayed; }  // accessor for the static map of all cards played in the game
 	bool canRage() { return _canRage; }												// accessor for canRage boolean
 	virtual bool canPlay(Card *card){ return true; }

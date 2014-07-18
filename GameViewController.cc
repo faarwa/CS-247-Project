@@ -18,12 +18,12 @@ GameViewController::GameViewController(Game *g) : _game(g) {
 
 
 void GameViewController::startButtonClicked() {
-     _game -> start();
+    _game->start();
 } 
 
 
 void GameViewController::endButtonClicked() {
-     // model_->resetCards();
+    // _game->resetCards();
 } 
 
 void GameViewController::rageButtonClicked() {
