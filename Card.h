@@ -3,14 +3,13 @@
 
 #include <ostream>
 #include <istream>
-#include "subject.h"
 
 enum Suit { CLUB, DIAMOND, HEART, SPADE, SUIT_COUNT };
 enum Rank { ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
 			EIGHT, NINE, TEN, JACK, QUEEN, KING, RANK_COUNT, NOFACE };
 // enum Faces { NINE, TEN, JACK, QUEEN, KING, ACE, NOFACE };
 
-class Card : public Subject {
+class Card {
 	friend std::istream &operator>>(std::istream &, Card &);
 
 public:

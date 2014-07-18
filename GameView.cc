@@ -157,14 +157,10 @@ GameView::~GameView() {}
 
 
 void GameView::update() {
-	cout << "this should get called sometime yo" << endl;
 	playerInfoFrames.at(model_->currentPlayer()-1)->setPlayer(model_->getCurrentPlayer());
-	cout << "but does it yo" << endl;
 	//update players hand
 	vector<Card*> newhand = model_->getHand();
-	cout << "gonna update yo" << endl;
 	for (int i = 0; i < 13; i++) {
-		cout << "updating yo" << endl;
 		if (i < newhand.size()){
 			cards_.at(i)->updateFace(newhand.at(i));
 		}

@@ -55,7 +55,7 @@ void HumanPlayer::play(Card c) {
 	//cout << "Player " << playerNumber() << " plays " << c << "." << endl;
 
 	//removes the played card from the players hand
-	_cards.removeCard(card);
+	_cards->removeCard(card);
 }
 
 //member function - this is called when a player has to do a turn
@@ -115,7 +115,7 @@ void HumanPlayer::discard(Card c) {
 	//adds the card to the discarded cards for the player
 	_discardedCards.push_back(card);
 	//removes the card from the player's hand
-	_cards.removeCard(card);
+	_cards->removeCard(card);
 	_discards++;
 	_score += c.getRank()+1;
 	cout << "did it discard yo" << endl;
@@ -140,7 +140,7 @@ void HumanPlayer::print() const {
 	cout << endl;
 
 	cout << "Your hand: ";
-	printCards(_cards.hand());
+	printCards(_cards->hand());
 	cout << endl;	
 
 	cout << "Legal plays: ";

@@ -13,16 +13,21 @@ Player::Player(int playerNumber) {
 	_playerNumber = playerNumber;
 	_score = 0;
 	_discards = 0;
+	_cards = new CardHand();
 }
 
 void Player::discard(Card card) {
 	notify();
 }
 
+void Player::setCards(vector<Card*> cards) {
+	_cards = new CardHand(cards);
+}
+
 // member function - copy constructor that constructs a new player, given a player
 Player::Player(Player &player) {
 	_playerNumber = player.playerNumber();
-	_cards = player.cards();
+	setCards(player.cards()->hand());
 	_discardedCards = player.discardedCards();
 	_score = player.score();
 	_discards = player.discards();
@@ -42,14 +47,13 @@ Player::~Player() {
 // member function - clears the hand and discarded cards of a player (for a new round)
 void Player::newHand() {
 	_discardedCards.clear();
-	_cards.hand().clear();
 }
 
 // member function - returns the legal plays for a player's turn based on their hand and the map of cardsPlayed
 vector<Card*> Player::getLegalPlays() const {
 	vector<Card*> legalPlays;
 
-	return _cards.legalPlays(cardsPlayed);
+	return _cards->legalPlays(cardsPlayed);
 }
 
 // member function - calculates the score based on the cards in the player's discarded cards
@@ -60,4 +64,12 @@ int Player::gameScore(){
 	}
 
 	return score;
+}
+
+void Player::print() {
+	cout << "_canRage: " << _canRage << endl;
+	_cards->print();
+	cout << "_playerNumber: " << _playerNumber << endl;
+	cout << "_score: " << _score << endl;
+	cout << "_discards: " << _discards << endl;
 }

@@ -12,8 +12,14 @@ bool isCard7S(Card *c) {
 }
 
 // Constructs the card hand with a vector of Cards
-CardHand::CardHand(const vector<Card*> cards) {
-	_cards = cards;
+CardHand::CardHand(vector<Card*> cards) {
+	for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++) {
+		_cards.push_back(*it);
+	}
+}
+
+CardHand::~CardHand() {
+	_cards.clear();
 }
 
 // member function - returns whether the hand has the 7 of spades
@@ -24,6 +30,14 @@ bool CardHand::has7S() const {
 	}
 
 	return true;
+}
+
+vector<Card*> CardHand::hand() {
+	vector<Card*> c;
+	for (vector<Card*>::iterator it = _cards.begin(); it != _cards.end(); it++) {
+		c.push_back(*it);
+	}
+	return c;
 }
 
 // Unary predicate for find iterator ; checks whether two pointers to Cards are equal
@@ -73,4 +87,10 @@ vector<Card*> CardHand::legalPlays(map<Suit, vector<Card*> > cardsPlayed) const 
 	}
 
 	return legalPlays;
+}
+
+void CardHand::print() {
+	for (vector<Card*>::iterator it = _cards.begin(); it != _cards.end(); it++) {
+		cout << "Card " << **it << endl;
+	}
 }

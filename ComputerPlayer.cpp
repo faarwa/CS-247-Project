@@ -14,14 +14,25 @@ Command ComputerPlayer::doTurn() {
 void ComputerPlayer::play(Card card) {
 	// get the legal plays that computer player can do
 	vector<Card*> validCardsToPlay = getLegalPlays();
+	cout << "these are valid yo" << endl;
+	for (vector<Card*>::iterator it3 = validCardsToPlay.begin(); it3 != validCardsToPlay.end(); it3++) {
+		cout << *(*it3) << endl;
+	}
 
 	Card *deleteCard = NULL;
 
 	//Iterate hand to find the first legal play and play that card 
 	//Return immediately
-	for (vector<Card*>::iterator it = _cards.hand().begin(); it != _cards.hand().end(); it++) {
+	cout << "THIS BE OUR CARD YO" << *_cards->hand().at(0) << endl;
+	vector<Card*> c = _cards->hand();
+	for (vector<Card*>::iterator it = c.begin(); it != c.end(); it++) {
+		cout << *(*it) << endl;
 		for (vector<Card*>::iterator it2 = validCardsToPlay.begin(); it2 != validCardsToPlay.end(); it2++) {
-			if (**it == **it2) {
+			// if (*it == NULL) {
+				// Player::print();
+			// }
+
+			if (*(*it) == *(*it2)) {
 				deleteCard = *it;
 				cout << endl << "Player " << playerNumber() << " plays " << **it << endl;
 
@@ -33,7 +44,7 @@ void ComputerPlayer::play(Card card) {
 					//otherwise, puts the played card at the back of the vector
 					cardsPlayed.at(deleteCard->getSuit()).push_back(deleteCard);
 				}
-				_cards.removeCard(deleteCard);
+				_cards->removeCard(deleteCard);
 
 				return;
 			} 
@@ -42,21 +53,21 @@ void ComputerPlayer::play(Card card) {
 
 	// If the function reaches here, there are no legal plays, so discard the first card in the hand
 	if (!deleteCard) {
-		cout << endl << "Player " << playerNumber() << " discards " << *_cards.hand().at(0) << endl;
-		discard(*_cards.hand().at(0));
+		cout << endl << "Player " << playerNumber() << " discards " << *_cards->hand().at(0) << endl;
+		discard(*_cards->hand().at(0));
 	}
 }
 
 // member function - discards a card from the hand 
 void ComputerPlayer::discard(Card c) {
 	Card *card = new Card(c.getSuit(), c.getRank());
-	vector<Card*> playerHand = cards().hand();
+	vector<Card*> playerHand = cards()->hand();
 
 	// Iterate the hand and call card hand to remove the card once it's found
 	for(int i=0;i<playerHand.size();i++){
 		if(*playerHand.at(i) == c){
 			_discardedCards.push_back(card);
-			_cards.removeCard(card);
+			_cards->removeCard(card);
 			break;
 		}
 	}

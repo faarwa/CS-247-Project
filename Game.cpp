@@ -26,6 +26,7 @@ void Game::shuffleAndDeal() {
 			cards.push_back(_deck.cards().at(j));
 		}
 		(*it)->setCards(cards);
+		cout << (((*it)->cards())->hand()).size() << endl;
 		cardIndex += 13;
 	}
 }
@@ -36,7 +37,7 @@ void Game::start() {
 
 	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
 	for (int i = 0; i < _players.size(); i++) {
-		if (_players.at(i)->cards().has7S()) {
+		if (_players.at(i)->cards()->has7S()) {
 			_currentPlayer = i+1;
 			break;
 		}
@@ -106,8 +107,9 @@ void Game::play() {
 }
 
 // rage quit method for human players
-void Game::ragequit(){
-	cout << "Player " << _currentPlayer << " ragequits.  A computer will now take over.";
+void Game::ragequit() {
+	cout << "WHAT" << endl;
+	cout << "Player " << _currentPlayer << " ragequits.  A computer will now take over." << endl;
 	// Construct a new computer player using the copy constructor with the human player's info and execute turn 
 	Player *newPlayer = new ComputerPlayer(*_players.at(_currentPlayer-1));
 	_players.at(_currentPlayer-1) = newPlayer;
@@ -163,7 +165,7 @@ void Game::finishGame() {
 }
 
 vector<Card*> Game::getHand(){
-	return _players.at(_currentPlayer-1)->cards().hand();
+	return _players.at(_currentPlayer-1)->cards()->hand();
 }
 
 void Game::playOrDiscard(Card *card){
