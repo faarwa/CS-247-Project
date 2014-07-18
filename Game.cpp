@@ -113,6 +113,7 @@ void Game::ragequit(){
 	} catch (HumanPlayer::IllegalDiscardException &e) {
 		cout << "this exception shouldnt happen yo" << endl;
 	}
+	notify();
 }
 
 // finish game by calculating score and starting a new round if no one has 80 points
