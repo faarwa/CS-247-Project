@@ -11,7 +11,7 @@ using namespace std;
 class Game : public Subject {
 public:
 	Game();								// default constructor
-	void setPlayers(vector<string> playerTypes);
+	void setPlayers(vector<Player*> players);
 	void start();						// start the game
 	void play();						// plays the game
 	void shuffleAndDeal();				// shuffle the deck and deal the cards to the player
@@ -22,6 +22,7 @@ public:
 	vector<Player*> players() { return _players; }			// accessor - returns vector of players
 	void playOrDiscard(Card *card);
 	Player* getCurrentPlayer();
+	int currentPlayer() { return _currentPlayer; }
 
 private:
 	Deck _deck;							// private data member - deck for the game

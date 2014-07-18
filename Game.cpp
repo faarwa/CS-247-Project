@@ -11,15 +11,8 @@ Game::Game() {
 	}
 }
 
-void Game::setPlayers(vector<string> playerTypes){
-	for(int i=0;i<4;i++){
-		if(playerTypes.at(i) =="h"){
-			_players.at(i) = new HumanPlayer(i+1);
-		}
-		else{
-			_players.at(i) = new ComputerPlayer(i+1);
-		}
-	}
+void Game::setPlayers(vector<Player*> players){
+	_players = players;
 }
 
 // Shuffle the deck using deck's shuffle method and deal the cards to players

@@ -65,7 +65,6 @@ private:
 	// Signal handlers:
 	void startButtonClicked();
 	void endButtonClicked();
-	void rageButtonClicked();
 	void cardClicked(int i);
 
 	vector<CardButton*> cards_;

@@ -18,11 +18,14 @@
 #include "GameDialogBox.h"
 #include "CardButton.h"
 #include "TableCard.h"
+#include "ComputerPlayer.h"
+#include "HumanPlayer.h"
 #include <iostream>
 #include <string>
 #include <map>
 
 using namespace std;
+
 
 std::string convertInt(int num){
 	std::stringstream ss;
@@ -38,9 +41,8 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 
 	set_default_size(1000,700);
 
-	vector<Player*> players = model_->players();
 	for (int i = 0; i < 4; i++) {
-		playerInfoFrames.push_back(new PlayerInfoView(controller_, players.at(i)));
+		playerInfoFrames.push_back(new PlayerInfoView(controller_, model_));
 	}
 
 	set_resizable(false);
@@ -51,6 +53,7 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 
 	start_button.set_label( "Start new game with seed" );
 	end_button.set_label( "End current game" );
+	end_button.set_sensitive(false);
 
 	menu.set_homogeneous(true);
 	menu.set_spacing(10);
@@ -156,11 +159,12 @@ GameView::~GameView() {}
 void GameView::update() {
 	//update players hand
 	vector<Card*> newhand = model_->getHand();
-	for(int i=0; i < 13; i++){
-		if(i < newhand.size()){
+
+	for (int i = 0; i < 13; i++){
+		if (i < newhand.size()){
 			cards_.at(i)->updateFace(newhand.at(i));
 		}
-		else{
+		else {
 			cards_.at(i)->updateFace(NULL);
 		}
 	}
@@ -180,21 +184,28 @@ void GameView::update() {
 	for(int i=0 ; i < cards.at(SPADE).size() ; i++){
 		cardsPlayed_.at(SPADE).at(i)->updateFace(cards.at(SPADE).at(i));
 	}
-}
 
-// Glib::RefPtr<Gdk::Pixbuf> null() {
-// 	return Gdk::Pixbuf::create_from_file( "img/back_1.png" );
-// } // DeckGUI::getNullCardImage
+}
 
 void GameView::startButtonClicked() {
 	// Sets players
-	vector<string> playerTypes;
-	for(int i=0;i<4;i++){
+	// vector<string> playerTypes;
+	vector<Player*> players;
+	for (int i = 0; i < 4; i++) {
 		GameDialogBox dialog( *this, "Is player " + convertInt(i+1) + " a human or a computer?" );
-		playerTypes.push_back(dialog.getInput());
+		// playerTypes.push_back(dialog.getInput());
+		if (dialog.getInput() == "h") {
+			players.push_back(new HumanPlayer(i+1));
+		}	
+		else {
+			players.push_back(new ComputerPlayer(i+1));
+		}
+		playerInfoFrames.at(i)->setPlayer(players.at(i));
 	}
-	model_->setPlayers(playerTypes);
 
+	model_->setPlayers(players);
+	start_button.set_sensitive(false);
+	end_button.set_sensitive(true);
   	controller_->startButtonClicked();
 } 
 
@@ -204,9 +215,5 @@ void GameView::cardClicked(int i) {
 }
 
 void GameView::endButtonClicked() {
-  controller_->endButtonClicked();
+  	controller_->endButtonClicked();
 } 
-
-void GameView::rageButtonClicked() {
-
-}

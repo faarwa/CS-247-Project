@@ -9,7 +9,7 @@
 //Subclass of Player
 class HumanPlayer : public Player {
 public:
-	HumanPlayer(int playerNumber) : Player(playerNumber) { _canRage = false; } //Constructor that constructs a human player with a player number
+	HumanPlayer(int playerNumber) : Player(playerNumber) { _canRage = true; } //Constructor that constructs a human player with a player number
 	void play(Card c); 										// Overridden method for play
 	void print() const; 									// Overridden method to print lines
 	void discard(Card c); 									// Overridden method to discard a card
