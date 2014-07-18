@@ -21,8 +21,10 @@
 #include "HumanPlayer.h"
 #include <iostream>
 #include <string>
+#include <map>
 
 using namespace std;
+
 
 std::string convertInt(int num){
 	std::stringstream ss;
@@ -39,7 +41,7 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	set_default_size(1000,700);
 
 	for (int i = 0; i < 4; i++) {
-		playerInfoFrames.push_back(new PlayerInfoView(controller_));
+		playerInfoFrames.push_back(new PlayerInfoView(controller_, model_));
 	}
 
 	set_resizable(false);
@@ -50,6 +52,7 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 
 	start_button.set_label( "Start new game with seed" );
 	end_button.set_label( "End current game" );
+	end_button.set_sensitive(false);
 
 	menu.set_homogeneous(true);
 	menu.set_spacing(10);
@@ -145,6 +148,7 @@ GameView::~GameView() {}
 void GameView::update() {
   //update players hand
 	vector<Card*> newhand = model_->getHand();
+
 	for (int i = 0; i < 13; i++){
 		if (i < newhand.size()){
 			cards_.at(i)->updateFace(newhand.at(i));
@@ -153,6 +157,7 @@ void GameView::update() {
 			cards_.at(i)->updateFace(NULL);
 		}
 	}
+
 }
 
 void GameView::startButtonClicked() {
@@ -172,7 +177,8 @@ void GameView::startButtonClicked() {
 	}
 
 	model_->setPlayers(players);
-
+	start_button.set_sensitive(false);
+	end_button.set_sensitive(true);
   	controller_->startButtonClicked();
 } 
 
@@ -182,9 +188,5 @@ void GameView::cardClicked(int i) {
 }
 
 void GameView::endButtonClicked() {
-  controller_->endButtonClicked();
+  	controller_->endButtonClicked();
 } 
-
-void GameView::rageButtonClicked() {
-
-}

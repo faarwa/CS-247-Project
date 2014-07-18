@@ -24,6 +24,7 @@ public:
    GameViewController( Game* );
    void startButtonClicked();
    void endButtonClicked();
+   void rageButtonClicked();
    void cardClicked(Card *card);
 private:
    Game *_game;
