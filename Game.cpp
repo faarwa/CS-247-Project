@@ -169,7 +169,6 @@ void Game::playOrDiscard(Card *card){
 	}
 	else{
 		//_players.at(_currentPlayer-1)->discard(card);
-		cout << "discard" << endl;
 	}
 }
 

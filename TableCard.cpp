@@ -18,7 +18,7 @@ void TableCard::updateFace(Card *card){
 
 void TableCard::setTableCard(Card *card){
 	if(card==NULL){
-		this->set(deck_.null());
+		this->set(Gdk::Pixbuf::create_from_file("img/nothing.png"));
 	}
 	else{
 		this->set(deck_.image(card->getRank(), card->getSuit()));
