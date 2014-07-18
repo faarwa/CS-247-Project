@@ -33,6 +33,7 @@ void Game::shuffleAndDeal() {
 
 // Start the game by shuffling the deck and dealing
 void Game::start() {
+
 	shuffleAndDeal();
 
 	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
@@ -108,7 +109,6 @@ void Game::play() {
 
 // rage quit method for human players
 void Game::ragequit() {
-	cout << "WHAT" << endl;
 	cout << "Player " << _currentPlayer << " ragequits.  A computer will now take over." << endl;
 	// Construct a new computer player using the copy constructor with the human player's info and execute turn 
 	Player *newPlayer = new ComputerPlayer(*_players.at(_currentPlayer-1));
@@ -191,11 +191,11 @@ void Game::playOrDiscard(Card *card){
 	int sumCards = 0;
 	bool roundOver = false;
 
-	map<Suit, vector<Card*> > cards = Player::playedCards();
+	map<Suit, vector<Card*>* > cards = Player::playedCards();
 
 	// Get the number of cards that have been played and add to sum
-	for (map<Suit, vector<Card*> >::iterator it = cards.begin(); it != cards.end(); it++) {
-		sumCards += (*it).second.size();
+	for (map<Suit, vector<Card*>* >::iterator it = cards.begin(); it != cards.end(); it++) {
+		sumCards += (*it).second->size();
 	}
 
 	// Get the number of cards that have been discarded and add to sum
@@ -217,8 +217,9 @@ void Game::playOrDiscard(Card *card){
 		}
 		notify();
 		sumCards++;
+		cout << "sumCards " << sumCards << endl; 
 		if (sumCards >= 52) {
-			roundOver;
+			roundOver = true;
 		}
 	}
 
@@ -231,8 +232,8 @@ void Game::playOrDiscard(Card *card){
 }
 
 void Game::resetCards() {
-	for (map<Suit, vector<Card*> >::iterator it = Player::playedCards().begin(); it != Player::playedCards().end(); it++) {
-		(*it).second.clear();
+	for (map<Suit, vector<Card*>* >::iterator it = Player::playedCards().begin(); it != Player::playedCards().end(); it++) {
+		(*it).second->clear();
 	}
 	notify();
 }

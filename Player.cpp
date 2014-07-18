@@ -1,15 +1,14 @@
 #include "Player.h"
 
 // static map of all cards played in the game
-map<Suit, vector<Card*> > Player::cardsPlayed;
+map<Suit, vector<Card*>* > Player::cardsPlayed;
 
 // member function - constructor that constructs a player with a number, intializes their score to zero, and their cards played to empty vectors
 Player::Player(int playerNumber) {
-	vector<Card*> suitCards;
-	cardsPlayed[SPADE] = suitCards;
-	cardsPlayed[CLUB] = suitCards;
-	cardsPlayed[HEART] = suitCards;
-	cardsPlayed[DIAMOND] = suitCards;
+	cardsPlayed[SPADE] = new vector<Card*>();
+	cardsPlayed[CLUB] = new vector<Card*>();
+	cardsPlayed[HEART] = new vector<Card*>();
+	cardsPlayed[DIAMOND] = new vector<Card*>();
 	_playerNumber = playerNumber;
 	_score = 0;
 	_discards = 0;
@@ -36,9 +35,9 @@ Player::Player(Player &player) {
 // member function - destructor
 Player::~Player() {
 	// deletes all Card* from the cardsPlayed map
-	for (map<Suit, vector<Card*> >::iterator it = cardsPlayed.begin(); it != cardsPlayed.end(); it++) {
-		vector<Card*> suitCards = (*it).second;
-		for (vector<Card*>::iterator it2 = suitCards.begin(); it2 != suitCards.end(); it2++) {
+	for (map<Suit, vector<Card*>* >::iterator it = cardsPlayed.begin(); it != cardsPlayed.end(); it++) {
+		vector<Card*>* suitCards = (*it).second;
+		for (vector<Card*>::iterator it2 = suitCards->begin(); it2 != suitCards->end(); it2++) {
 			delete (*it2);
 		}
 	}

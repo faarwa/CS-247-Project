@@ -34,7 +34,7 @@ public:
 	void printDiscards(); 															// method to print a list of discarded cards
 	int discards() { return _discards; }											// accessor for num discards for the round
 	void setDiscards(int discards) {_discards = discards; }
-	static map<Suit, vector<Card*> > playedCards() { return Player::cardsPlayed; }  // accessor for the static map of all cards played in the game
+	static map<Suit, vector<Card*>* > playedCards() { return Player::cardsPlayed; }  // accessor for the static map of all cards played in the game
 	bool canRage() { return _canRage; }												// accessor for canRage boolean
 	virtual bool canPlay(Card *card){ return true; }
 	void print();
@@ -44,7 +44,7 @@ protected:
 	int _playerNumber;																// protected data member - the player's number (1-4)
 	vector<Card*> _discardedCards;													// protected data member - a vector of cards that the player has discarded
 	vector<Card*> getLegalPlays() const;											// protected method to get list of legal plays based on the static map of all cards played and the player's hand
-	static map<Suit, vector<Card*> > cardsPlayed;									// protected static map of all cards played in the game
+	static map<Suit, vector<Card*>* > cardsPlayed;									// protected static map of all cards played in the game
 	int _score;																		// protected data member - current score of the player
 	int _discards;																	// protected data member - number of discards for the round
 };

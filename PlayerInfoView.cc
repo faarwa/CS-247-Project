@@ -39,9 +39,7 @@ void PlayerInfoView::setPlayer(Player *player) {
 }
 
 
-void PlayerInfoView::update() {
-	cout << "sup" << endl;
-	
+void PlayerInfoView::update() {	
 	if (_player != NULL) {
 		int pointsNum = _player->score();
 		int discardsNum = _player->discards();

@@ -57,12 +57,12 @@ void CardHand::removeCard (Card *card) {
 }
 
 // member function - returns vector of legal plays that the hand has based on what's played
-vector<Card*> CardHand::legalPlays(map<Suit, vector<Card*> > cardsPlayed) const {
+vector<Card*> CardHand::legalPlays(map<Suit, vector<Card*>* > cardsPlayed) const {
 	vector<Card*> legalPlays;
 
 	// If there are no spades on the board, the first player must play a 7S (this is for the first player)
 	// That's the only legal play so return immediately
-	if (cardsPlayed.at(SPADE).empty()) {
+	if (cardsPlayed.at(SPADE)->empty()) {
 		legalPlays.push_back(new Card(SPADE, SEVEN));
 		return legalPlays;
 	}
@@ -73,8 +73,8 @@ vector<Card*> CardHand::legalPlays(map<Suit, vector<Card*> > cardsPlayed) const 
 	// If the rank of a card in the hand is one less or greater than that played for the same suit, it's a legal play
 	for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++) {
 		Card *card = (*it);
-		vector<Card*> suitCards = cardsPlayed.at(card->getSuit());
-		if (!suitCards.empty() && (card->getRank()+1 == suitCards.at(0)->getRank() || card->getRank() == suitCards.at(suitCards.size()-1)->getRank()+1)) {
+		vector<Card*> *suitCards = cardsPlayed.at(card->getSuit());
+		if (!suitCards->empty() && (card->getRank()+1 == suitCards->at(0)->getRank() || card->getRank() == suitCards->at(suitCards->size()-1)->getRank()+1)) {
 			legalPlays.push_back(card);
 			continue;
 		}

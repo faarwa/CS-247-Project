@@ -44,12 +44,12 @@ void HumanPlayer::play(Card c) {
 
 
 	//inserts the played card into the proper spot for the static map used to keep track of all the cards played
-	if (!cardsPlayed.at(card->getSuit()).empty() && cardsPlayed.at(card->getSuit()).at(0)->getRank() > card->getRank()) {
+	if (!cardsPlayed.at(card->getSuit())->empty() && cardsPlayed.at(card->getSuit())->at(0)->getRank() > card->getRank()) {
 		//puts the played card in the front of the vector if it is less than the current lowest card played of that suit
-		cardsPlayed.at(card->getSuit()).insert(cardsPlayed.at(card->getSuit()).begin(), card);
+		cardsPlayed.at(card->getSuit())->insert(cardsPlayed.at(card->getSuit())->begin(), card);
 	} else {
 		//otherwise, puts the played card at the back of the vector
-		cardsPlayed.at(card->getSuit()).push_back(card);
+		cardsPlayed.at(card->getSuit())->push_back(card);
 	}
 
 	//cout << "Player " << playerNumber() << " plays " << c << "." << endl;
@@ -125,27 +125,27 @@ void HumanPlayer::discard(Card c) {
 //member function - prints all of the game and card information required for the beginning of a human player's turn
 void HumanPlayer::print() const {
 
-	cout << endl << "Cards on the table:" << endl;
-	cout << "Clubs: ";
-	printCards(cardsPlayed.at(CLUB));
-	cout << endl;
-	cout << "Diamonds: ";
-	printCards(cardsPlayed.at(DIAMOND));
-	cout << endl;
-	cout << "Hearts: ";
-	printCards(cardsPlayed.at(HEART));
-	cout << endl;
-	cout << "Spades: ";
-	printCards(cardsPlayed.at(SPADE));
-	cout << endl;
+	// cout << endl << "Cards on the table:" << endl;
+	// cout << "Clubs: ";
+	// printCards(cardsPlayed.at(CLUB));
+	// cout << endl;
+	// cout << "Diamonds: ";
+	// printCards(cardsPlayed.at(DIAMOND));
+	// cout << endl;
+	// cout << "Hearts: ";
+	// printCards(cardsPlayed.at(HEART));
+	// cout << endl;
+	// cout << "Spades: ";
+	// printCards(cardsPlayed.at(SPADE));
+	// cout << endl;
 
-	cout << "Your hand: ";
-	printCards(_cards->hand());
-	cout << endl;	
+	// cout << "Your hand: ";
+	// printCards(_cards->hand());
+	// cout << endl;	
 
-	cout << "Legal plays: ";
-	printCards(getLegalPlays());
-	cout << endl;
+	// cout << "Legal plays: ";
+	// printCards(getLegalPlays());
+	// cout << endl;
 }
 
 bool HumanPlayer::canPlay(Card *card){
