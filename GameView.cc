@@ -219,6 +219,11 @@ void GameView::cardClicked(int i) {
 	try {
 		controller_->cardClicked(card);
 	} catch (HumanPlayer::IllegalDiscardException &e) {
+		Gtk::Dialog dialog("Illegal play u fucked up", *this,true, true);
+		dialog.set_border_width( 100 );
+		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
+		dialog.show_all_children();
+		dialog.run();
 		cout << "an exception yo" << endl;
 	}
 }
