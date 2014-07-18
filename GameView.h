@@ -17,6 +17,7 @@
 #include "observer.h"
 #include "DeckGUI.h"
 #include "CardButton.h"
+#include "TableCard.h"
 #include <vector>
 #include "PlayerInfoView.h"
 
@@ -68,6 +69,7 @@ private:
 	void cardClicked(int i);
 
 	vector<CardButton*> cards_;
+	std::map<Suit, vector<TableCard*> > cardsPlayed_;
 }; // View
 
 #endif

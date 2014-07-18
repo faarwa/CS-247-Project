@@ -17,8 +17,10 @@
 #include "subject.h"
 #include "GameDialogBox.h"
 #include "CardButton.h"
+#include "TableCard.h"
 #include <iostream>
 #include <string>
+#include <map>
 
 using namespace std;
 
@@ -86,36 +88,46 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 		player_hand.add(*cardbutton);
 	}
 
+	vector<TableCard*> suitCards;
+	cardsPlayed_[SPADE] = suitCards;
+	cardsPlayed_[CLUB] = suitCards;
+	cardsPlayed_[HEART] = suitCards;
+	cardsPlayed_[DIAMOND] = suitCards;
+
 	spades.set_homogeneous(true);
 	spades.set_spacing(10);
 	playing_space.add(spades);
 	for (int i = 0; i < 13; i++) {
-		Gtk::Image *card = new Gtk::Image(Gdk::Pixbuf::create_from_file("img/nothing.png"));
+		TableCard *card = new TableCard(NULL, deck);
 		spades.add(*card);
+		cardsPlayed_.at(SPADE).push_back(card);
 	}
 
 	hearts.set_homogeneous(true);
 	hearts.set_spacing(10);
 	playing_space.add(hearts);
 	for (int i = 0; i < 13; i++) {
-		Gtk::Image *card = new Gtk::Image(Gdk::Pixbuf::create_from_file("img/nothing.png"));
+		TableCard *card = new TableCard(NULL, deck);
 		hearts.add(*card);
+		cardsPlayed_.at(HEART).push_back(card);
 	}
 
 	clubs.set_homogeneous(true);
 	clubs.set_spacing(10);
 	playing_space.add(clubs);
 	for (int i = 0; i < 13; i++) {
-		Gtk::Image *card = new Gtk::Image(Gdk::Pixbuf::create_from_file("img/nothing.png"));
+		TableCard *card = new TableCard(NULL, deck);
 		clubs.add(*card);
+		cardsPlayed_.at(CLUB).push_back(card);
 	}
 
 	diamonds.set_homogeneous(true);
 	diamonds.set_spacing(10);
 	playing_space.add(diamonds);
 	for (int i = 0; i < 13; i++) {
-		Gtk::Image *card = new Gtk::Image(Gdk::Pixbuf::create_from_file("img/nothing.png"));
+		TableCard *card = new TableCard(NULL, deck);
 		diamonds.add(*card);
+		cardsPlayed_.at(DIAMOND).push_back(card);
 	}
 
 	// Sets some properties of the window.
@@ -142,7 +154,7 @@ GameView::~GameView() {}
 
 
 void GameView::update() {
-  //update players hand
+	//update players hand
 	vector<Card*> newhand = model_->getHand();
 	for(int i=0; i < 13; i++){
 		if(i < newhand.size()){
@@ -151,6 +163,22 @@ void GameView::update() {
 		else{
 			cards_.at(i)->updateFace(NULL);
 		}
+	}
+	
+	//update game board
+	std::map<Suit, vector<Card*> > cards = Player::playedCards();
+
+	for(int i=0 ; i < cards.at(CLUB).size() ; i++){
+		cardsPlayed_.at(CLUB).at(i)->updateFace(cards.at(CLUB).at(i));
+	}
+	for(int i=0 ; i < cards.at(DIAMOND).size() ; i++){
+		cardsPlayed_.at(DIAMOND).at(i)->updateFace(cards.at(DIAMOND).at(i));
+	}
+	for(int i=0 ; i < cards.at(HEART).size() ; i++){
+		cardsPlayed_.at(HEART).at(i)->updateFace(cards.at(HEART).at(i));
+	}
+	for(int i=0 ; i < cards.at(SPADE).size() ; i++){
+		cardsPlayed_.at(SPADE).at(i)->updateFace(cards.at(SPADE).at(i));
 	}
 }
 

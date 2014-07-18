@@ -179,3 +179,7 @@ void Game::playOrDiscard(Card *card){
 		cout << "discard" << endl;
 	}
 }
+
+Player* Game::getCurrentPlayer(){
+	return _players.at(_currentPlayer-1);
+}

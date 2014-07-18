@@ -21,6 +21,7 @@ public:
 	vector<Card*> getHand();										// if a player ragequits
 	vector<Player*> players() { return _players; }			// accessor - returns vector of players
 	void playOrDiscard(Card *card);
+	Player* getCurrentPlayer();
 
 private:
 	Deck _deck;							// private data member - deck for the game
