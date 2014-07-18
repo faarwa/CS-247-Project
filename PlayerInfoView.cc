@@ -49,7 +49,11 @@ void PlayerInfoView::update() {
 
 	points.set_label(s1.str());
 	discards.set_label(s2.str());
-	rage.set_sensitive(_player->canRage());
+	// if (model_->currentPlayer() == _player) {
+	// 	cout << "yo" << endl;
+	// 	rage.set_sensitive(_player->canRage());
+	// }
+	rage.set_sensitive(true);
 }
 
 void PlayerInfoView::rageButtonClicked() {

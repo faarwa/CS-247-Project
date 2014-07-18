@@ -170,6 +170,12 @@ void Game::playOrDiscard(Card *card){
 	else{
 		//_players.at(_currentPlayer-1)->discard(card);
 	}
+	if (_currentPlayer == 4) {
+		_currentPlayer = 1;
+	} else {
+		_currentPlayer++;
+	}
+	notify();
 }
 
 Player* Game::getCurrentPlayer(){
