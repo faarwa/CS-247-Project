@@ -35,7 +35,7 @@ std::string convertInt(int num){
 
 // Creates buttons with labels. Sets vpanels elements to have the same size, 
 // with 10 pixels between widgets
-GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), vpanels(true,10), card(deck.null()),
+GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), vpanels(false,10), card(deck.null()),
 	cardsPlayedFrame("Cards on the table"), handFrame("Your hand") {
 
 
@@ -176,17 +176,34 @@ void GameView::update() {
 	//update game board
 	std::map<Suit, vector<Card*> > cards = Player::playedCards();
 
-	for(int i=0 ; i < cards.at(CLUB).size() ; i++){
-		cardsPlayed_.at(CLUB).at(i)->updateFace(cards.at(CLUB).at(i));
+	if(cards.at(CLUB).size()==0 && cards.at(DIAMOND).size()==0 && cards.at(HEART).size()==0 && cards.at(SPADE).size()==0){
+		//the board needs to be cleared
+		for(int i=0 ; i < cards.at(CLUB).size() ; i++){
+			cardsPlayed_.at(CLUB).at(i)->updateFace(NULL);
+		}
+		for(int i=0 ; i < cards.at(DIAMOND).size() ; i++){
+			cardsPlayed_.at(DIAMOND).at(i)->updateFace(NULL);
+		}
+		for(int i=0 ; i < cards.at(HEART).size() ; i++){
+			cardsPlayed_.at(HEART).at(i)->updateFace(NULL);
+		}
+		for(int i=0 ; i < cards.at(SPADE).size() ; i++){
+			cardsPlayed_.at(SPADE).at(i)->updateFace(NULL);
+		}
 	}
-	for(int i=0 ; i < cards.at(DIAMOND).size() ; i++){
-		cardsPlayed_.at(DIAMOND).at(i)->updateFace(cards.at(DIAMOND).at(i));
-	}
-	for(int i=0 ; i < cards.at(HEART).size() ; i++){
-		cardsPlayed_.at(HEART).at(i)->updateFace(cards.at(HEART).at(i));
-	}
-	for(int i=0 ; i < cards.at(SPADE).size() ; i++){
-		cardsPlayed_.at(SPADE).at(i)->updateFace(cards.at(SPADE).at(i));
+	else{
+		for(int i=0 ; i < cards.at(CLUB).size() ; i++){
+			cardsPlayed_.at(CLUB).at(cards.at(CLUB).at(i)->getRank())->updateFace(cards.at(CLUB).at(i));
+		}
+		for(int i=0 ; i < cards.at(DIAMOND).size() ; i++){
+			cardsPlayed_.at(DIAMOND).at(cards.at(DIAMOND).at(i)->getRank())->updateFace(cards.at(DIAMOND).at(i));
+		}
+		for(int i=0 ; i < cards.at(HEART).size() ; i++){
+			cardsPlayed_.at(HEART).at(cards.at(HEART).at(i)->getRank())->updateFace(cards.at(HEART).at(i));
+		}
+		for(int i=0 ; i < cards.at(SPADE).size() ; i++){
+			cardsPlayed_.at(SPADE).at(cards.at(SPADE).at(i)->getRank())->updateFace(cards.at(SPADE).at(i));
+		}
 	}
 }
 

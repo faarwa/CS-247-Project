@@ -17,8 +17,8 @@ void ComputerPlayer::play(Card card) {
 
 	Card *deleteCard = NULL;
 
-	// Iterate hand to find the first legal play and play that card 
-	// Return immediately
+	//Iterate hand to find the first legal play and play that card 
+	//Return immediately
 	for (vector<Card*>::iterator it = _cards.hand().begin(); it != _cards.hand().end(); it++) {
 		for (vector<Card*>::iterator it2 = validCardsToPlay.begin(); it2 != validCardsToPlay.end(); it2++) {
 			if (**it == **it2) {

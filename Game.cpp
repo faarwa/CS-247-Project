@@ -42,6 +42,9 @@ void Game::start() {
 		}
 	}
 
+	//clear the board
+	resetCards();
+
 	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
 	play();				
 }
