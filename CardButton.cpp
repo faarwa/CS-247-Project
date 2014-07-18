@@ -20,10 +20,11 @@ void CardButton::setCardButton(Card *card){
 	Gtk::Image *image;
 	if(card == NULL){
 		image = new Gtk::Image(Gdk::Pixbuf::create_from_file("img/nothing.png"));
+		set_sensitive(false);
 	}
 	else{
 		image = new Gtk::Image(deck_.image(card->getRank(), card->getSuit()));
-		//image = new Gtk::Image(deck_.image(TWO, SPADE));
+		set_sensitive(true);
 	}
 
 	this->set_image(*image);
