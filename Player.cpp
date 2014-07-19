@@ -26,6 +26,10 @@ void Player::setCards(vector<Card*> cards) {
 	_cards = new CardHand(cards);
 }
 
+void Player::clearHand() {
+	_cards->clearCards();
+}
+
 // member function - copy constructor that constructs a new player, given a player
 Player::Player(Player &player) {
 	_playerNumber = player.playerNumber();

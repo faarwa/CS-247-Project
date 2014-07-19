@@ -157,7 +157,6 @@ GameView::~GameView() {}
 
 
 void GameView::update() {
-	cout << "Does this happenf irst" << endl;
 	playerInfoFrames.at(model_->currentPlayer()-1)->setPlayer(model_->getCurrentPlayer());
 	//update players hand
 	vector<Card*> newhand = model_->getHand();
@@ -243,4 +242,7 @@ void GameView::endButtonClicked() {
 	start_button.set_sensitive(true);
   	controller_->endButtonClicked();
   	end_button.set_sensitive(false);
+  	for (int i = 0; i < 4; i++) {
+  		playerInfoFrames.at(i)->resetFrame();
+  	}
 } 

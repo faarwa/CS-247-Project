@@ -20,6 +20,7 @@ public:
 	void removeCard(Card *card);					// method to remove a card from the hand
 	// returns a list of legal plays from the hand given all the cards that have been played
 	vector<Card*> legalPlays(map<Suit, vector<Card*>* >) const;		
+	void clearCards();
 	void print();
 private:
 	vector<Card*> _cards;							// private data member - vector of Cards

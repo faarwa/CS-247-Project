@@ -34,7 +34,6 @@ void Game::shuffleAndDeal() {
 
 // Start the game by shuffling the deck and dealing
 void Game::start() {
-
 	shuffleAndDeal();
 
 	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
@@ -44,9 +43,6 @@ void Game::start() {
 			break;
 		}
 	}
-
-	//clear the board
-	resetCards();
 
 	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
 	play();				
@@ -168,6 +164,7 @@ void Game::playOrDiscard(Card *card){
 	notify();
 
 	if (roundOver) {
+		resetCards();
 		finishGame();
 		notify();
 	}
@@ -175,7 +172,13 @@ void Game::playOrDiscard(Card *card){
 
 void Game::resetCards() {
 	for (int i = 0; i < 4; i++) {
-		Player::playedCards().at((Suit)i)->clear();
+		if (Player::playedCards().at((Suit)i)) {
+			Player::playedCards().at((Suit)i)->clear();
+		}
+	}
+
+	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
+		(*it)->clearHand();
 	}
 
 	notify();

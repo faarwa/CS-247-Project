@@ -39,6 +39,7 @@ public:
 	virtual bool canPlay(Card *card){ return true; }
 	static void initializeCardsPlayed();
 	void print();
+	void clearHand();
 protected:
 	bool _canRage;																	// protected data member - indicates whether player can ragequit (is comp or human)
 	CardHand *_cards;																// protected data member - the hand of the player

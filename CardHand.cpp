@@ -22,6 +22,10 @@ CardHand::~CardHand() {
 	_cards.clear();
 }
 
+void CardHand::clearCards() {
+	_cards.clear();
+}
+
 // member function - returns whether the hand has the 7 of spades
 bool CardHand::has7S() const {
 	// search the vector using an iterator

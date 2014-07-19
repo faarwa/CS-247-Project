@@ -23,7 +23,7 @@ void GameViewController::startButtonClicked() {
 
 
 void GameViewController::endButtonClicked() {
-    // _game->resetCards();
+    _game->resetCards();
 } 
 
 void GameViewController::rageButtonClicked() {
