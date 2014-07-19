@@ -27,7 +27,6 @@ void GameViewController::endButtonClicked() {
 } 
 
 void GameViewController::rageButtonClicked() {
-	cout << "da fuck" << endl;
 	_game->ragequit();
 }
 

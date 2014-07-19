@@ -68,5 +68,4 @@ void PlayerInfoView::update() {
 void PlayerInfoView::rageButtonClicked() {
 	controller_->rageButtonClicked();
 	_player = model_->players().at(model_->currentPlayer()-1);
-	update();
 }
