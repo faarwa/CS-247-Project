@@ -1,15 +1,5 @@
 #include "ComputerPlayer.h"
 
-// member function - this is called when a player has to do a turn
-// (more important for human player to determine other commands)
-// since computer player doesnt take commands, just call play with a null card
-Command ComputerPlayer::doTurn() {
-	Command c = Command();
-	c.type = PLAY;
-	play(c.card);
-	return c;
-}
-
 // member function - this is called for the computer player to do a turn
 void ComputerPlayer::play(Card card) {
 	// get the legal plays that computer player can do
@@ -24,16 +14,7 @@ void ComputerPlayer::play(Card card) {
 
 			if (*(*it) == *(*it2)) {
 				deleteCard = *it;
-				cout << endl << "Player " << playerNumber() << " plays " << **it << endl;
-
-				//inserts the played card into the proper spot for the static map used to keep track of all the cards played
-				if (!cardsPlayed.at(deleteCard->getSuit())->empty() && cardsPlayed.at(deleteCard->getSuit())->at(0)->getRank() > deleteCard->getRank()) {
-					//puts the played card in the front of the vector if it is less than the current lowest card played of that suit
-					cardsPlayed.at(deleteCard->getSuit())->insert(cardsPlayed.at(deleteCard->getSuit())->begin(), deleteCard);
-				} else {
-					//otherwise, puts the played card at the back of the vector
-					cardsPlayed.at(deleteCard->getSuit())->push_back(deleteCard);
-				}
+				insertCardOnBoard(deleteCard);
 				_cards->removeCard(deleteCard);
 
 				return;

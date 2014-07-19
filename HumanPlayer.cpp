@@ -42,66 +42,10 @@ void HumanPlayer::play(Card c) {
 
 	_playedCard = card;
 
-
-	//inserts the played card into the proper spot for the static map used to keep track of all the cards played
-	if (!cardsPlayed.at(card->getSuit())->empty() && cardsPlayed.at(card->getSuit())->at(0)->getRank() > card->getRank()) {
-		//puts the played card in the front of the vector if it is less than the current lowest card played of that suit
-		cardsPlayed.at(card->getSuit())->insert(cardsPlayed.at(card->getSuit())->begin(), card);
-	} else {
-		//otherwise, puts the played card at the back of the vector
-		cardsPlayed.at(card->getSuit())->push_back(card);
-	}
-
-	//cout << "Player " << playerNumber() << " plays " << c << "." << endl;
+	insertCardOnBoard(card);
 
 	//removes the played card from the players hand
 	_cards->removeCard(card);
-}
-
-//member function - this is called when a player has to do a turn
-//necessary in human player to be able to handle different commands
-Command HumanPlayer::doTurn() {
-	//take in a command from the human player
-	Command cmd = Command();
-	cout << ">";
-	cin >> cmd;
-
-	bool isLegal = false;
-
-	do {
-		if (cmd.type == QUIT) { // handle quit command
-			exit(0);
-		} else if (cmd.type == PLAY) { // handle play command
-			try {
-				//tries to play the card
-				play(cmd.card);
-				isLegal = true;
-			} catch (HumanPlayer::IllegalPlayException &e) {
-				//handles the player playing a card that is not a legal play
-				isLegal = false;
-				cout << "This is not a legal play." << endl;
-				cout << ">";
-				cin >> cmd;
-			}
-		} else if (cmd.type == DISCARD) { //handle discard command
-			try {
-				//tries to discard a card
-				discard(cmd.card);
-				isLegal = true;
-			} catch (HumanPlayer::IllegalDiscardException &e) {
-				//handles the player trying to discard when they have a legal play
-				isLegal = false;
-				cout << "You have a legal play. You may not discard." << endl;
-				cout<< ">";
-				cin >> cmd;
-			}
-		} else {
-			isLegal = true; //if it was none of these commands, stop the loop
-		}
-	} while (!isLegal); // stop looping for input if the player has made a legal play
-
-	//for any commands that could not be handled within the player class, this returns to the Game class to handle them
-	return cmd;
 }
 
 // member function - discards a card from the player's hand
@@ -125,27 +69,27 @@ void HumanPlayer::discard(Card c) {
 //member function - prints all of the game and card information required for the beginning of a human player's turn
 void HumanPlayer::print() const {
 
-	// cout << endl << "Cards on the table:" << endl;
-	// cout << "Clubs: ";
-	// printCards(cardsPlayed.at(CLUB));
-	// cout << endl;
-	// cout << "Diamonds: ";
-	// printCards(cardsPlayed.at(DIAMOND));
-	// cout << endl;
-	// cout << "Hearts: ";
-	// printCards(cardsPlayed.at(HEART));
-	// cout << endl;
-	// cout << "Spades: ";
-	// printCards(cardsPlayed.at(SPADE));
-	// cout << endl;
+	cout << endl << "Cards on the table:" << endl;
+	cout << "Clubs: ";
+	printCards(*cardsPlayed.at(CLUB));
+	cout << endl;
+	cout << "Diamonds: ";
+	printCards(*cardsPlayed.at(DIAMOND));
+	cout << endl;
+	cout << "Hearts: ";
+	printCards(*cardsPlayed.at(HEART));
+	cout << endl;
+	cout << "Spades: ";
+	printCards(*cardsPlayed.at(SPADE));
+	cout << endl;
 
-	// cout << "Your hand: ";
-	// printCards(_cards->hand());
-	// cout << endl;	
+	cout << "Your hand: ";
+	printCards(_cards->hand());
+	cout << endl;	
 
-	// cout << "Legal plays: ";
-	// printCards(getLegalPlays());
-	// cout << endl;
+	cout << "Legal plays: ";
+	printCards(getLegalPlays());
+	cout << endl;
 }
 
 bool HumanPlayer::canPlay(Card *card){

@@ -77,7 +77,7 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	vpanels.add(handFrame);
 	handFrame.add(player_hand);
 	for(int i=0; i < 13; i++){
-		CardButton *cardbutton = new CardButton(NULL, deck);
+		CardButton *cardbutton = new CardButton(NULL);
 		cards_.push_back(cardbutton);
 		player_hand.add(*cardbutton);
 	}
@@ -154,10 +154,10 @@ void GameView::update() {
 	vector<Card*> newhand = model_->getHand();
 	for (int i = 0; i < 13; i++) {
 		if (i < newhand.size()){
-			cards_.at(i)->updateFace(newhand.at(i));
+			cards_.at(i)->setCardButton(newhand.at(i));
 		}
 		else {
-			cards_.at(i)->updateFace(NULL);
+			cards_.at(i)->setCardButton(NULL);
 		}
 	}
 	

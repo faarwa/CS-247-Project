@@ -2,7 +2,6 @@
 #include <iostream>	
 #include <cstdlib>
 
-#include "Command.h"
 #include "Game.h"
 #include "GameViewController.h"
 #include "GameView.h"

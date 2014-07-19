@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
-#include "Command.h"
 #include <typeinfo>
 
 // default constructor

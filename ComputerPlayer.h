@@ -12,7 +12,6 @@ public:
 	void play(Card card);										// Overridden method for play
 	void print() const {}										// Overridden method to print lines (empty for computer)
 	void discard(Card card);									// Overridden method to discard a card
-	Command doTurn();											// Ovverridden method for a player to do a turn
 
 	bool canPlay(Card *card){return true;}
 };

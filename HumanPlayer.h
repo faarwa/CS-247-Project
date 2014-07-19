@@ -13,7 +13,6 @@ public:
 	void play(Card c); 										// Overridden method for play
 	void print() const; 									// Overridden method to print lines
 	void discard(Card c); 									// Overridden method to discard a card
-	Command doTurn(); 										// Ovverridden method for a player to do a turn
 	bool canPlay(Card *card);
 
 	class IllegalPlayException {							// Exception class to handle human player making illegal plays
