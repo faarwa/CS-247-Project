@@ -157,6 +157,7 @@ GameView::~GameView() {}
 
 
 void GameView::update() {
+	cout << "Does this happenf irst" << endl;
 	playerInfoFrames.at(model_->currentPlayer()-1)->setPlayer(model_->getCurrentPlayer());
 	//update players hand
 	vector<Card*> newhand = model_->getHand();
@@ -219,9 +220,7 @@ void GameView::startButtonClicked() {
 	model_->setPlayers(players);
 	start_button.set_sensitive(false);
 	end_button.set_sensitive(true);
-	cout << "fuck you" << endl;
   	controller_->startButtonClicked();
-  	cout << "fiojsdkfbnm" << endl;
   	for (int i = 0; i < 4; i++) {
   		playerInfoFrames.at(i)->setPlayer(players.at(i));
   	}
@@ -232,12 +231,11 @@ void GameView::cardClicked(int i) {
 	try {
 		controller_->cardClicked(card);
 	} catch (HumanPlayer::IllegalDiscardException &e) {
-		Gtk::Dialog dialog("Illegal play u fucked up", *this,true, true);
+		Gtk::Dialog dialog("Illegal play", *this,true, true);
 		dialog.set_border_width( 100 );
 		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
 		dialog.show_all_children();
 		dialog.run();
-		cout << "an exception yo" << endl;
 	}
 }
 

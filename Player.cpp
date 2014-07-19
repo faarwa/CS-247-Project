@@ -3,12 +3,15 @@
 // static map of all cards played in the game
 map<Suit, vector<Card*>* > Player::cardsPlayed;
 
-// member function - constructor that constructs a player with a number, intializes their score to zero, and their cards played to empty vectors
-Player::Player(int playerNumber) {
+void Player::initializeCardsPlayed() {
+	cardsPlayed[HEART] = new vector<Card*>();
 	cardsPlayed[SPADE] = new vector<Card*>();
 	cardsPlayed[CLUB] = new vector<Card*>();
-	cardsPlayed[HEART] = new vector<Card*>();
 	cardsPlayed[DIAMOND] = new vector<Card*>();
+}
+
+// member function - constructor that constructs a player with a number, intializes their score to zero, and their cards played to empty vectors
+Player::Player(int playerNumber) {
 	_playerNumber = playerNumber;
 	_score = 0;
 	_discards = 0;

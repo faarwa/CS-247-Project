@@ -37,6 +37,7 @@ public:
 	static map<Suit, vector<Card*>* > playedCards() { return Player::cardsPlayed; }  // accessor for the static map of all cards played in the game
 	bool canRage() { return _canRage; }												// accessor for canRage boolean
 	virtual bool canPlay(Card *card){ return true; }
+	static void initializeCardsPlayed();
 	void print();
 protected:
 	bool _canRage;																	// protected data member - indicates whether player can ragequit (is comp or human)

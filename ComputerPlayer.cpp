@@ -14,23 +14,14 @@ Command ComputerPlayer::doTurn() {
 void ComputerPlayer::play(Card card) {
 	// get the legal plays that computer player can do
 	vector<Card*> validCardsToPlay = getLegalPlays();
-	cout << "these are valid yo" << endl;
-	for (vector<Card*>::iterator it3 = validCardsToPlay.begin(); it3 != validCardsToPlay.end(); it3++) {
-		cout << *(*it3) << endl;
-	}
-
 	Card *deleteCard = NULL;
 
 	//Iterate hand to find the first legal play and play that card 
 	//Return immediately
-	cout << "THIS BE OUR CARD YO" << *_cards->hand().at(0) << endl;
 	vector<Card*> c = _cards->hand();
 	for (vector<Card*>::iterator it = c.begin(); it != c.end(); it++) {
 		cout << *(*it) << endl;
 		for (vector<Card*>::iterator it2 = validCardsToPlay.begin(); it2 != validCardsToPlay.end(); it2++) {
-			// if (*it == NULL) {
-				// Player::print();
-			// }
 
 			if (*(*it) == *(*it2)) {
 				deleteCard = *it;

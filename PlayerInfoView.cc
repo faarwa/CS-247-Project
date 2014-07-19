@@ -40,6 +40,7 @@ void PlayerInfoView::setPlayer(Player *player) {
 
 
 void PlayerInfoView::update() {	
+	cout << "or this" << endl;
 	if (_player != NULL) {
 		int pointsNum = _player->score();
 		int discardsNum = _player->discards();
