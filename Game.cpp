@@ -10,15 +10,20 @@ Game::Game() {
 		_players.push_back(new Player(i));
 	}
 	Player::initializeCardsPlayed();
+	_seed = 0;
 }
 
 void Game::setPlayers(vector<Player*> players){
 	_players = players;
 }
 
+void Game::setSeed(int s) {
+	_seed = s;
+}
+
 // Shuffle the deck using deck's shuffle method and deal the cards to players
 void Game::shuffleAndDeal() {
-	_deck.shuffle();	
+	_deck.shuffle(_seed);	
 	int cardIndex = 0;
 	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
 		(*it)->newHand();
@@ -27,7 +32,6 @@ void Game::shuffleAndDeal() {
 			cards.push_back(_deck.cards().at(j));
 		}
 		(*it)->setCards(cards);
-		cout << (((*it)->cards())->hand()).size() << endl;
 		cardIndex += 13;
 	}
 }
@@ -35,7 +39,6 @@ void Game::shuffleAndDeal() {
 // Start the game by shuffling the deck and dealing
 void Game::start() {
 	shuffleAndDeal();
-
 	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
 	for (int i = 0; i < _players.size(); i++) {
 		if (_players.at(i)->cards()->has7S()) {
@@ -45,7 +48,7 @@ void Game::start() {
 	}
 
 	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
-	play();				
+	play();	
 }
 
 // play method that handles everything during game play
@@ -182,6 +185,13 @@ void Game::resetCards() {
 	}
 
 	notify();
+}
+
+void Game::endCurrentGame() {
+	resetCards();
+	for (int i = 0; i < _players.size(); i++) {
+		_players.at(i)->resetHand();
+	}
 }
 
 Player* Game::getCurrentPlayer(){

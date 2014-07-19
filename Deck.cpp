@@ -26,7 +26,8 @@ void Deck::print() const {
 }
 
 // Shuffle function given in assignment
-void Deck::shuffle(){
+void Deck::shuffle(int seed) {
+	srand48(seed);
 	int n = _cards.size();
 
 	while ( n > 1 ) {

@@ -19,7 +19,9 @@ CardHand::CardHand(vector<Card*> cards) {
 }
 
 CardHand::~CardHand() {
-	_cards.clear();
+	for (int i = 0; i < _cards.size(); i++) {
+		delete _cards.at(i);
+	}
 }
 
 void CardHand::clearCards() {

@@ -66,6 +66,7 @@ private:
 	void startButtonClicked();
 	void endButtonClicked();
 	void cardClicked(int i);
+	void seedEntryChanged();
 
 	vector<CardButton*> cards_;
 	std::map<Suit, vector<TableCard*> > cardsPlayed_;

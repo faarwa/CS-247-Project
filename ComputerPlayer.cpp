@@ -20,7 +20,6 @@ void ComputerPlayer::play(Card card) {
 	//Return immediately
 	vector<Card*> c = _cards->hand();
 	for (vector<Card*>::iterator it = c.begin(); it != c.end(); it++) {
-		cout << *(*it) << endl;
 		for (vector<Card*>::iterator it2 = validCardsToPlay.begin(); it2 != validCardsToPlay.end(); it2++) {
 
 			if (*(*it) == *(*it2)) {

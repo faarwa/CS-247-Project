@@ -40,6 +40,7 @@ public:
 	static void initializeCardsPlayed();
 	void print();
 	void clearHand();
+	void resetHand() { delete _cards; }
 protected:
 	bool _canRage;																	// protected data member - indicates whether player can ragequit (is comp or human)
 	CardHand *_cards;																// protected data member - the hand of the player
