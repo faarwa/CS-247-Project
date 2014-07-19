@@ -26,6 +26,7 @@ public:
    void endButtonClicked();
    void rageButtonClicked();
    void cardClicked(Card *card);
+   void computerPlay();
 private:
    Game *_game;
 }; // Controller

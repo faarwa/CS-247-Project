@@ -54,6 +54,9 @@ void Game::start() {
 // play method that handles everything during game play
 void Game::play() {
 	notify();
+	if (!_players.at(_currentPlayer-1)->canRage()) {
+		playOrDiscard(new Card(NOSUIT, NORANK));
+	}
 }
 
 // rage quit method for human players
@@ -62,7 +65,7 @@ void Game::ragequit() {
 	// Construct a new computer player using the copy constructor with the human player's info and execute turn 
 	Player *newPlayer = new ComputerPlayer(*_players.at(_currentPlayer-1));
 	_players.at(_currentPlayer-1) = newPlayer;	
-	playOrDiscard(new Card(SPADE, TWO));
+	playOrDiscard(new Card(NOSUIT, NORANK));
 	notify();
 }
 

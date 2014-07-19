@@ -31,5 +31,9 @@ void GameViewController::rageButtonClicked() {
 }
 
 void GameViewController::cardClicked(Card *card){
-	_game -> playOrDiscard(card);
+	_game->playOrDiscard(card);
+}
+
+void GameViewController::computerPlay() {
+	_game->playOrDiscard(new Card(NOSUIT, NORANK));
 }

@@ -150,7 +150,7 @@ GameView::~GameView() {}
 
 void GameView::update() {
 	playerInfoFrames.at(model_->currentPlayer()-1)->setPlayer(model_->getCurrentPlayer());
-	//update players hand
+	//update players handFrame
 	vector<Card*> newhand = model_->getHand();
 	for (int i = 0; i < 13; i++) {
 		if (i < newhand.size()){
@@ -214,6 +214,10 @@ void GameView::startButtonClicked() {
   	controller_->startButtonClicked();
   	for (int i = 0; i < 4; i++) {
   		playerInfoFrames.at(i)->setPlayer(players.at(i));
+  	}
+
+  	if (!model_->getCurrentPlayer()->canRage()) {
+  		controller_->computerPlay();
   	}
 } 
 
