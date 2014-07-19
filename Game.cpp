@@ -21,9 +21,23 @@ void Game::setSeed(int s) {
 	_seed = s;
 }
 
+void Game::newRound() {
+	shuffleAndDeal();
+	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
+	for (int i = 0; i < _players.size(); i++) {
+		if (_players.at(i)->cards()->has7S()) {
+			_currentPlayer = i+1;
+			break;
+		}
+	}
+
+	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
+	play();
+}
+
 // Shuffle the deck using deck's shuffle method and deal the cards to players
 void Game::shuffleAndDeal() {
-	_deck.shuffle(_seed);	
+	_deck.shuffle();	
 	int cardIndex = 0;
 	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
 		(*it)->newHand();
@@ -38,17 +52,8 @@ void Game::shuffleAndDeal() {
 
 // Start the game by shuffling the deck and dealing
 void Game::start() {
-	shuffleAndDeal();
-	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
-	for (int i = 0; i < _players.size(); i++) {
-		if (_players.at(i)->cards()->has7S()) {
-			_currentPlayer = i+1;
-			break;
-		}
-	}
-
-	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
-	play();	
+	srand(_seed);
+	newRound();
 }
 
 // play method that handles everything during game play
@@ -105,7 +110,7 @@ void Game::finishGame() {
 
 	// if the game isnt over yet, start a new round, otherwise output the winner and finish
 	if (!gameOver) {
-		start();
+		newRound();
 	} else {
 		cout << "Player " << lowestScorePlayer << " wins!" << endl;
 	}

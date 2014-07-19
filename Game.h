@@ -26,6 +26,7 @@ public:
 	void resetCards();
 	void setSeed(int s);
 	void endCurrentGame();
+	void newRound();
 private:
 	int _seed;
 	Deck _deck;							// private data member - deck for the game
