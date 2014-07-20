@@ -3,6 +3,7 @@
 // static map of all cards played in the game
 map<Suit, vector<Card*>* > Player::cardsPlayed;
 
+// initializes cards played to empty vectors
 void Player::initializeCardsPlayed() {
 	cardsPlayed[HEART] = new vector<Card*>();
 	cardsPlayed[SPADE] = new vector<Card*>();
@@ -18,14 +19,17 @@ Player::Player(int playerNumber) {
 	_cards = new CardHand();
 }
 
+// player discard method, calls notify to update the View that a card was discarded
 void Player::discard(Card card) {
 	notify();
 }
 
+// sets the cards of the player's hand
 void Player::setCards(vector<Card*> cards) {
 	_cards = new CardHand(cards);
 }
 
+// clears the players hand
 void Player::clearHand() {
 	_cards->clearCards();
 }
@@ -40,7 +44,6 @@ void Player::insertCardOnBoard(Card* card) {
 		cardsPlayed.at(card->getSuit())->push_back(card);
 	}
 
-	cout << endl << "Player " << playerNumber() << " plays " << *card << endl;
 }
 
 // member function - copy constructor that constructs a new player, given a player
