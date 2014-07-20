@@ -196,24 +196,28 @@ void GameView::update() {
 	}
 
 	//show pop ups at the end of a round
-	if(model_->isGameOver()){
-		ostringstream s1;
-		s1 << "Player " << model_->getWinningPlayer() << " wins!" << endl;
-		string winner = s1.str();
-		cout <<"GAMEOVER"<<endl;
-		Gtk::Dialog dialog(winner, *this,true, true);
-		dialog.set_border_width( 100 );
-		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
-		dialog.show_all_children();
-		dialog.run();
-	}
-	else if(model_->isRoundOver()){
-		cout << "SHOW DIALOG" << endl;
+	if(model_->isRoundOver()){
 		RoundDialogBox dialog(*this, "Results for the round:", model_->players());
 		dialog.set_border_width( 100 );
 		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
 		dialog.show_all_children();
 		dialog.run();
+	}
+	else if(model_->isGameOver()) {
+		ostringstream s1;
+		s1 << "Player " << model_->getWinningPlayer() << " wins!" << endl;
+		string winner = s1.str();
+		Gtk::Dialog dialog(winner, *this,true, true);
+		dialog.set_border_width( 100 );
+		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
+		dialog.show_all_children();
+		dialog.run();
+		end_button.set_sensitive(false);
+		start_button.set_sensitive(true);
+		cout << "HEY" << endl;
+		for (int i = 0; i < 4; i++) {
+			playerInfoFrames.at(i)->resetFrame();
+		}
 	}
 }
 
@@ -236,10 +240,6 @@ void GameView::startButtonClicked() {
   	controller_->startButtonClicked();
   	for (int i = 0; i < 4; i++) {
   		playerInfoFrames.at(i)->setPlayer(players.at(i));
-  	}
-
-  	if (!model_->getCurrentPlayer()->canRage()) {
-  		controller_->computerPlay();
   	}
 } 
 

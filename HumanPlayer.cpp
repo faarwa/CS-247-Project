@@ -62,7 +62,6 @@ void HumanPlayer::discard(Card c) {
 	_cards->removeCard(card);
 	_discards++;
 	_score += c.getRank()+1;
-	cout << "did it discard yo" << endl;
 	Player::discard(c);
 }
 
@@ -93,7 +92,6 @@ void HumanPlayer::print() const {
 }
 
 bool HumanPlayer::canPlay(Card *card){
-	cout << *card << endl;
 	vector<Card*> legalPlays = getLegalPlays();
 	for(int i=0;i<legalPlays.size();i++) {
 		cout << *(legalPlays.at(i)) << endl;	
