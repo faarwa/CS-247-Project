@@ -44,7 +44,7 @@ void PlayerInfoView::setPlayer(Player *player) {
 void PlayerInfoView::resetFrame() {
 	rage.set_sensitive(false);
 	points.set_label("0 points");
-	discards.set_label("0 points");
+	discards.set_label("0 discards");
 }
 
 // update method to be called upon notify in the model (game)

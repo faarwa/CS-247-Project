@@ -115,11 +115,12 @@ void Game::finishGame() {
 
 	// if the game isnt over yet, start a new round, otherwise output the winner and finish
 	if (!isGameOver_) {
-		start();
 		newRound();
 	} else {
 		cout << "Player " << lowestScorePlayer << " wins!" << endl;
 		winningPlayer_ = lowestScorePlayer;
+		notify();
+		isGameOver_ = false;
 	}
 }
 
@@ -165,7 +166,7 @@ void Game::playOrDiscard(Card *card){
 	}
 
 	while (!_players.at(_currentPlayer-1)->canRage() && !isRoundOver_) {
-		notify();
+		// notify();
 		_players.at(_currentPlayer-1)->play(*card);
 		if (_currentPlayer == 4) {
 			_currentPlayer = 1;
@@ -179,13 +180,13 @@ void Game::playOrDiscard(Card *card){
 		}
 	}
 
-	notify();
+	// notify();
 
 	if (isRoundOver_) {
 		resetCards();
+		isRoundOver_ = false;
 		finishGame();
 		notify();
-		isRoundOver_ = false;
 	}
 }
 

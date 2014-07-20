@@ -31,7 +31,6 @@ void HumanPlayer::discard(Card c) {
 
 // boolean method returns true if the card that a human player is attemping to play is a legal play
 bool HumanPlayer::canPlay(Card *card){
-	cout << *card << endl;
 	vector<Card*> legalPlays = getLegalPlays();
 	
 	for(int i = 0; i < legalPlays.size() ; i++) {

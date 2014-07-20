@@ -202,21 +202,25 @@ void GameView::update() {
 		}
 	}
 
-	// show pop ups at the end of a round
-	if(model_->isGameOver()){
+	//show pop ups at the end of a round
+	if(model_->isRoundOver()) {
+		RoundDialogBox dialog(*this, "Results for the round:", model_->players());
+		dialog.set_border_width( 100 );
+		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
+		dialog.show_all_children();
+		dialog.run();
+		end_button.set_sensitive(false);
+		start_button.set_sensitive(true);
+		for (int i = 0; i < 4; i++) {
+			playerInfoFrames.at(i)->resetFrame();
+		}
+	}
+	else if(model_->isGameOver()) {
 		// if the game is over, display a dialog with the winner
 		ostringstream s1;
 		s1 << "Player " << model_->getWinningPlayer() << " wins!" << endl;
 		string winner = s1.str();
 		Gtk::Dialog dialog(winner, *this,true, true);
-		dialog.set_border_width( 100 );
-		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
-		dialog.show_all_children();
-		dialog.run();
-	}
-	else if(model_->isRoundOver()){
-		// if the round is over, display a dialog with all player information
-		RoundDialogBox dialog(*this, "Results for the round:", model_->players());
 		dialog.set_border_width( 100 );
 		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
 		dialog.show_all_children();
@@ -250,11 +254,6 @@ void GameView::startButtonClicked() {
 	// sets the player info frames to the proper players
 	for (int i = 0; i < 4; i++) {
   		playerInfoFrames.at(i)->setPlayer(players.at(i));
-  	}
-
-	// checks if the current player is a computer and automatically calls the computer player play method
-  	if (!model_->getCurrentPlayer()->canRage()) {
-  		controller_->computerPlay();
   	}
 } 
 
