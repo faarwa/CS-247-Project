@@ -24,10 +24,16 @@ public:
 	Player* getCurrentPlayer();
 	int currentPlayer() { return _currentPlayer; }
 	void resetCards();
+	bool isGameOver();
+	bool isRoundOver();
+	int getWinningPlayer();
 private:
 	Deck _deck;							// private data member - deck for the game
 	vector<Player*> _players;			// vector of all the players (abstract, can be human or computer)
 	int _currentPlayer;					// int from 1-4 indicating which player is playing
+	bool isGameOver_;
+	bool isRoundOver_;
+	int winningPlayer_;
 };
 
 #endif

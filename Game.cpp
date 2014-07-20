@@ -10,6 +10,9 @@ Game::Game() {
 		_players.push_back(new Player(i));
 	}
 	Player::initializeCardsPlayed();
+
+	isGameOver_ = false;
+	isRoundOver_ = false;
 }
 
 void Game::setPlayers(vector<Player*> players){
@@ -70,7 +73,7 @@ void Game::ragequit() {
 // finish game by calculating score and starting a new round if no one has 80 points
 void Game::finishGame() {
 	cout << endl;
-	bool gameOver = false;
+	isGameOver_ = false;
 	int lowestScorePlayer = 1; // keep track of who has the lowest score (winner)
 	int lowestScore = _players.at(0)->score()+_players.at(0)->gameScore(); // keep track of what the lowest score is
 
@@ -89,7 +92,7 @@ void Game::finishGame() {
 
 		// if any of the players has a score of greater than or equal to 80, then the game will be over
 		if ((*it)->score() >= 80) {
-			gameOver = true;
+			isGameOver_ = true;
 		}
 
 		// check for lowest score/winning player
@@ -102,10 +105,11 @@ void Game::finishGame() {
 	}
 
 	// if the game isnt over yet, start a new round, otherwise output the winner and finish
-	if (!gameOver) {
+	if (!isGameOver_) {
 		start();
 	} else {
 		cout << "Player " << lowestScorePlayer << " wins!" << endl;
+		winningPlayer_ = lowestScorePlayer;
 	}
 }
 
@@ -132,7 +136,7 @@ void Game::playOrDiscard(Card *card){
 	notify();
 
 	int sumCards = 0;
-	bool roundOver = false;
+	isRoundOver_ = false;
 
 	map<Suit, vector<Card*>* > cards = Player::playedCards();
 
@@ -147,10 +151,10 @@ void Game::playOrDiscard(Card *card){
 	}
 
 	if (sumCards >= 52) {
-		roundOver = true;
+		isRoundOver_ = true;
 	}
 
-	while (!_players.at(_currentPlayer-1)->canRage() && !roundOver) {
+	while (!_players.at(_currentPlayer-1)->canRage() && !isRoundOver_) {
 		notify();
 		_players.at(_currentPlayer-1)->play(*card);
 		if (_currentPlayer == 4) {
@@ -161,13 +165,13 @@ void Game::playOrDiscard(Card *card){
 		notify();
 		sumCards++;
 		if (sumCards >= 52) {
-			roundOver = true;
+			isRoundOver_ = true;
 		}
 	}
 
 	notify();
 
-	if (roundOver) {
+	if (isRoundOver_) {
 		finishGame();
 		notify();
 	}
@@ -183,4 +187,16 @@ void Game::resetCards() {
 
 Player* Game::getCurrentPlayer(){
 	return _players.at(_currentPlayer-1);
+}
+
+bool Game::isGameOver(){
+	return isGameOver_;
+}
+
+bool Game::isRoundOver(){
+	return isRoundOver_;
+}
+
+int Game::getWinningPlayer(){
+	return winningPlayer_;
 }

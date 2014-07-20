@@ -20,6 +20,7 @@
 #include "TableCard.h"
 #include "ComputerPlayer.h"
 #include "HumanPlayer.h"
+#include "RoundDialogBox.h"
 #include <iostream>
 #include <string>
 #include <map>
@@ -201,6 +202,25 @@ void GameView::update() {
 		for(int i=0 ; i < cards.at(SPADE)->size() ; i++){
 			cardsPlayed_.at(SPADE).at(cards.at(SPADE)->at(i)->getRank())->updateFace(cards.at(SPADE)->at(i));
 		}
+	}
+
+	//show pop ups at the end of a round
+	if(model_->isGameOver()){
+		string winner = "Player " + model_->getWinningPlayer() + " wins!";
+		cout <<"GAMEOVER"<<endl;
+		Gtk::Dialog dialog(winner, *this,true, true);
+		dialog.set_border_width( 100 );
+		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
+		dialog.show_all_children();
+		dialog.run();
+	}
+	else if(model_->isRoundOver()){
+		cout << "SHOW DIALOG" << endl;
+		RoundDialogBox dialog(*this, "Results for the round:", model_->players());
+		dialog.set_border_width( 100 );
+		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
+		dialog.show_all_children();
+		dialog.run();
 	}
 }
 
