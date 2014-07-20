@@ -15,25 +15,26 @@
 
 using namespace std;
 
-
+// helper function that converts an integer to a string
 std::string convertInt(int num){
 	std::stringstream ss;
 	ss << num;
 	return ss.str();
 }
 
-// Creates buttons with labels. Sets vpanels elements to have the same size, 
-// with 10 pixels between widgets
+// Constructor for the main game view
 GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), vpanels(false,10), card(deck.null()),
 	cardsPlayedFrame("Cards on the table"), handFrame("Your hand") {
 
-
+	// sets default size for the game window
 	set_default_size(1000,700);
 
+	// creates 4 player info views (these views contain rage button, score, and number of discards)
 	for (int i = 0; i < 4; i++) {
 		playerInfoFrames.push_back(new PlayerInfoView(controller_, model_));
 	}
 
+	// sets up view, labels, and buttons
 	set_resizable(false);
 
 	set_size_request(1000,700);
@@ -58,7 +59,6 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	model_->setSeed(0);
 
 	playing_space.set_homogeneous(true);
-	// cardsPlayedFrame.set_label("Cards on the table");
 	vpanels.add(cardsPlayedFrame);
 	playing_space.set_homogeneous(true);
 	playing_space.set_spacing(10);
@@ -77,6 +77,8 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	player_hand.set_spacing(10);
 	vpanels.add(handFrame);
 	handFrame.add(player_hand);
+	
+	// sets up empty buttons that will be used for displaying the player's hand and for input on playing a card
 	for(int i=0; i < 13; i++){
 		CardButton *cardbutton = new CardButton(NULL);
 		cards_.push_back(cardbutton);
@@ -89,6 +91,8 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	cardsPlayed_[HEART] = suitCards;
 	cardsPlayed_[DIAMOND] = suitCards;
 
+	// sets up empty cards for the table - all blank cards used for intializing a game
+	// creates 13 TableCard's for each suit
 	spades.set_homogeneous(true);
 	spades.set_spacing(10);
 	playing_space.add(spades);
@@ -125,9 +129,7 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 		cardsPlayed_.at(DIAMOND).push_back(card);
 	}
 
-	// Sets some properties of the window.
-    set_title( "Straights" );
-	// // set_border_width( 300 );
+    	set_title( "Straights" );
 
 	// Associate button "clicked" events with local onButtonClicked() method defined below.
 	start_button.signal_clicked().connect( sigc::mem_fun( *this, &GameView::startButtonClicked ) );
@@ -144,29 +146,33 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	// Register view as observer of model
 	model_->subscribe(this);
 
-} // View::View
+}
 
 GameView::~GameView() {}
 
 
 void GameView::update() {
+	// gets correct player info frame (depending on which player's turn it is)
 	playerInfoFrames.at(model_->currentPlayer()-1)->setPlayer(model_->getCurrentPlayer());
-	//update players handFrame
+	// update players handFrame
 	vector<Card*> newhand = model_->getHand();
 	for (int i = 0; i < 13; i++) {
 		if (i < newhand.size()){
+			// updates the user's hand to have correct card images
 			cards_.at(i)->setCardButton(newhand.at(i));
 		}
 		else {
+			// if the user has less than 13 cards, blank cards are put in the remaining of the 13 spots
 			cards_.at(i)->setCardButton(NULL);
 		}
 	}
 	
-	//update game board
+	// update game board
 	std::map<Suit, vector<Card*>* > cards = Player::playedCards();
 
 	if(cards.at(CLUB)->size()==0 && cards.at(DIAMOND)->size()==0 && cards.at(HEART)->size()==0 && cards.at(SPADE)->size()==0){
-		//the board needs to be cleared
+		// the board needs to be cleared
+		// sets all of the cards on the table to blank card images
 		for(int i=0 ; i < cardsPlayed_.at(CLUB).size() ; i++){
 			cardsPlayed_.at(CLUB).at(i)->updateFace(NULL);
 		}
@@ -181,6 +187,7 @@ void GameView::update() {
 		}
 	}
 	else{
+		// set all of the cards on the board with their correct images of played cards
 		for(int i=0 ; i < cards.at(CLUB)->size() ; i++){
 			cardsPlayed_.at(CLUB).at(cards.at(CLUB)->at(i)->getRank())->updateFace(cards.at(CLUB)->at(i));
 		}
@@ -196,14 +203,20 @@ void GameView::update() {
 	}
 
 	//show pop ups at the end of a round
-	if(model_->isRoundOver()){
+	if(model_->isRoundOver()) {
 		RoundDialogBox dialog(*this, "Results for the round:", model_->players());
 		dialog.set_border_width( 100 );
 		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
 		dialog.show_all_children();
 		dialog.run();
+		end_button.set_sensitive(false);
+		start_button.set_sensitive(true);
+		for (int i = 0; i < 4; i++) {
+			playerInfoFrames.at(i)->resetFrame();
+		}
 	}
 	else if(model_->isGameOver()) {
+		// if the game is over, display a dialog with the winner
 		ostringstream s1;
 		s1 << "Player " << model_->getWinningPlayer() << " wins!" << endl;
 		string winner = s1.str();
@@ -212,17 +225,12 @@ void GameView::update() {
 		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
 		dialog.show_all_children();
 		dialog.run();
-		end_button.set_sensitive(false);
-		start_button.set_sensitive(true);
-		cout << "HEY" << endl;
-		for (int i = 0; i < 4; i++) {
-			playerInfoFrames.at(i)->resetFrame();
-		}
 	}
 }
 
+// OnClick of the start button
 void GameView::startButtonClicked() {
-	// Sets players
+	// Sets players for the game
 	vector<Player*> players;
 	for (int i = 0; i < 4; i++) {
 		GameDialogBox dialog( *this, "Is player " + convertInt(i+1) + " a human or a computer?" );
@@ -235,19 +243,28 @@ void GameView::startButtonClicked() {
 	}
 
 	model_->setPlayers(players);
+	
+	// sets the start button to unclickable and the end button to clickable
 	start_button.set_sensitive(false);
 	end_button.set_sensitive(true);
+
+	// calls the controller's startButtonClicked()
   	controller_->startButtonClicked();
-  	for (int i = 0; i < 4; i++) {
+  	
+	// sets the player info frames to the proper players
+	for (int i = 0; i < 4; i++) {
   		playerInfoFrames.at(i)->setPlayer(players.at(i));
   	}
 } 
 
+// OnClick event for a card
 void GameView::cardClicked(int i) {
 	Card *card = cards_.at(i)->getCard();
 	try {
+		// attempts to play the card that was clicked
 		controller_->cardClicked(card);
 	} catch (HumanPlayer::IllegalDiscardException &e) {
+		// if there is an exception with playing the card, show an Illegal Play dialog
 		Gtk::Dialog dialog("Illegal play", *this,true, true);
 		dialog.set_border_width( 100 );
 		dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
@@ -256,15 +273,22 @@ void GameView::cardClicked(int i) {
 	}
 }
 
+//OnClick event for the end button
 void GameView::endButtonClicked() {
+	// sets the start button to clickable
 	start_button.set_sensitive(true);
+	// calls the controller's endButtonClicked method
   	controller_->endButtonClicked();
+	// sets the end button to unclickable
   	end_button.set_sensitive(false);
-  	for (int i = 0; i < 4; i++) {
+  	
+	// resets all of the playerInfoFrames
+	for (int i = 0; i < 4; i++) {
   		playerInfoFrames.at(i)->resetFrame();
   	}
 } 
 
+// Changes the seed for the shuffling
 void GameView::seedEntryChanged() {
 	int s;
 	s = atoi(seed.get_buffer()->get_text().c_str());

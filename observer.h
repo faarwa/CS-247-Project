@@ -13,7 +13,7 @@
 
 class Subject;
 
-
+// observer class, gives the observers an update method based on being notified by the subjects
 class Observer {
 public:
 	virtual void update () = 0;

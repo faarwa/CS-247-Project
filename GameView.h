@@ -1,15 +1,3 @@
-/*
- * MVC example of GTKmm program
- *
- * View class.  Is responsible for buttons (that user clicks) and for displaying
- * the top card of the deck.
- *
- *  Created by Jo Atlee on 06/07/09.
- *  Copyright 2009 UW. All rights reserved.
- *
- */
-
-
 #ifndef MVC_VIEW_H
 #define MVC_VIEW_H
 
@@ -25,14 +13,15 @@ class GameViewController;
 class Game;
 class Player;
 
+// class declaration for the main GameView
 class GameView : public Gtk::Window, public Observer {
 public:
-    GameView( GameViewController*, Game* );
-	virtual ~GameView();
-	virtual void update();	// Observer Pattern: concrete update() method
+    	GameView( GameViewController*, Game* );		// constructor
+	virtual ~GameView();				// destructor
+	virtual void update();				// Observer Pattern: concrete update() method
 
 private:
-	// Observer Pattern: to access Model accessors without having to downcast subject
+	// Observer Pattern: to access Model accessors
 	Game *model_;
 	
 	// Strategy Pattern member (plus signal handlers)
@@ -55,11 +44,13 @@ private:
 	Gtk::Entry seed;
 	Gtk::Image card;
 
+	// Boxes for each suit on the table
 	Gtk::HBox spades;
 	Gtk::HBox hearts;
 	Gtk::HBox clubs;
 	Gtk::HBox diamonds;
 
+	// vector of player info frames for each player
 	vector <PlayerInfoView*> playerInfoFrames;
 
 	// Signal handlers:
@@ -67,9 +58,9 @@ private:
 	void endButtonClicked();
 	void cardClicked(int i);
 	void seedEntryChanged();
-
-	vector<CardButton*> cards_;
-	std::map<Suit, vector<TableCard*> > cardsPlayed_;
-}; // View
+	
+	vector<CardButton*> cards_;	// vector for the cards to show in player's hand
+	std::map<Suit, vector<TableCard*> > cardsPlayed_;	// map of all of the cards played in the game
+};
 
 #endif
