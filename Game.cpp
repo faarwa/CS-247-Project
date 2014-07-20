@@ -3,7 +3,7 @@
 #include "ComputerPlayer.h"
 #include <typeinfo>
 
-// default constructor
+// default constructor initializes players, the cards played, the seed for the game
 Game::Game() {
 	for (int i = 1; i <= 4; i++) {
 		_players.push_back(new Player(i));
@@ -15,10 +15,12 @@ Game::Game() {
 	_seed = 0;
 }
 
+// mutator for the players of the game
 void Game::setPlayers(vector<Player*> players){
 	_players = players;
 }
 
+// mutator for the seed for the shuffle
 void Game::setSeed(int s) {
 	_seed = s;
 }
@@ -53,13 +55,13 @@ void Game::start() {
 		}
 	}
 
-	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
 	play();
 }
 
 // play method that handles everything during game play
 void Game::play() {
 	notify();
+	// if the player is a computer player, automatically play or discard
 	if (!_players.at(_currentPlayer-1)->canRage()) {
 		playOrDiscard(new Card(NOSUIT, NORANK));
 	}
@@ -67,7 +69,6 @@ void Game::play() {
 
 // rage quit method for human players
 void Game::ragequit() {
-	cout << "Player " << _currentPlayer << " ragequits.  A computer will now take over." << endl;
 	// Construct a new computer player using the copy constructor with the human player's info and execute turn 
 	Player *newPlayer = new ComputerPlayer(*_players.at(_currentPlayer-1));
 	_players.at(_currentPlayer-1) = newPlayer;	
@@ -84,16 +85,7 @@ void Game::finishGame() {
 
 	// Iterate through players and print their vector of discards
 	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
-		cout << "Player " << (*it)->playerNumber() << "'s discards: ";
 		vector<Card*> discards = (*it)->discardedCards();
-		// Calculate score and output it
-		cout << "Player " << (*it)->playerNumber() << "'s score: ";
-		cout << (*it)->score() << " + " << (*it)->gameScore() << " = ";
-
-		// Increment the score for the player
-		// (*it)->incrementScore((*it)->gameScore());
-		cout << (*it)->score() << endl;
-		cout << endl;
 
 		// if any of the players has a score of greater than or equal to 80, then the game will be over
 		if ((*it)->score() >= 80) {
@@ -113,27 +105,33 @@ void Game::finishGame() {
 	if (!isGameOver_) {
 		start();
 	} else {
-		cout << "Player " << lowestScorePlayer << " wins!" << endl;
+		// set the winning player and update the view
 		winningPlayer_ = lowestScorePlayer;
 		notify();
 		isGameOver_ = false;
 	}
 }
 
+// accessor for the hand of the current player
 vector<Card*> Game::getHand(){
 	return _players.at(_currentPlayer-1)->cards()->hand();
 }
 
+// play or discard method
 void Game::playOrDiscard(Card *card){
+	// checks if the card the player chose is a legal play
 	if(_players.at(_currentPlayer-1)->canPlay(card)){
+		// plays the card and updates the view
 		_players.at(_currentPlayer-1)->play(*card);
 		notify();
 	}
 	else {
+		// discards and updates the view
 		_players.at(_currentPlayer-1)->discard(*card);
 		notify();
 	}
-
+	
+	// increments players
 	if (_currentPlayer == 4) {
 		_currentPlayer = 1;
 	} else {
@@ -157,10 +155,12 @@ void Game::playOrDiscard(Card *card){
 		sumCards += (*it)->discardedCards().size();
 	}
 
+	// checks if all of the cards have been played, ends the round if they have
 	if (sumCards >= 52) {
 		isRoundOver_ = true;
 	}
 
+	// automatically call play for a computer player
 	while (!_players.at(_currentPlayer-1)->canRage() && !isRoundOver_) {
 		_players.at(_currentPlayer-1)->play(*card);
 		if (_currentPlayer == 4) {
@@ -175,6 +175,7 @@ void Game::playOrDiscard(Card *card){
 		}
 	}
 
+	// resets and updates the view if a round ends
 	if (isRoundOver_) {
 		resetCards();
 		isRoundOver_ = false;
@@ -183,6 +184,7 @@ void Game::playOrDiscard(Card *card){
 	}
 }
 
+// resets the cards in the players hand and the table cards
 void Game::resetCards() {
 	for (int i = 0; i < 4; i++) {
 		if (Player::playedCards().at((Suit)i)) {
@@ -197,6 +199,7 @@ void Game::resetCards() {
 	notify();
 }
 
+// ends the current game, resets the player hands
 void Game::endCurrentGame() {
 	resetCards();
 	for (int i = 0; i < _players.size(); i++) {
@@ -204,18 +207,22 @@ void Game::endCurrentGame() {
 	}
 }
 
+// accessor for the current player
 Player* Game::getCurrentPlayer(){
 	return _players.at(_currentPlayer-1);
 }
 
+// accesorr for if the game is over
 bool Game::isGameOver(){
 	return isGameOver_;
 }
 
+// accessor for if the round is over
 bool Game::isRoundOver(){
 	return isRoundOver_;
 }
 
+// accessor for the number of the winning player
 int Game::getWinningPlayer(){
 	return winningPlayer_;
 }
