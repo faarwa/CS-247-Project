@@ -26,7 +26,7 @@ void Deck::print() const {
 }
 
 // Shuffle function given in assignment
-void Deck::shuffle(){
+void Deck::shuffle() {
 	int n = _cards.size();
 
 	while ( n > 1 ) {

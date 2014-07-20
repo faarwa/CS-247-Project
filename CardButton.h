@@ -6,18 +6,28 @@
 #include "DeckGUI.h"
 #include <string>
 #include <vector>
+
 using std::string;
 using std::vector;
 
+// CardButton widget class that displays a card image and can be clicked
 class CardButton : public Gtk::Button {
 public:
-	CardButton(Card *card, DeckGUI deck);
+	// Constructor and destructor
+	CardButton(Card *card);
 	virtual ~CardButton();
-	void updateFace(Card *card);
+
+	// Mutator for card button; sets the card to be displayed on the button
 	void setCardButton(Card *card);
-	Card* getCard();
+
+	// Accessor for card displayed by the card button
+	Card* getCard() { return card_; }
 	
 private:
+	// Default constructor prohibited
+	CardButton() {}
+
+	// Private instance variables
 	DeckGUI deck_;
 	Card *card_;
 };

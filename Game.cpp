@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
-#include "Command.h"
 #include <typeinfo>
 
 // default constructor
@@ -13,10 +12,29 @@ Game::Game() {
 
 	isGameOver_ = false;
 	isRoundOver_ = false;
+	_seed = 0;
 }
 
 void Game::setPlayers(vector<Player*> players){
 	_players = players;
+}
+
+void Game::setSeed(int s) {
+	_seed = s;
+}
+
+void Game::newRound() {
+	shuffleAndDeal();
+	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
+	for (int i = 0; i < _players.size(); i++) {
+		if (_players.at(i)->cards()->has7S()) {
+			_currentPlayer = i+1;
+			break;
+		}
+	}
+
+	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
+	play();
 }
 
 // Shuffle the deck using deck's shuffle method and deal the cards to players
@@ -30,34 +48,22 @@ void Game::shuffleAndDeal() {
 			cards.push_back(_deck.cards().at(j));
 		}
 		(*it)->setCards(cards);
-		cout << (((*it)->cards())->hand()).size() << endl;
 		cardIndex += 13;
 	}
 }
 
 // Start the game by shuffling the deck and dealing
 void Game::start() {
-
-	shuffleAndDeal();
-
-	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
-	for (int i = 0; i < _players.size(); i++) {
-		if (_players.at(i)->cards()->has7S()) {
-			_currentPlayer = i+1;
-			break;
-		}
-	}
-
-	//clear the board
-	resetCards();
-
-	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
-	play();				
+	srand(_seed);
+	newRound();
 }
 
 // play method that handles everything during game play
 void Game::play() {
 	notify();
+	if (!_players.at(_currentPlayer-1)->canRage()) {
+		playOrDiscard(new Card(NOSUIT, NORANK));
+	}
 }
 
 // rage quit method for human players
@@ -66,7 +72,7 @@ void Game::ragequit() {
 	// Construct a new computer player using the copy constructor with the human player's info and execute turn 
 	Player *newPlayer = new ComputerPlayer(*_players.at(_currentPlayer-1));
 	_players.at(_currentPlayer-1) = newPlayer;	
-	playOrDiscard(new Card(SPADE, TWO));
+	playOrDiscard(new Card(NOSUIT, NORANK));
 	notify();
 }
 
@@ -107,6 +113,7 @@ void Game::finishGame() {
 	// if the game isnt over yet, start a new round, otherwise output the winner and finish
 	if (!isGameOver_) {
 		start();
+		newRound();
 	} else {
 		cout << "Player " << lowestScorePlayer << " wins!" << endl;
 		winningPlayer_ = lowestScorePlayer;
@@ -172,6 +179,7 @@ void Game::playOrDiscard(Card *card){
 	notify();
 
 	if (isRoundOver_) {
+		resetCards();
 		finishGame();
 		notify();
 	}
@@ -179,10 +187,23 @@ void Game::playOrDiscard(Card *card){
 
 void Game::resetCards() {
 	for (int i = 0; i < 4; i++) {
-		Player::playedCards().at((Suit)i)->clear();
+		if (Player::playedCards().at((Suit)i)) {
+			Player::playedCards().at((Suit)i)->clear();
+		}
+	}
+
+	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
+		(*it)->clearHand();
 	}
 
 	notify();
+}
+
+void Game::endCurrentGame() {
+	resetCards();
+	for (int i = 0; i < _players.size(); i++) {
+		_players.at(i)->resetHand();
+	}
 }
 
 Player* Game::getCurrentPlayer(){

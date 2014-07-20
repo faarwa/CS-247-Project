@@ -1,7 +1,5 @@
 #include "CardHand.h"
 
-Card *_cardPlayed;
-
 // Helper method - checks whether a card is the 7 of spades
 bool isCard7S(Card *c) {
 	if (c->getSuit() == SPADE && c->getRank() == SEVEN) {
@@ -11,6 +9,13 @@ bool isCard7S(Card *c) {
 	return false;
 }
 
+// Debugging helper function - prints contents of the hand
+void CardHand::print() {
+	for (vector<Card*>::iterator it = _cards.begin(); it != _cards.end(); it++) {
+		cout << "Card " << **it << endl;
+	}
+}
+
 // Constructs the card hand with a vector of Cards
 CardHand::CardHand(vector<Card*> cards) {
 	for (vector<Card*>::iterator it = cards.begin(); it != cards.end(); it++) {
@@ -18,7 +23,15 @@ CardHand::CardHand(vector<Card*> cards) {
 	}
 }
 
+// Destructor; delete every pointer in the hand
 CardHand::~CardHand() {
+	for (int i = 0; i < _cards.size(); i++) {
+		delete _cards.at(i);
+	}
+}
+
+// Clear the vector of cards
+void CardHand::clearCards() {
 	_cards.clear();
 }
 
@@ -32,6 +45,7 @@ bool CardHand::has7S() const {
 	return true;
 }
 
+// Creates a copy of every card in the vector and returns that vector
 vector<Card*> CardHand::hand() {
 	vector<Card*> c;
 	for (vector<Card*>::iterator it = _cards.begin(); it != _cards.end(); it++) {
@@ -39,6 +53,8 @@ vector<Card*> CardHand::hand() {
 	}
 	return c;
 }
+
+Card *_cardPlayed;
 
 // Unary predicate for find iterator ; checks whether two pointers to Cards are equal
 bool cardIsEqual(Card *card) {
@@ -87,10 +103,4 @@ vector<Card*> CardHand::legalPlays(map<Suit, vector<Card*>* > cardsPlayed) const
 	}
 
 	return legalPlays;
-}
-
-void CardHand::print() {
-	for (vector<Card*>::iterator it = _cards.begin(); it != _cards.end(); it++) {
-		cout << "Card " << **it << endl;
-	}
 }

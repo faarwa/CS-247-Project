@@ -38,9 +38,14 @@ void PlayerInfoView::setPlayer(Player *player) {
 	update();
 }
 
+void PlayerInfoView::resetFrame() {
+	rage.set_sensitive(false);
+	points.set_label("0 points");
+	discards.set_label("0 points");
+}
+
 
 void PlayerInfoView::update() {	
-	cout << "or this" << endl;
 	if (_player != NULL) {
 		int pointsNum = _player->score();
 		int discardsNum = _player->discards();
@@ -63,5 +68,4 @@ void PlayerInfoView::update() {
 void PlayerInfoView::rageButtonClicked() {
 	controller_->rageButtonClicked();
 	_player = model_->players().at(model_->currentPlayer()-1);
-	update();
 }

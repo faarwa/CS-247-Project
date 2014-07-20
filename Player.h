@@ -7,7 +7,6 @@
 
 #include "Card.h"
 #include "CardHand.h"
-#include "Command.h"
 #include "subject.h"
 
 using namespace std;
@@ -23,7 +22,6 @@ public:
 	void newHand(); 																// method that clears the player's hand and discarded pile - for when a new game begins
 	virtual void print() const {} 													// method to be overidden to print lines for human player
 	virtual void play(Card card) {} 												// method to be overidden for a player to play
-	virtual Command doTurn() { return Command(); } 									// method to be overriden for a player to do their turn
 	virtual void discard(Card card);												// method to be overidden for a player to discard a card
 	CardHand* cards() const { return _cards; } 										// accessor for the player's hand
 	vector<Card*> discardedCards() { return _discardedCards; } 						// accessor for they player's discarded cards
@@ -38,7 +36,9 @@ public:
 	bool canRage() { return _canRage; }												// accessor for canRage boolean
 	virtual bool canPlay(Card *card){ return true; }
 	static void initializeCardsPlayed();
-	void print();
+	void clearHand();
+	void resetHand() { delete _cards; }
+	void insertCardOnBoard(Card *card);
 protected:
 	bool _canRage;																	// protected data member - indicates whether player can ragequit (is comp or human)
 	CardHand *_cards;																// protected data member - the hand of the player

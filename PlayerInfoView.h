@@ -26,6 +26,7 @@ public:
 	virtual ~PlayerInfoView();
 	virtual void update();	// Observer Pattern: concrete update() method
 	void setPlayer(Player *player);
+	void resetFrame();
 private:
 	// Observer Pattern: to access Model accessors without having to downcast subject
 	Game *model_;

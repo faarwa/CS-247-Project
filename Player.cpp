@@ -26,6 +26,23 @@ void Player::setCards(vector<Card*> cards) {
 	_cards = new CardHand(cards);
 }
 
+void Player::clearHand() {
+	_cards->clearCards();
+}
+
+void Player::insertCardOnBoard(Card* card) {
+	//inserts the played card into the proper spot for the static map used to keep track of all the cards played
+	if (!cardsPlayed.at(card->getSuit())->empty() && cardsPlayed.at(card->getSuit())->at(0)->getRank() > card->getRank()) {
+		//puts the played card in the front of the vector if it is less than the current lowest card played of that suit
+		cardsPlayed.at(card->getSuit())->insert(cardsPlayed.at(card->getSuit())->begin(), card);
+	} else {
+		//otherwise, puts the played card at the back of the vector
+		cardsPlayed.at(card->getSuit())->push_back(card);
+	}
+
+	cout << endl << "Player " << playerNumber() << " plays " << *card << endl;
+}
+
 // member function - copy constructor that constructs a new player, given a player
 Player::Player(Player &player) {
 	_playerNumber = player.playerNumber();
@@ -66,12 +83,4 @@ int Player::gameScore(){
 	}
 
 	return score;
-}
-
-void Player::print() {
-	cout << "_canRage: " << _canRage << endl;
-	_cards->print();
-	cout << "_playerNumber: " << _playerNumber << endl;
-	cout << "_score: " << _score << endl;
-	cout << "_discards: " << _discards << endl;
 }

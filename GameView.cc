@@ -1,15 +1,3 @@
-/*
- * MVC example of GTKmm program
- *
- * View class.  Is responsible for buttons (that user clicks) and for displaying
- * the top card of the deck.
- *
- *  Created by Jo Atlee on 06/07/09.
- *  Copyright 2009 UW. All rights reserved.
- *
- */
-
-
 #include "observer.h"
 #include "GameView.h"
 #include "GameViewController.h"
@@ -66,6 +54,9 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	menu.add(seed);
 	menu.add(end_button);
 
+	seed.get_buffer()->set_text("0");
+	model_->setSeed(0);
+
 	playing_space.set_homogeneous(true);
 	// cardsPlayedFrame.set_label("Cards on the table");
 	vpanels.add(cardsPlayedFrame);
@@ -87,7 +78,7 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	vpanels.add(handFrame);
 	handFrame.add(player_hand);
 	for(int i=0; i < 13; i++){
-		CardButton *cardbutton = new CardButton(NULL, deck);
+		CardButton *cardbutton = new CardButton(NULL);
 		cards_.push_back(cardbutton);
 		player_hand.add(*cardbutton);
 	}
@@ -141,6 +132,7 @@ GameView::GameView(GameViewController *c, Game *m) : model_(m), controller_(c), 
 	// Associate button "clicked" events with local onButtonClicked() method defined below.
 	start_button.signal_clicked().connect( sigc::mem_fun( *this, &GameView::startButtonClicked ) );
 	end_button.signal_clicked().connect( sigc::mem_fun( *this, &GameView::endButtonClicked ) );
+	seed.signal_changed().connect( sigc::mem_fun( *this, &GameView::seedEntryChanged ) );
 	for(int i=0; i < 13 ; i++){
 		cards_.at(i)->signal_clicked().connect(sigc::bind( sigc::mem_fun(*this, &GameView::cardClicked), i) );
 	}
@@ -158,16 +150,15 @@ GameView::~GameView() {}
 
 
 void GameView::update() {
-	cout << "Does this happenf irst" << endl;
 	playerInfoFrames.at(model_->currentPlayer()-1)->setPlayer(model_->getCurrentPlayer());
-	//update players hand
+	//update players handFrame
 	vector<Card*> newhand = model_->getHand();
 	for (int i = 0; i < 13; i++) {
 		if (i < newhand.size()){
-			cards_.at(i)->updateFace(newhand.at(i));
+			cards_.at(i)->setCardButton(newhand.at(i));
 		}
 		else {
-			cards_.at(i)->updateFace(NULL);
+			cards_.at(i)->setCardButton(NULL);
 		}
 	}
 	
@@ -244,6 +235,10 @@ void GameView::startButtonClicked() {
   	for (int i = 0; i < 4; i++) {
   		playerInfoFrames.at(i)->setPlayer(players.at(i));
   	}
+
+  	if (!model_->getCurrentPlayer()->canRage()) {
+  		controller_->computerPlay();
+  	}
 } 
 
 void GameView::cardClicked(int i) {
@@ -263,4 +258,13 @@ void GameView::endButtonClicked() {
 	start_button.set_sensitive(true);
   	controller_->endButtonClicked();
   	end_button.set_sensitive(false);
+  	for (int i = 0; i < 4; i++) {
+  		playerInfoFrames.at(i)->resetFrame();
+  	}
 } 
+
+void GameView::seedEntryChanged() {
+	int s;
+	s = atoi(seed.get_buffer()->get_text().c_str());
+	model_->setSeed(s);
+}
