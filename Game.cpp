@@ -24,6 +24,8 @@ void Game::setSeed(int s) {
 }
 
 void Game::newRound() {
+	isGameOver_ = false;
+	isRoundOver_ = false;
 	shuffleAndDeal();
 	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
 	for (int i = 0; i < _players.size(); i++) {
@@ -54,6 +56,7 @@ void Game::shuffleAndDeal() {
 
 // Start the game by shuffling the deck and dealing
 void Game::start() {
+	isRoundOver_ = false;
 	srand(_seed);
 	newRound();
 }
@@ -182,6 +185,7 @@ void Game::playOrDiscard(Card *card){
 		resetCards();
 		finishGame();
 		notify();
+		isRoundOver_ = false;
 	}
 }
 

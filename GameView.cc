@@ -197,7 +197,9 @@ void GameView::update() {
 
 	//show pop ups at the end of a round
 	if(model_->isGameOver()){
-		string winner = "Player " + model_->getWinningPlayer() + " wins!";
+		ostringstream s1;
+		s1 << "Player " << model_->getWinningPlayer() << " wins!" << endl;
+		string winner = s1.str();
 		cout <<"GAMEOVER"<<endl;
 		Gtk::Dialog dialog(winner, *this,true, true);
 		dialog.set_border_width( 100 );
