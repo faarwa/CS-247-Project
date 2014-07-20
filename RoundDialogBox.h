@@ -11,6 +11,6 @@ using std::vector;
 class RoundDialogBox : public Gtk::Dialog {
 public:
 	RoundDialogBox (Gtk::Window & parentWindow, string title, vector<Player*> players);
-	virtual ~RoundDialogBox();		
+	~RoundDialogBox() {}		
 };
 #endif
