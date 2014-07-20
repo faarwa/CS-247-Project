@@ -92,12 +92,10 @@ void HumanPlayer::print() const {
 	cout << endl;
 }
 
+// boolean method returns true if the card that a human player is attemping to play is a legal play
 bool HumanPlayer::canPlay(Card *card){
 	cout << *card << endl;
 	vector<Card*> legalPlays = getLegalPlays();
-	for(int i=0;i<legalPlays.size();i++) {
-		cout << *(legalPlays.at(i)) << endl;	
-	}
 	
 	for(int i = 0; i < legalPlays.size() ; i++) {
 		if(card->getSuit() == legalPlays.at(i)->getSuit() && card->getRank() == legalPlays.at(i)->getRank()){
