@@ -1,15 +1,3 @@
-/*
- * MVC example of GTKmm program
- *
- * Subject class.  Abstract class for Observer Pattern
- *
- *
- *  Created by Jo Atlee on 06/07/09.
- *  Copyright 2009 UW. All rights reserved.
- *
- */
-
-
 #ifndef MVC_SUBJECT_H
 #define MVC_SUBJECT_H
 
@@ -18,18 +6,19 @@
 
 class Observer;
 
+// class declaration of subject
 class Subject {
 public:
-       void subscribe( Observer* );
-       void unsubscribe( Observer* );
+       void subscribe( Observer* );			// method to subscribe an observer to the subject
+       void unsubscribe( Observer* );			// method to unsubscribe an observer from the subject
 
 protected:
-       void notify();
+       void notify();					// protected member function the subject (model) notifies the observer (views) to update
 
 private:
-       typedef std::set< Observer* > Observers;
-       Observers observers_;
-}; // Subject
+       typedef std::set< Observer* > Observers;		// private member set of observers
+       Observers observers_;				// private member observers
+};
 
 
 #endif
