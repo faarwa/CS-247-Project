@@ -9,15 +9,16 @@
 using std::string;
 using std::vector;
 
+// class declaration for the dialog box to be used for initializing the players at the start of a game
 class GameDialogBox : Gtk::Dialog {
 public:
-	GameDialogBox( Gtk::Window & parentWindow, string title);
-	virtual ~GameDialogBox();
-	string getInput();
+	GameDialogBox( Gtk::Window & parentWindow, string title);	// Dialog box constructor
+	virtual ~GameDialogBox();					// Dialog box destructor
+	string getInput();						// Accessor for the input of the player type
 	
 private:
-	Gtk::RadioButton::Group      group;          
-	vector<Gtk::RadioButton *>   buttons;
-	string input;
+	Gtk::RadioButton::Group      group;          			// Options for user to select from in dialog box
+	vector<Gtk::RadioButton *>   buttons;				// Vector of the radiobuttons to be added to the dialog box
+	string input;							// string representation of the input the user gives for player type "h" or "c"
 };
 #endif
