@@ -3,8 +3,9 @@
 #include <gtkmm/label.h>
 #include <iostream>
 
+// Constructor for Dialog Box to finish each round
 RoundDialogBox::RoundDialogBox(Gtk::Window & parentWindow, string title, vector<Player*> players) : Dialog(title, parentWindow, true, true){
-	//set text with player info
+	// Set text with player info
 	string player = "PLAYER ";
 	string discards = "Discards: ";
 	string score = "Score: ";
