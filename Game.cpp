@@ -23,24 +23,9 @@ void Game::setSeed(int s) {
 	_seed = s;
 }
 
-void Game::newRound() {
-	isGameOver_ = false;
-	isRoundOver_ = false;
-	shuffleAndDeal();
-	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
-	for (int i = 0; i < _players.size(); i++) {
-		if (_players.at(i)->cards()->has7S()) {
-			_currentPlayer = i+1;
-			break;
-		}
-	}
-
-	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
-	play();
-}
-
 // Shuffle the deck using deck's shuffle method and deal the cards to players
 void Game::shuffleAndDeal() {
+	srand48(_seed);
 	_deck.shuffle();	
 	int cardIndex = 0;
 	for (vector<Player*>::iterator it = _players.begin(); it != _players.end(); it++) {
@@ -57,8 +42,19 @@ void Game::shuffleAndDeal() {
 // Start the game by shuffling the deck and dealing
 void Game::start() {
 	isRoundOver_ = false;
-	srand(_seed);
-	newRound();
+	isGameOver_ = false;
+	isRoundOver_ = false;
+	shuffleAndDeal();
+	// Iterate through vector of players to find who has the 7 of spades; this player is set as current and goes first
+	for (int i = 0; i < _players.size(); i++) {
+		if (_players.at(i)->cards()->has7S()) {
+			_currentPlayer = i+1;
+			break;
+		}
+	}
+
+	cout << "A new round begins. It's player " << _currentPlayer << "'s turn to play." << endl;
+	play();
 }
 
 // play method that handles everything during game play
@@ -115,7 +111,7 @@ void Game::finishGame() {
 
 	// if the game isnt over yet, start a new round, otherwise output the winner and finish
 	if (!isGameOver_) {
-		newRound();
+		start();
 	} else {
 		cout << "Player " << lowestScorePlayer << " wins!" << endl;
 		winningPlayer_ = lowestScorePlayer;
@@ -166,7 +162,6 @@ void Game::playOrDiscard(Card *card){
 	}
 
 	while (!_players.at(_currentPlayer-1)->canRage() && !isRoundOver_) {
-		// notify();
 		_players.at(_currentPlayer-1)->play(*card);
 		if (_currentPlayer == 4) {
 			_currentPlayer = 1;
@@ -179,8 +174,6 @@ void Game::playOrDiscard(Card *card){
 			isRoundOver_ = true;
 		}
 	}
-
-	// notify();
 
 	if (isRoundOver_) {
 		resetCards();

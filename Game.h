@@ -14,7 +14,6 @@ public:
 	void setPlayers(vector<Player*> players);		// mutator for the players of the game 
 
 	void start();						// start the game
-	void newRound();					// starts a new round
 	void shuffleAndDeal();					// shuffle the deck and deal the cards to the player
 	void play();						// plays the game
 	void finishGame();					// finish the game and calculate scores

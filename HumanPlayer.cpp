@@ -29,15 +29,34 @@ void HumanPlayer::discard(Card c) {
 	Player::discard(c);
 }
 
+//member function - this is called when the human player uses the "play" command
+void HumanPlayer::play(Card c) {
+	Card *card = new Card(c.getSuit(), c.getRank());
+	if (!card) {
+		return;
+	}
+
+	_playedCard = card;
+
+	insertCardOnBoard(card);
+
+	//removes the played card from the players hand
+	_cards->removeCard(card);
+}
+
+
 // boolean method returns true if the card that a human player is attemping to play is a legal play
 bool HumanPlayer::canPlay(Card *card){
 	vector<Card*> legalPlays = getLegalPlays();
 	
 	for(int i = 0; i < legalPlays.size() ; i++) {
 		if(card->getSuit() == legalPlays.at(i)->getSuit() && card->getRank() == legalPlays.at(i)->getRank()){
+			cout << "true" << endl;
 			return true;
 		}	
 	}
+
+	cout << "false" << endl;
 	return false;
 }
 

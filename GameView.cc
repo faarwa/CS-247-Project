@@ -283,9 +283,9 @@ void GameView::endButtonClicked() {
   	end_button.set_sensitive(false);
   	
 	// resets all of the playerInfoFrames
-	for (int i = 0; i < 4; i++) {
-  		playerInfoFrames.at(i)->resetFrame();
-  	}
+	// for (int i = 0; i < 4; i++) {
+ //  		playerInfoFrames.at(i)->resetFrame();
+ //  	}
 } 
 
 // Changes the seed for the shuffling

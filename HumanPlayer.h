@@ -12,7 +12,7 @@ public:
 	HumanPlayer(int playerNumber) : Player(playerNumber) { _canRage = true; } 		//Constructor that constructs a human player with a player number
 	void discard(Card c); 									// Overridden method to discard a card
 	bool canPlay(Card *card);								// Boolean method to check if a card is a legal play
-
+	void play(Card c);
 	class IllegalPlayException {								// Exception class to handle human player making illegal plays
 	public:
 		IllegalPlayException() {}
