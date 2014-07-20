@@ -51,12 +51,10 @@ bool HumanPlayer::canPlay(Card *card){
 	
 	for(int i = 0; i < legalPlays.size() ; i++) {
 		if(card->getSuit() == legalPlays.at(i)->getSuit() && card->getRank() == legalPlays.at(i)->getRank()){
-			cout << "true" << endl;
 			return true;
 		}	
 	}
 
-	cout << "false" << endl;
 	return false;
 }
 
