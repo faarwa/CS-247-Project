@@ -12,8 +12,7 @@ public:
 	void play(Card card);										// Overridden method for play
 	void print() const {}										// Overridden method to print lines (empty for computer)
 	void discard(Card card);									// Overridden method to discard a card
-
-	bool canPlay(Card *card){return true;}
+	bool canPlay(Card *card) { return true; }					// Overridden method that checks whether the player can play a card
 };
 
 #endif

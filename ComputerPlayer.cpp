@@ -35,8 +35,8 @@ void ComputerPlayer::discard(Card c) {
 	vector<Card*> playerHand = cards()->hand();
 
 	// Iterate the hand and call card hand to remove the card once it's found
-	for(int i=0;i<playerHand.size();i++){
-		if(*playerHand.at(i) == c){
+	for (int i = 0; i < playerHand.size(); i++) {
+		if (*playerHand.at(i) == c) {
 			_discardedCards.push_back(card);
 			_cards->removeCard(card);
 			break;
